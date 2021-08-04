@@ -70,17 +70,21 @@ public class CGameManager : MonoBehaviour
     {
         do
         {
-            GameObject lTempCameraObj = GameObject.Find("Main Camera");
+            GameObject lTempCameraObj = GameObject.FindGameObjectWithTag("MainCamera");
             if (lTempCameraObj != null)
                 m_Camera = lTempCameraObj.GetComponent<Camera>();
 
-            if (m_Player == null)
-                m_Player = gameObject.GetComponentInChildren<CPlayer>();
+            //if (m_Player == null)
+            //    m_Player = gameObject.GetComponentInChildren<CPlayer>();
 
-            if (m_Camera != null && m_Player != null)
-            {
+            //if (m_Camera != null && m_Player != null)
+            //{
+            //    m_bInitOK = true;
+            //}
+
+            if (m_Camera != null)
                 m_bInitOK = true;
-            }
+
             yield return null;
 
         } while (!m_bInitOK);
