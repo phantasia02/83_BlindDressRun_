@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class CDoor : MonoBehaviour
 {
+    [SerializeField] protected Renderer m_DoorRenderer         = null;
+    [SerializeField] protected Renderer m_AccessoriesRenderer  = null;
+
+    [SerializeField] protected CGGameSceneData.EDoorType m_MyDoorType;
+    public CGGameSceneData.EDoorType DoorType { get { return m_MyDoorType; } }
+    [SerializeField] protected CGGameSceneData.EPlayAccessoriesType m_MyPlayAccessoriesType;
+    public CGGameSceneData.EPlayAccessoriesType PlayAccessoriesType { get { return m_MyPlayAccessoriesType; } }
+
+    private void Awake()
+    {
+        CGGameSceneData lTempCGGameSceneData = CGGameSceneData.SharedInstance;
+
+        m_DoorRenderer.material         = lTempCGGameSceneData.m_AllDoorMat[(int)m_MyDoorType];
+        m_AccessoriesRenderer.material  = lTempCGGameSceneData.m_AllPlayAccessoriesMat[(int)m_MyPlayAccessoriesType];
+    }
+
     // Start is called before the first frame update
     void Start()
     {

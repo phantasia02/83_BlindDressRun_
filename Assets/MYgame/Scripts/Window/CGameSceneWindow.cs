@@ -51,9 +51,4 @@ public class CGameSceneWindow : CSingletonMonoBehaviour<CGameSceneWindow>
         m_ShowObj.SetActive(showObj);
         // CGameSceneWindow.SharedInstance.SetCurState(CGameSceneWindow.EState.eEndStop);
     }
-
-    public void SetFuelNumber(int number)
-    {
-        m_FuelTextShadow.text = m_FuelText.text = number.ToString();
-    }
 }

@@ -25,10 +25,7 @@ public static class StaticGlobalDel
         eMax
     }
 
-    // tag BouncingBed
-    // tag CeilingDamage
-    // tag Movable
-    // tag NotWalkable
+    // tag Door
 
     public const int g_WinLayerMask         = 8;
     public const int g_FloorLayerMask       = 256;

@@ -70,11 +70,6 @@ public class CPlayer : CMovableBase
         base.Start();
        // SetCurState(StaticGlobalDel.EMovableState.eWait);
 
-
-        m_MyMemoryShare.m_FloorNumber = (int)((this.transform.position.y + 1.0f) / 30.0f);
-
-
-
     }
 
     // Update is called once per frame
@@ -204,8 +199,8 @@ public class CPlayer : CMovableBase
         if (other.tag == "Fuel")
         {
             CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
-            if (lTempGameSceneWindow)
-                lTempGameSceneWindow.SetFuelNumber(Fuel);
+            //if (lTempGameSceneWindow)
+            //    lTempGameSceneWindow.SetFuelNumber(Fuel);
         }
     }
 

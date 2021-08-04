@@ -273,7 +273,6 @@ public class CGameManager : MonoBehaviour
                 if (lTempGameSceneWindow && !lTempGameSceneWindow.GetShow())
                 {
                     lTempGameSceneWindow.ShowObj(true);
-                    lTempGameSceneWindow.SetFuelNumber(Player.Fuel);
                 }
             }
         }

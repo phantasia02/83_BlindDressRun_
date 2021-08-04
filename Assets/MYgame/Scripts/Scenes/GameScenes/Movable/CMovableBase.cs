@@ -10,8 +10,7 @@ public class CMemoryShareBase
 {
     public Vector3              m_OldPos;
     public float                m_TotleSpeed            = 5.0f;
-    public int                  m_FuelCount             = 1;
-    public int                  m_FloorNumber           = 0;
+    public int                  m_NumericalImage        = 0;
     public CMovableBase         m_MyMovable             = null;
     public Rigidbody            m_MyRigidbody           = null;
     public Transform            m_FloorRayStart         = null;
@@ -75,24 +74,10 @@ public class CMovableBase : CGameObjBas
     [SerializeField] protected Transform m_MyFloorStartPoint = null;
     public Transform MyFloorStartPoint { get { return m_MyFloorStartPoint; } }
 
-    [SerializeField] protected GameObject m_FireTrailEffect = null;
- 
-
     protected CMemoryShareBase m_MyMemoryShare = null;
     public CMemoryShareBase MyMemoryShare { get { return m_MyMemoryShare; } }
 
-    public int FloorNumber { get { return m_MyMemoryShare.m_FloorNumber; } }
-
-    public int Fuel
-    {
-        get
-        {
-            if (m_MyMemoryShare == null)
-                return -1;
-
-            return m_MyMemoryShare.m_FuelCount;
-        }
-    }
+    public int ImageNumber { get { return m_MyMemoryShare.m_NumericalImage; } }
 
 
     protected override void Awake()
@@ -260,30 +245,20 @@ public class CMovableBase : CGameObjBas
         Destroy(this.gameObject);
     }
 
-    public void ShowFireTrailEffect(bool show)
-    {
-        if (show == m_FireTrailEffect.activeSelf)
-            return;
-
-        m_FireTrailEffect.SetActive(show);
-    }
-
-    public bool GetFireTrailEffectActive() { return m_FireTrailEffect.activeSelf; }
-
     public virtual void TouchBouncingBed(Collider other)
     {
     }
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (m_MyGameManager.CurState == CGameManager.EState.eNextWin || m_MyGameManager.CurState == CGameManager.EState.eWinUI)
-            return;
+        //if (m_MyGameManager.CurState == CGameManager.EState.eNextWin || m_MyGameManager.CurState == CGameManager.EState.eWinUI)
+        //    return;
 
  
 
 
-        if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
-            m_AllState[(int)m_CurState].OnTriggerEnter(other);
+        //if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+        //    m_AllState[(int)m_CurState].OnTriggerEnter(other);
     }
 
     public virtual void OnTriggerStay(Collider other)
