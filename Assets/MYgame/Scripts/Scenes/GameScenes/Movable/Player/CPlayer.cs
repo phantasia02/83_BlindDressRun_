@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Dreamteck.Splines;
 
 public class CPlayerMemoryShare : CMemoryShareBase
 {
-    public bool         m_bDown                             = false;
-    public Vector3      m_OldMouseDownPos                   = Vector3.zero;
+    public bool                     m_bDown                 = false;
+    public Vector3                  m_OldMouseDownPos       = Vector3.zero;
     public CinemachineVirtualCamera m_PlayerNormalCamera    = null;
     public CinemachineVirtualCamera m_PlayerJumpCamera      = null;
-    public CinemachineFreeLook m_PlayerWinCamera            = null;
+    public CinemachineFreeLook      m_PlayerWinCamera       = null;
     public CinemachineImpulseSource m_CameraShock           = null;
-    public GameObject   m_FogPlane                          = null;
-    public GameObject   m_TouchBouncingBed                  = null;
-    public Vector3      m_OldMouseDragDirNormal             = Vector3.zero;
+    public GameObject               m_TouchBouncingBed      = null;
+    public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
+    public SplineFollower           m_MySplineFollower      = null;
 };
 
 public class CPlayer : CMovableBase
@@ -29,9 +30,11 @@ public class CPlayer : CMovableBase
     public CinemachineVirtualCamera PlayerJumpFollowObj { get { return m_PlayerJumpCamera; } }
 
     [SerializeField] CinemachineFreeLook m_PlayerWinCamera;
-    [SerializeField] GameObject m_FogPlane;
 
-    public Vector3 m_OldMouseDragDir = Vector3.zero;
+
+    public SplineFollower MySplineFollower { get { return m_MyPlayerMemoryShare.m_MySplineFollower; } }
+
+    protected Vector3 m_OldMouseDragDir = Vector3.zero;
 
     protected override void Awake()
     {
@@ -59,7 +62,7 @@ public class CPlayer : CMovableBase
         m_MyPlayerMemoryShare.m_PlayerJumpCamera    = m_PlayerJumpCamera;
         m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
         m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
-        m_MyPlayerMemoryShare.m_FogPlane            = m_FogPlane;
+        m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
 
         SetBaseMemoryShare();
     }
@@ -130,19 +133,19 @@ public class CPlayer : CMovableBase
 
     public void PlayerMouseDown()
     {
-        if (!PlayerCtrl())
-        {
-            if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
-            {
-                m_AllState[(int)m_CurState].MouseDown();
-            }
-        }
+        //if (!PlayerCtrl())
+        //{
+        //    if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+        //    {
+        //        m_AllState[(int)m_CurState].MouseDown();
+        //    }
+        //}
 
         m_MyPlayerMemoryShare.m_bDown = true;
         m_MyPlayerMemoryShare.m_OldMouseDownPos = Input.mousePosition;
-        m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = this.transform.forward;
-        m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.y = 0.0f;
-        m_OldMouseDragDir = m_MyPlayerMemoryShare.m_OldMouseDragDirNormal;
+        //m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = this.transform.forward;
+        //m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.y = 0.0f;
+        //m_OldMouseDragDir = m_MyPlayerMemoryShare.m_OldMouseDragDirNormal;
     }
 
     public void PlayerMouseDrag()
@@ -156,16 +159,25 @@ public class CPlayer : CMovableBase
     
 
         Vector3 lTempMouseDrag = Input.mousePosition - m_MyPlayerMemoryShare.m_OldMouseDownPos;
-        lTempMouseDrag.z = lTempMouseDrag.y;
-        lTempMouseDrag.y = 0.0f;
 
-       // ChangState = StaticGlobalDel.EMovableState.eMove;
-        m_OldMouseDragDir += lTempMouseDrag;
-        m_OldMouseDragDir.y = 0.0f;
+        float lTempMoveX = Input.mousePosition.x - m_MyPlayerMemoryShare.m_OldMouseDownPos.x;
+        Debug.Log($"lTempMoveX = {lTempMoveX}");
 
-        m_OldMouseDragDir = Vector3.ClampMagnitude(m_OldMouseDragDir, m_MaxMoveDirSize);
-        m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = m_OldMouseDragDir;
-        m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.Normalize();
+        lTempMoveX = (lTempMoveX / Screen.width) * 4.0f;
+        Vector2 lTempOffset = MySplineFollower.motion.offset;
+        lTempOffset.x += lTempMoveX;
+        MySplineFollower.motion.offset = lTempOffset;
+      //  MySplineFollower.motion.offset. += lTempMoveX;
+      // lTempMouseDrag.z = lTempMouseDrag.y;
+      // lTempMouseDrag.y = 0.0f;
+
+        //// ChangState = StaticGlobalDel.EMovableState.eMove;
+        // m_OldMouseDragDir += lTempMouseDrag;
+        // m_OldMouseDragDir.y = 0.0f;
+
+        // m_OldMouseDragDir = Vector3.ClampMagnitude(m_OldMouseDragDir, m_MaxMoveDirSize);
+        // m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = m_OldMouseDragDir;
+        // m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.Normalize();
         m_MyPlayerMemoryShare.m_OldMouseDownPos = Input.mousePosition;
 
     }
