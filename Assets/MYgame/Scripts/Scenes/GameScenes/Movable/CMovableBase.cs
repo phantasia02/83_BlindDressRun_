@@ -108,6 +108,26 @@ public class CMovableBase : CGameObjBas
 
     protected virtual void AwakeEndSetNullState()
     {
+        StaticGlobalDel.EMovableState lTempState = StaticGlobalDel.EMovableState.eNull;
+
+        for (int i = 0; i < m_AllState.Length; i++)
+        {
+            lTempState = (StaticGlobalDel.EMovableState)i;
+
+            if (lTempState == StaticGlobalDel.EMovableState.eNull || 
+                m_AllState[i] != null)
+                continue;
+
+            switch (lTempState)
+            {
+                case StaticGlobalDel.EMovableState.eWait:
+                  //  m_AllState[i] = new CWaitStateBase(this);
+                    break;
+                case StaticGlobalDel.EMovableState.eMove:
+                    break;
+            }
+        }
+
         //if (m_AllState[(int)StaticGlobalDel.EMovableState.eWait] == null)
         //    m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStateBase(this);
 

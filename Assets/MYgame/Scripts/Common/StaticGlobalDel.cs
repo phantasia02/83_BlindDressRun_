@@ -7,8 +7,8 @@ public static class StaticGlobalDel
     public enum EMovableState
     {
         eNull           = 0,
-        //eWait           = 1,
-        //eMove           = 2,
+        eWait           = 1,
+        eMove           = 2,
         //eJump           = 3,
         //eCollision      = 4,
         //eWin            = 5,
