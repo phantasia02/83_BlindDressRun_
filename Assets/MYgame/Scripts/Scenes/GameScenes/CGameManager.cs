@@ -30,9 +30,13 @@ public class CGameManager : MonoBehaviour
     protected ResultUI m_MyResultUI = null;
     public ResultUI MyResultUI { get { return m_MyResultUI; } }
 
-    private Camera m_Camera = null;
+    protected Camera m_Camera = null;
     public Camera MainCamera { get { return m_Camera; } }
-    private CPlayer m_Player = null;
+
+    [SerializeField] protected GameObject m_DamiCameraFollwer;
+    public GameObject DamiCameraFollwer { get { return m_DamiCameraFollwer; } }
+
+    protected CPlayer m_Player = null;
     public CPlayer Player { get { return m_Player; } }
 
     private EState m_eCurState = EState.eReady;

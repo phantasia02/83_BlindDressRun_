@@ -15,6 +15,7 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public GameObject               m_TouchBouncingBed      = null;
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
     public SplineFollower           m_MySplineFollower      = null;
+    public SplineFollower           m_DamiCameraFollwer     = null;
 };
 
 public class CPlayer : CMovableBase
@@ -38,6 +39,8 @@ public class CPlayer : CMovableBase
 
     protected override void Awake()
     {
+        base.Awake();
+
         CreateMemoryShare();
 
         //m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStatePlayer(this);
@@ -46,7 +49,7 @@ public class CPlayer : CMovableBase
         //m_AllState[(int)StaticGlobalDel.EMovableState.eWin]  = new CWinStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
 
-        base.Awake();
+        
 
         m_MaxMoveDirSize = Screen.width > Screen.height ? (float)Screen.width : (float)Screen.height;
         m_MaxMoveDirSize = m_MaxMoveDirSize / 10.0f;
@@ -63,6 +66,7 @@ public class CPlayer : CMovableBase
         m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
         m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
         m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
+        m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
 
         SetBaseMemoryShare();
     }
@@ -79,10 +83,12 @@ public class CPlayer : CMovableBase
     protected override void Update()
     {
         base.Update();
-
+        m_MyPlayerMemoryShare.m_DamiCameraFollwer.SetPercent(m_MyPlayerMemoryShare.m_MySplineFollower.modifiedResult.percent);
         if (m_MyGameManager.CurState == CGameManager.EState.ePlay || m_MyGameManager.CurState == CGameManager.EState.eReady || m_MyGameManager.CurState == CGameManager.EState.eReadyWin)
             InputUpdata();
 
+
+       // m_MyPlayerMemoryShare.m_DamiCameraFollwer.
         //CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
         //if (lTempGameSceneWindow && lTempGameSceneWindow.GetShow())
         //    lTempGameSceneWindow.SetBouncingBedCount(m_MyGameManager.GetFloorBouncingBedBoxCount(m_MyMemoryShare.m_FloorNumber));

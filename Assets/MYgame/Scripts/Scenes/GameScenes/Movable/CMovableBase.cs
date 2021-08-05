@@ -14,7 +14,6 @@ public class CMemoryShareBase
     public CMovableBase         m_MyMovable             = null;
     public Rigidbody            m_MyRigidbody           = null;
     public Transform            m_FloorRayStart         = null;
-    public CGameManager         m_MyGameManager         = null;
     public CMovableStateData[]  m_Data                  = new CMovableStateData[(int)StaticGlobalDel.EMovableState.eMax];
 };
 
@@ -88,8 +87,6 @@ public class CMovableBase : CGameObjBas
 
         base.Awake();
         AwakeOK();
-
-        m_MyMemoryShare.m_MyGameManager = m_MyGameManager;
     }
 
     protected virtual void CreateMemoryShare()
