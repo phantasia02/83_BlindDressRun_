@@ -16,10 +16,13 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
     public SplineFollower           m_MySplineFollower      = null;
     public SplineFollower           m_DamiCameraFollwer     = null;
+    public CPlayer                  m_MyPlayer              = null;
 };
 
 public class CPlayer : CMovableBase
 {
+
+
     protected float m_MaxMoveDirSize = 0;
 
     protected CPlayerMemoryShare m_MyPlayerMemoryShare = null;
@@ -43,8 +46,8 @@ public class CPlayer : CMovableBase
 
         CreateMemoryShare();
 
-        //m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStatePlayer(this);
-        //m_AllState[(int)StaticGlobalDel.EMovableState.eMove] = new CMoveStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eMove] = new CMoveStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eJump] = new CJumpStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eWin]  = new CWinStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
@@ -67,6 +70,7 @@ public class CPlayer : CMovableBase
         m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
         m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
+        m_MyPlayerMemoryShare.m_MyPlayer            = this;
 
         SetBaseMemoryShare();
     }
@@ -75,7 +79,7 @@ public class CPlayer : CMovableBase
     protected override void Start()
     {
         base.Start();
-       // SetCurState(StaticGlobalDel.EMovableState.eWait);
+        SetCurState(StaticGlobalDel.EMovableState.eMove);
 
     }
 
@@ -83,7 +87,9 @@ public class CPlayer : CMovableBase
     protected override void Update()
     {
         base.Update();
-        m_MyPlayerMemoryShare.m_DamiCameraFollwer.SetPercent(m_MyPlayerMemoryShare.m_MySplineFollower.modifiedResult.percent);
+
+        
+
         if (m_MyGameManager.CurState == CGameManager.EState.ePlay || m_MyGameManager.CurState == CGameManager.EState.eReady || m_MyGameManager.CurState == CGameManager.EState.eReadyWin)
             InputUpdata();
 
@@ -93,6 +99,8 @@ public class CPlayer : CMovableBase
         //if (lTempGameSceneWindow && lTempGameSceneWindow.GetShow())
         //    lTempGameSceneWindow.SetBouncingBedCount(m_MyGameManager.GetFloorBouncingBedBoxCount(m_MyMemoryShare.m_FloorNumber));
     }
+
+    public void updateFollwer(){ m_MyPlayerMemoryShare.m_DamiCameraFollwer.SetPercent(m_MyPlayerMemoryShare.m_MySplineFollower.modifiedResult.percent); }
 
     protected override void LateUpdate()
     {
@@ -131,6 +139,8 @@ public class CPlayer : CMovableBase
     //{
     //}
 
+
+
     public bool PlayerCtrl()
     {
         return true;
@@ -147,57 +157,53 @@ public class CPlayer : CMovableBase
         //    }
         //}
 
+        if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+            m_AllState[(int)m_CurState].MouseDown();
+
         m_MyPlayerMemoryShare.m_bDown = true;
         m_MyPlayerMemoryShare.m_OldMouseDownPos = Input.mousePosition;
-        //m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = this.transform.forward;
-        //m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.y = 0.0f;
-        //m_OldMouseDragDir = m_MyPlayerMemoryShare.m_OldMouseDragDirNormal;
     }
 
     public void PlayerMouseDrag()
     {
-        if (!PlayerCtrl())
-            return;
+        //if (!PlayerCtrl())
+        //    return;
+
 
         if (!m_MyPlayerMemoryShare.m_bDown)
             return;
 
-    
 
+        if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+            m_AllState[(int)m_CurState].MouseDrag();
+
+        m_MyPlayerMemoryShare.m_OldMouseDownPos = Input.mousePosition;
+    }
+
+    public void MouseDrag()
+    {
+        const float CfHalfWidth = 2.0f;
+        const float CfTotleWidth = CfHalfWidth * 2.0f;
         Vector3 lTempMouseDrag = Input.mousePosition - m_MyPlayerMemoryShare.m_OldMouseDownPos;
-
         float lTempMoveX = Input.mousePosition.x - m_MyPlayerMemoryShare.m_OldMouseDownPos.x;
-        Debug.Log($"lTempMoveX = {lTempMoveX}");
 
-        lTempMoveX = (lTempMoveX / Screen.width) * 4.0f;
+        lTempMoveX = (lTempMoveX / Screen.width) * CfTotleWidth;
         Vector2 lTempOffset = MySplineFollower.motion.offset;
         lTempOffset.x += lTempMoveX;
+        lTempOffset = Vector2.ClampMagnitude(lTempOffset, CfHalfWidth);
         MySplineFollower.motion.offset = lTempOffset;
-      //  MySplineFollower.motion.offset. += lTempMoveX;
-      // lTempMouseDrag.z = lTempMouseDrag.y;
-      // lTempMouseDrag.y = 0.0f;
-
-        //// ChangState = StaticGlobalDel.EMovableState.eMove;
-        // m_OldMouseDragDir += lTempMouseDrag;
-        // m_OldMouseDragDir.y = 0.0f;
-
-        // m_OldMouseDragDir = Vector3.ClampMagnitude(m_OldMouseDragDir, m_MaxMoveDirSize);
-        // m_MyPlayerMemoryShare.m_OldMouseDragDirNormal = m_OldMouseDragDir;
-        // m_MyPlayerMemoryShare.m_OldMouseDragDirNormal.Normalize();
-        m_MyPlayerMemoryShare.m_OldMouseDownPos = Input.mousePosition;
-
     }
 
     public void PlayerMouseUp()
     {
-        //if (m_MyPlayerMemoryShare.m_bDown)
-        //{
-        //    m_MyPlayerMemoryShare.m_bDown = false;
-        //    m_MyPlayerMemoryShare.m_OldMouseDownPos = Vector3.zero;
+        if (m_MyPlayerMemoryShare.m_bDown)
+        {
+            if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+                m_AllState[(int)m_CurState].MouseUp();
 
-        //    if (CurState == StaticGlobalDel.EMovableState.eMove)
-        //        ChangState = StaticGlobalDel.EMovableState.eWait;
-        //}
+            m_MyPlayerMemoryShare.m_bDown = false;
+            m_MyPlayerMemoryShare.m_OldMouseDownPos = Vector3.zero;
+        }
     }
 
     public override void TouchBouncingBed(Collider other)

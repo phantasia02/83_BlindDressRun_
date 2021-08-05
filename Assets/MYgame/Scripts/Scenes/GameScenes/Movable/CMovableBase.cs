@@ -121,30 +121,13 @@ public class CMovableBase : CGameObjBas
             switch (lTempState)
             {
                 case StaticGlobalDel.EMovableState.eWait:
-                  //  m_AllState[i] = new CWaitStateBase(this);
+                    m_AllState[i] = new CWaitStateBase(this);
                     break;
                 case StaticGlobalDel.EMovableState.eMove:
+                    m_AllState[i] = new CMoveStateBase(this);
                     break;
             }
         }
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eWait] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStateBase(this);
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eMove] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eMove] = new CMoveStateBase(this);
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eJump] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eJump] = new CJumpStateBase(this);
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eCollision] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eCollision] = new CMovableCollisionBase(this);
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eWin] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eWin] = new CWinStateBase(this);
-
-        //if (m_AllState[(int)StaticGlobalDel.EMovableState.eOver] == null)
-        //    m_AllState[(int)StaticGlobalDel.EMovableState.eOver] = new COverStateBase(this);
     }
 
     protected void AwakeOK()

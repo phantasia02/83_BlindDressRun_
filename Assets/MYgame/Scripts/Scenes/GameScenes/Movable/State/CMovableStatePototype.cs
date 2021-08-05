@@ -107,29 +107,26 @@ public abstract class CMovableStatePototype
     {
     }
 
-
-
-    public virtual void MouseDown()
-    {
-
-    }
+    public virtual void MouseDown(){}
+    public virtual void MouseDrag(){}
+    public virtual void MouseUp(){}
 
 
     public bool FloatingToFloorChack()
     {
-        if (m_MyMemoryShare.m_MyMovable.transform.position.y - m_MyMemoryShare.m_OldPos.y >= 0.0f)
-            return false;
+        //if (m_MyMemoryShare.m_MyMovable.transform.position.y - m_MyMemoryShare.m_OldPos.y >= 0.0f)
+        //    return false;
 
 
-        Vector3 TempMyFloorStartPos = m_MyMemoryShare.m_FloorRayStart.position;
-        int lTempLayerMask = StaticGlobalDel.g_FloorLayerMask | StaticGlobalDel.g_WinLayerMask;
+        //Vector3 TempMyFloorStartPos = m_MyMemoryShare.m_FloorRayStart.position;
+        //int lTempLayerMask = StaticGlobalDel.g_FloorLayerMask | StaticGlobalDel.g_WinLayerMask;
 
 
-        if (Physics.Raycast(TempMyFloorStartPos, Vector3.down, out RaycastHit hit, 1.0f, lTempLayerMask))
-        {
-           // m_MyMemoryShare.m_MyMovable.ChangState = StaticGlobalDel.EMovableState.eWait;
-            return true;
-        }
+        //if (Physics.Raycast(TempMyFloorStartPos, Vector3.down, out RaycastHit hit, 1.0f, lTempLayerMask))
+        //{
+        //   // m_MyMemoryShare.m_MyMovable.ChangState = StaticGlobalDel.EMovableState.eWait;
+        //    return true;
+        //}
 
         return false;
     }
