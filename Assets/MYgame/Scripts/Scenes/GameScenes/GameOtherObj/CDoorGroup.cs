@@ -13,6 +13,7 @@ public class CDoorGroup : MonoBehaviour
 
 
     [SerializeField] protected CDoor[] m_AllDoor = null;
+    public CDoor GetDoor(ELDoorType index) { return m_AllDoor[(int)index]; }
     protected Collider m_Myprotected = null;
     protected Renderer[] m_AllRenderer = null;
 
@@ -41,6 +42,10 @@ public class CDoorGroup : MonoBehaviour
             lTemp.a = lTempAlphaval;
             m_AllRenderer[i].material.color = lTemp;
         }
+
+        for (int i = 0; i < m_AllDoor.Length; i++)
+            m_AllDoor[i].ShowAccessories(setshow);
+
         m_Myprotected.gameObject.SetActive(setshow);
     }
 

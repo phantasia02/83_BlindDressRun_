@@ -212,11 +212,31 @@ public class CPlayer : CMovableBase
     {
         base.OnTriggerEnter(other);
 
-        if (other.tag == "Fuel")
+        if (other.tag == "Door")
         {
-            CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
-            //if (lTempGameSceneWindow)
-            //    lTempGameSceneWindow.SetFuelNumber(Fuel);
+            CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
+            lTempCDoorGroup.Show(false);
+            CDoor lTempDoor = null;
+             //m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
+            CDoorGroup.ELDoorType lTempDoorDis;
+            if (MySplineFollower.motion.offset.x < 0.0f)
+            {
+                lTempDoorDis = CDoorGroup.ELDoorType.eLDoor;
+            }
+            else
+            {
+                lTempDoorDis = CDoorGroup.ELDoorType.eRDoor;
+            }
+
+            lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
+
+            CGGameSceneData.EPlayAccessoriesType lTempPlayAccessoriesType = lTempDoor.PlayAccessoriesType;
+            CGGameSceneData.EDoorType lTempType = lTempDoor.DoorType;
+
+            int lTempAddLevel = lTempType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
+
+            CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
+            lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
         }
     }
 

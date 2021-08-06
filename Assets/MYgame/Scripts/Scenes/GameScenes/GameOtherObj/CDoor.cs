@@ -19,10 +19,10 @@ public class CDoor : MonoBehaviour
         CGGameSceneData lTempCGGameSceneData = CGGameSceneData.SharedInstance;
 
         m_DoorRenderer.material         = lTempCGGameSceneData.m_AllDoorMat[(int)m_MyDoorType];
-        m_AccessoriesRenderer.material  = new Material(lTempCGGameSceneData.m_AllPlayAccessoriesMat[(int)m_MyPlayAccessoriesType]);
-        
-        
+        m_AccessoriesRenderer.material  = lTempCGGameSceneData.m_AllPlayAccessoriesMat[(int)m_MyPlayAccessoriesType];
     }
+
+    public void ShowAccessories(bool show){m_AccessoriesRenderer.gameObject.SetActive(show);}
 
     // Start is called before the first frame update
     void Start()
