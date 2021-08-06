@@ -35,6 +35,7 @@ public class CPlayer : CMovableBase
 
     [SerializeField] CinemachineFreeLook m_PlayerWinCamera;
 
+    [SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
 
     public SplineFollower MySplineFollower { get { return m_MyPlayerMemoryShare.m_MySplineFollower; } }
 
@@ -56,6 +57,11 @@ public class CPlayer : CMovableBase
 
         m_MaxMoveDirSize = Screen.width > Screen.height ? (float)Screen.width : (float)Screen.height;
         m_MaxMoveDirSize = m_MaxMoveDirSize / 10.0f;
+
+
+        const int CDefMatIndex = 1;
+        for (int i = 0; i < m_AllReplaceableAccessories.Length; i++)
+            m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
     }
 
 
@@ -125,20 +131,6 @@ public class CPlayer : CMovableBase
             PlayerMouseUp();
         }
     }
-
-
-    //public override void OnMouseDown()
-    //{
-    //}
-
-    //public override void OnMouseDrag()
-    //{
-    //}
-
-    //public override void OnMouseUp()
-    //{
-    //}
-
 
 
     public bool PlayerCtrl()
