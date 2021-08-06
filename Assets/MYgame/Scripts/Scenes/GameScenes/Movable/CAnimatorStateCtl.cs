@@ -227,6 +227,8 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (m_AllAnimatorData[iCurStatIndex].m_flagName.Length != 0)
         {
+            m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
+
             m_ThisAnimator.SetTrigger(m_AllAnimatorData[iCurStatIndex].m_flagName);
             m_PlayingEnd = false;
         }
