@@ -14,11 +14,11 @@ public class CWaitStateBase : CMovableStatePototype
 
     protected override void InState()
     {
-        //if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
-        //{
-        //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eIdle);
-        //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
-        //}
+        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
+        {
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eIdle);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+        }
 
     }
 

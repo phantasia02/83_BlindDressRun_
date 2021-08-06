@@ -85,7 +85,7 @@ public class CPlayer : CMovableBase
     protected override void Start()
     {
         base.Start();
-        SetCurState(StaticGlobalDel.EMovableState.eMove);
+        SetCurState(StaticGlobalDel.EMovableState.eWait);
 
     }
 
@@ -176,13 +176,13 @@ public class CPlayer : CMovableBase
     {
         const float CfHalfWidth = 2.0f;
         const float CfTotleWidth = CfHalfWidth * 2.0f;
-        Vector3 lTempMouseDrag = Input.mousePosition - m_MyPlayerMemoryShare.m_OldMouseDownPos;
         float lTempMoveX = Input.mousePosition.x - m_MyPlayerMemoryShare.m_OldMouseDownPos.x;
 
         lTempMoveX = (lTempMoveX / Screen.width) * CfTotleWidth;
         Vector2 lTempOffset = MySplineFollower.motion.offset;
         lTempOffset.x += lTempMoveX;
         lTempOffset = Vector2.ClampMagnitude(lTempOffset, CfHalfWidth);
+
         MySplineFollower.motion.offset = lTempOffset;
     }
 

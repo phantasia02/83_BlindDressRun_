@@ -23,10 +23,13 @@ public class CAnimatorStateCtl : MonoBehaviour
     {
         eIdle        = 0,
         eRun         = 1,
-        eDeath       = 2,
-        eJump1       = 3,
-        eJump2       = 4,
-        eWin         = 5,
+        eRun1        = 2,
+        eRun2        = 3,
+        eRun3        = 4,
+        eRun4        = 5,
+        eDeath       = 6,
+        eWin         = 7,
+        eHit         = 8,
         eMax
     }
 
@@ -49,7 +52,7 @@ public class CAnimatorStateCtl : MonoBehaviour
     [SerializeField] CMovableBase m_MyMovableBase = null;
 
     
-    [VarRename(new string[] { "Idle", "Run", "Death", "Jump (1)", "Jump (2)", "Win"})]
+    [VarRename(new string[] { "Idle", "Run", "Run1", "Run2", "Run3", "Run4", "Death", "Win", "Hit"})]
     [SerializeField] public cAnimatorData[] m_AllAnimatorData = new cAnimatorData[(int)EState.eMax];
 
     public ReturnAnimationCall m_EndCallBack = null;

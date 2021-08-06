@@ -19,11 +19,11 @@ public class CMoveStateBase : CMovableStatePototype
     protected override void InState()
     {
         m_MoveDis = 0.0f;
-        //if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
-        //{
-        //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
-        //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
-        //}
+        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
+        {
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+        }
     }
 
     protected override void updataState()

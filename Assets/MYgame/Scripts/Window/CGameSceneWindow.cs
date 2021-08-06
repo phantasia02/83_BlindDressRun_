@@ -10,16 +10,9 @@ public class CGameSceneWindow : CSingletonMonoBehaviour<CGameSceneWindow>
     CChangeScenes m_ChangeScenes = new CChangeScenes();
     [SerializeField] GameObject m_ShowObj       = null;
     [SerializeField] Button m_ResetButton       = null;
-    //[SerializeField] Text m_FloorEndText        = null;
-    //[SerializeField] Text m_FloorEndTextShadow  = null;
-    [SerializeField] TextMeshProUGUI m_FuelText            = null;
-    [SerializeField] TextMeshProUGUI m_FuelTextShadow      = null;
-
-    [SerializeField] Image m_Temptext = null;
 
     public void SetTemptextPos(Vector3 pos)
     {
-        m_Temptext.transform.position = pos;
     }
 
     private void Awake()

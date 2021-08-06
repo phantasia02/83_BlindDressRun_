@@ -78,16 +78,13 @@ public class CGameManager : MonoBehaviour
             if (lTempCameraObj != null)
                 m_Camera = lTempCameraObj.GetComponent<Camera>();
 
-            //if (m_Player == null)
-            //    m_Player = gameObject.GetComponentInChildren<CPlayer>();
+            if (m_Player == null)
+                m_Player = gameObject.GetComponentInChildren<CPlayer>();
 
-            //if (m_Camera != null && m_Player != null)
-            //{
-            //    m_bInitOK = true;
-            //}
-
-            if (m_Camera != null)
+            if (m_Camera != null && m_Player != null)
+            {
                 m_bInitOK = true;
+            }
 
             yield return null;
 
@@ -276,6 +273,7 @@ public class CGameManager : MonoBehaviour
                 CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
                 if (lTempGameSceneWindow && !lTempGameSceneWindow.GetShow())
                 {
+                    m_Player.ChangState = StaticGlobalDel.EMovableState.eMove;
                     lTempGameSceneWindow.ShowObj(true);
                 }
             }
