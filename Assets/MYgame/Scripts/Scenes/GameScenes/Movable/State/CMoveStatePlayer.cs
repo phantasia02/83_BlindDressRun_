@@ -18,6 +18,8 @@ public class CMoveStatePlayer : CMoveStateBase
         //m_MyPlayerMemoryShare.m_PlayerJumpCamera.Priority = 1;
         //m_MyPlayerMemoryShare.m_PlayerNormalCamera.Priority = 2;
         //m_MyPlayerMemoryShare.m_PlayerJumpCamera.gameObject.SetActive(false);
+
+
     }
 
     protected override void updataState()

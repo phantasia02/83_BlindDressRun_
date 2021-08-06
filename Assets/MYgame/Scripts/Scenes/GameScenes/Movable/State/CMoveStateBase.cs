@@ -13,17 +13,13 @@ public class CMoveStateBase : CMovableStatePototype
 
     public CMoveStateBase(CMovableBase pamMovableBase) : base(pamMovableBase)
     {
-
+       
     }
 
     protected override void InState()
     {
         m_MoveDis = 0.0f;
-        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
-        {
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
-        }
+        UpdateOriginalAnimation();
     }
 
     protected override void updataState()
@@ -37,6 +33,13 @@ public class CMoveStateBase : CMovableStatePototype
     }
 
 
-    
 
+    public override void UpdateOriginalAnimation()
+    {
+        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
+        {
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+        }
+    }
 }

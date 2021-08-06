@@ -26,6 +26,8 @@ public static class StaticGlobalDel
     }
 
     // tag Door
+    // tag Lipstick
+    // tag Mud
 
     public const int g_WinLayerMask         = 8;
     public const int g_FloorLayerMask       = 256;

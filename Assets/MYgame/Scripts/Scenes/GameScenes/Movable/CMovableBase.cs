@@ -83,7 +83,6 @@ public class CMovableBase : CGameObjBas
     {
         m_ChildCollider = GetComponentsInChildren<Collider>();
 
-       // for (int i = 0; i )
 
         base.Awake();
         AwakeOK();

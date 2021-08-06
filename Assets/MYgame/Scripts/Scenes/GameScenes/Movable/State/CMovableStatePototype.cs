@@ -56,6 +56,11 @@ public abstract class CMovableStatePototype
         updataState();
     }
 
+    public virtual void UpdateOriginalAnimation()
+    {
+
+    }
+
     public void OutMovableState()
     {
         OutState();

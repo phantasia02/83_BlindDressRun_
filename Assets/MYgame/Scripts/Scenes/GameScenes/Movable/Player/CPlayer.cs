@@ -216,8 +216,7 @@ public class CPlayer : CMovableBase
         {
             CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
             lTempCDoorGroup.Show(false);
-            CDoor lTempDoor = null;
-             //m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
+
             CDoorGroup.ELDoorType lTempDoorDis;
             if (MySplineFollower.motion.offset.x < 0.0f)
             {
@@ -228,7 +227,7 @@ public class CPlayer : CMovableBase
                 lTempDoorDis = CDoorGroup.ELDoorType.eRDoor;
             }
 
-            lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
+            CDoor lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
 
             CGGameSceneData.EPlayAccessoriesType lTempPlayAccessoriesType = lTempDoor.PlayAccessoriesType;
             CGGameSceneData.EDoorType lTempType = lTempDoor.DoorType;
@@ -238,11 +237,28 @@ public class CPlayer : CMovableBase
             CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
         }
+        else if (other.tag == "Lipstick")
+        {
+            GameObject lTempObj = other.gameObject.transform.parent.gameObject;
+            lTempObj.SetActive(false);
+        }
+        else if (other.tag == "Mud")
+        {
+            if (m_AnimatorStateCtl != null)
+                m_AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit);
+
+        }
     }
 
     public override void OnTriggerExit(Collider other)
     {
-        if (other.tag == "BouncingBed")
-            m_MyPlayerMemoryShare.m_TouchBouncingBed = null;
+        //if (other.tag == "BouncingBed")
+        //    m_MyPlayerMemoryShare.m_TouchBouncingBed = null;
+
+        if (other.tag == "Mud")
+        {
+            if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+                m_AllState[(int)m_CurState].UpdateOriginalAnimation();
+        }
     }
 }
