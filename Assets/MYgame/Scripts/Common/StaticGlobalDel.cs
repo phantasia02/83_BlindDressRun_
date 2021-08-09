@@ -9,6 +9,7 @@ public static class StaticGlobalDel
         eNull           = 0,
         eWait           = 1,
         eMove           = 2,
+        eHit            = 3,
         //eJump           = 3,
         //eCollision      = 4,
         //eWin            = 5,
@@ -34,4 +35,6 @@ public static class StaticGlobalDel
     public const int g_NotWalkableLayerMask = 512;
     public const int g_MovableLayerMask     = 1024;
     public const float TAU = Mathf.PI * 2.0f;
+    // ============= Speed
+    public const float g_DefMovableTotleSpeed = 20.0f;
 }

@@ -14,7 +14,7 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public CinemachineImpulseSource m_CameraShock           = null;
     public GameObject               m_TouchBouncingBed      = null;
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
-    public SplineFollower           m_MySplineFollower      = null;
+
     public SplineFollower           m_DamiCameraFollwer     = null;
     public CPlayer                  m_MyPlayer              = null;
 };
@@ -49,7 +49,7 @@ public class CPlayer : CMovableBase
 
         m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eMove] = new CMoveStatePlayer(this);
-        //m_AllState[(int)StaticGlobalDel.EMovableState.eJump] = new CJumpStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eHit] = new CHitStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eWin]  = new CWinStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
 
@@ -62,6 +62,8 @@ public class CPlayer : CMovableBase
         const int CDefMatIndex = 1;
         for (int i = 0; i < m_AllReplaceableAccessories.Length; i++)
             m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
+
+        AwakeOK();
     }
 
 
@@ -74,7 +76,7 @@ public class CPlayer : CMovableBase
         m_MyPlayerMemoryShare.m_PlayerJumpCamera    = m_PlayerJumpCamera;
         m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
         m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
-        m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
+        //m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_MyPlayer            = this;
 
@@ -177,10 +179,11 @@ public class CPlayer : CMovableBase
         const float CfHalfWidth = 2.0f;
         const float CfTotleWidth = CfHalfWidth * 2.0f;
         float lTempMoveX = Input.mousePosition.x - m_MyPlayerMemoryShare.m_OldMouseDownPos.x;
+        float lTempMoveRatio = TotleSpeedRatio;
 
         lTempMoveX = (lTempMoveX / Screen.width) * CfTotleWidth;
         Vector2 lTempOffset = MySplineFollower.motion.offset;
-        lTempOffset.x += lTempMoveX;
+        lTempOffset.x += lTempMoveX * lTempMoveRatio;
         lTempOffset = Vector2.ClampMagnitude(lTempOffset, CfHalfWidth);
 
         MySplineFollower.motion.offset = lTempOffset;
@@ -245,8 +248,10 @@ public class CPlayer : CMovableBase
         else if (other.tag == "Mud")
         {
             if (m_AnimatorStateCtl != null)
-                m_AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit);
+                this.ChangState = StaticGlobalDel.EMovableState.eHit;
 
+
+            other.gameObject.SetActive(false);
         }
     }
 

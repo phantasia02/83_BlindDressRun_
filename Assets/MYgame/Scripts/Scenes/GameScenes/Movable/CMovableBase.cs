@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dreamteck.Splines;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,17 +10,25 @@ using UnityEditor;
 public class CMemoryShareBase
 {
     public Vector3              m_OldPos;
-    public float                m_TotleSpeed            = 5.0f;
+    public float                m_TotleSpeed            = StaticGlobalDel.g_DefMovableTotleSpeed;
+    public float[]              m_Buff                  = new float[(int)CMovableBase.ESpeedBuff.eMax];
     public int                  m_NumericalImage        = 0;
     public CMovableBase         m_MyMovable             = null;
     public Rigidbody            m_MyRigidbody           = null;
     public Transform            m_FloorRayStart         = null;
     public CMovableStateData[]  m_Data                  = new CMovableStateData[(int)StaticGlobalDel.EMovableState.eMax];
+    public SplineFollower       m_MySplineFollower      = null;
 };
 
 public class CMovableBase : CGameObjBas
 {
     public const float CRadius = 20.0f;
+
+    public enum ESpeedBuff
+    {
+        eHit = 0,
+        eMax
+    };
 
     public enum EMovableType
     {
@@ -77,6 +86,8 @@ public class CMovableBase : CGameObjBas
     public CMemoryShareBase MyMemoryShare { get { return m_MyMemoryShare; } }
 
     public int ImageNumber { get { return m_MyMemoryShare.m_NumericalImage; } }
+    public float TotleSpeed { get { return m_MyMemoryShare.m_TotleSpeed; } }
+    public float TotleSpeedRatio { get { return m_MyMemoryShare.m_TotleSpeed / StaticGlobalDel.g_DefMovableTotleSpeed; } }
 
 
     protected override void Awake()
@@ -85,7 +96,7 @@ public class CMovableBase : CGameObjBas
 
 
         base.Awake();
-        AwakeOK();
+        
     }
 
     protected virtual void CreateMemoryShare()
@@ -99,8 +110,8 @@ public class CMovableBase : CGameObjBas
     {
         m_MyMemoryShare.m_MyRigidbody   = this.GetComponent<Rigidbody>();
         m_MyMemoryShare.m_FloorRayStart = m_MyFloorStartPoint;
-        
-        m_MyMemoryShare.m_MyMovable = this;
+        m_MyMemoryShare.m_MySplineFollower = this.GetComponent<SplineFollower>();
+         m_MyMemoryShare.m_MyMovable = this;
 
       //  m_MyMemoryShare.m_Data[(int)StaticGlobalDel.EMovableState.eCollision] = new CMovableCollisionBaseData();
     }
@@ -124,6 +135,9 @@ public class CMovableBase : CGameObjBas
                     break;
                 case StaticGlobalDel.EMovableState.eMove:
                     m_AllState[i] = new CMoveStateBase(this);
+                    break;
+                case StaticGlobalDel.EMovableState.eHit:
+                    m_AllState[i] = new CHitStateBase(this);
                     break;
             }
         }
@@ -329,5 +343,27 @@ public class CMovableBase : CGameObjBas
 
             m_MyMemoryShare.m_MyRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         }
+    }
+
+
+    public void SetMoveBuff(ESpeedBuff type, float ratio)
+    {
+        m_MyMemoryShare.m_Buff[(int)type] = ratio;
+        float lTempMoveRatio = 1.0f;
+
+        for (int i = 0; i < m_MyMemoryShare.m_Buff.Length; i++)
+            lTempMoveRatio *= m_MyMemoryShare.m_Buff[i];
+
+        m_MyMemoryShare.m_TotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed * lTempMoveRatio;
+        m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
+    }
+
+    public void ResetMoveBuff()
+    {
+        for (int i = 0; i < m_MyMemoryShare.m_Buff.Length; i++)
+            m_MyMemoryShare.m_Buff[i] = 1.0f;
+
+        m_MyMemoryShare.m_TotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed;
+        m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
     }
 }
