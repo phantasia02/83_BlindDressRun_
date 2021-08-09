@@ -34,7 +34,13 @@ public static class StaticGlobalDel
     public const int g_FloorLayerMask       = 256;
     public const int g_NotWalkableLayerMask = 512;
     public const int g_MovableLayerMask     = 1024;
-    public const float TAU = Mathf.PI * 2.0f;
-    // ============= Speed
+    public const float TAU                  = Mathf.PI * 2.0f;
+    // ============= Speed ====================
     public const float g_DefMovableTotleSpeed = 20.0f;
+    // ============= Hp ====================
+    public const int g_DefHp = 5;
+    public const int g_MaxHp = 10;
+    public const float g_DefHpRatio = 0.5f;
+
+
 }

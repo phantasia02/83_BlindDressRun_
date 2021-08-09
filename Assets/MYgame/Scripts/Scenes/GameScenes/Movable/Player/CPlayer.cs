@@ -47,9 +47,9 @@ public class CPlayer : CMovableBase
 
         CreateMemoryShare();
 
-        m_AllState[(int)StaticGlobalDel.EMovableState.eWait] = new CWaitStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eMove] = new CMoveStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eHit] = new CHitStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eWait]    = new CWaitStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eMove]    = new CMoveStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eHit]     = new CHitStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eWin]  = new CWinStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
 
@@ -132,13 +132,6 @@ public class CPlayer : CMovableBase
         {
             PlayerMouseUp();
         }
-    }
-
-
-    public bool PlayerCtrl()
-    {
-        return true;
-        //return !(CurState == StaticGlobalDel.EMovableState.eJump || CurState == StaticGlobalDel.EMovableState.eCollision || CurState == StaticGlobalDel.EMovableState.eWin);
     }
 
     public void PlayerMouseDown()
@@ -244,6 +237,8 @@ public class CPlayer : CMovableBase
         {
             GameObject lTempObj = other.gameObject.transform.parent.gameObject;
             lTempObj.SetActive(false);
+
+            SetHpCount(CurHpCount + 1);
         }
         else if (other.tag == "Mud")
         {
@@ -252,6 +247,7 @@ public class CPlayer : CMovableBase
 
 
             other.gameObject.SetActive(false);
+            SetHpCount(CurHpCount - 1);
         }
     }
 
@@ -260,10 +256,10 @@ public class CPlayer : CMovableBase
         //if (other.tag == "BouncingBed")
         //    m_MyPlayerMemoryShare.m_TouchBouncingBed = null;
 
-        if (other.tag == "Mud")
-        {
-            if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
-                m_AllState[(int)m_CurState].UpdateOriginalAnimation();
-        }
+        //if (other.tag == "Mud")
+        //{
+        //    if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
+        //        m_AllState[(int)m_CurState].UpdateOriginalAnimation();
+        //}
     }
 }
