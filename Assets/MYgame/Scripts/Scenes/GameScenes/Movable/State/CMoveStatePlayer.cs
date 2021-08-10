@@ -15,6 +15,7 @@ public class CMoveStatePlayer : CMoveStateBase
     {
         base.InState();
         m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.follow = true;
+        m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.followSpeed = m_MyPlayerMemoryShare.m_TotleSpeed;
         //m_MyPlayerMemoryShare.m_PlayerJumpCamera.Priority = 1;
         //m_MyPlayerMemoryShare.m_PlayerNormalCamera.Priority = 2;
         //m_MyPlayerMemoryShare.m_PlayerJumpCamera.gameObject.SetActive(false);

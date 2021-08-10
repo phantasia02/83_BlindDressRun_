@@ -14,71 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ThisAnimator: {fileID: 0}
   m_MyMovableBase: {fileID: 0}
-  m_AllAnimatorData:
+  m_AllIdleAnima:
   - m_flagName: Idle
     m_AnimationName: Idle
     m_AnimationStateName: Idle
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
+  m_AllRunAnima:
   - m_flagName: Run
     m_AnimationName: Run
     m_AnimationStateName: Run
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
+  m_AllDeathAnima:
   - m_flagName: Lose
     m_AnimationName: Lose
     m_AnimationStateName: Lose
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
+  m_AllWinAnima:
   - m_flagName: Win
     m_AnimationName: Win
     m_AnimationStateName: Win
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
+  m_AllHitAnima:
   - m_flagName: GetHit
     m_AnimationName: GetHit
     m_AnimationStateName: GetHit
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
-  m_AllBaseIdleAnima:
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
-    m_Speed: 1
-    m_AnimationClip: {fileID: 0}
-    m_AnimationTime: 0
-  - m_flagName: 
-    m_AnimationName: 
-    m_AnimationStateName: 
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
@@ -395,11 +362,13 @@ MonoBehaviour:
   m_MyFloorStartPoint: {fileID: 8278108014531652108}
   m_MyHpBarMesh: {fileID: 1935823634787864357}
   m_PlayerNormalCamera: {fileID: 0}
-  m_PlayerJumpCamera: {fileID: 0}
-  m_PlayerWinCamera: {fileID: 0}
+  m_PlayerWinLoseCamera: {fileID: 0}
   m_AllReplaceableAccessories:
   - {fileID: 8278108013821767065}
   - {fileID: 8278108013821767064}
+  m_AllHpBarObj:
+  - {fileID: 8538572185019212230}
+  - {fileID: 4499676398785891849}
 --- !u!54 &8278108014041218369
 Rigidbody:
   m_ObjectHideFlags: 0

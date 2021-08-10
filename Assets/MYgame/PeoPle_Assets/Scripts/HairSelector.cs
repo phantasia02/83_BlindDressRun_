@@ -29,5 +29,17 @@ namespace HairSelector
                     objects[i].SetActive(i == selectedIndex);
             }
         }
+
+        public void SetShowObj(int selectedIndex)
+        {
+            if (selectedIndex > Hairstyles.Length)
+                selectedIndex = Hairstyles.Length;
+
+            for (int i = 0; i < Hairstyles.Length; i++)
+            {
+                if (Hairstyles[i] != null)
+                    Hairstyles[i].SetActive(i == selectedIndex);
+            }
+        }
     }
 }

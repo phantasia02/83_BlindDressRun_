@@ -93,6 +93,8 @@ public class CMovableBase : CGameObjBas
     protected CMemoryShareBase m_MyMemoryShare = null;
     public CMemoryShareBase MyMemoryShare { get { return m_MyMemoryShare; } }
 
+    public SplineFollower MySplineFollower { get { return m_MyMemoryShare.m_MySplineFollower; } }
+
     public int ImageNumber { get { return m_MyMemoryShare.m_NumericalImage; } }
     public float TotleSpeed { get { return m_MyMemoryShare.m_TotleSpeed; } }
     public float TotleSpeedRatio { get { return m_MyMemoryShare.m_TotleSpeed / StaticGlobalDel.g_DefMovableTotleSpeed; } }
@@ -147,6 +149,9 @@ public class CMovableBase : CGameObjBas
                     break;
                 case StaticGlobalDel.EMovableState.eHit:
                     m_AllState[i] = new CHitStateBase(this);
+                    break;
+                case StaticGlobalDel.EMovableState.eWin:
+                    m_AllState[i] = new CWinStateBase(this);
                     break;
             }
         }

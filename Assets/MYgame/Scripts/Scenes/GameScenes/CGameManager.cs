@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cinemachine;
+
+public class CEndNpc
+{
+    public Animator                     m_MyAnimator     = null;
+    public HairSelector.HairSelector    m_MyHairSelector = null;
+}
+
 
 public class CGameManager : MonoBehaviour
 {
@@ -47,7 +55,9 @@ public class CGameManager : MonoBehaviour
     protected Vector3 m_OldInput;
     protected float m_HalfScreenWidth = 600.0f;
 
-    protected List<CMovableBase>    m_AllMovable        = new List<CMovableBase>();
+    protected List<CMovableBase>    m_AllMovable    = new List<CMovableBase>();
+    protected List<CEndNpc>         m_AllEndNpc     = new List<CEndNpc>();
+    //HairSelector
 
     void Awake()
     {
@@ -59,13 +69,24 @@ public class CGameManager : MonoBehaviour
         m_HalfScreenWidth = (1242.0f / 2.0f) * (lTempNewHWRatio / HWRatioPototype);
 
         m_MyResultUI = gameObject.GetComponentInChildren<ResultUI>();
+
+        HairSelector.HairSelector[] lTempHairSelector = GetComponentsInChildren<HairSelector.HairSelector>();
+        for (int i = 0; i < lTempHairSelector.Length; i++)
+        {
+            CEndNpc lTempEndNpc = new CEndNpc();
+            lTempEndNpc.m_MyAnimator    = lTempHairSelector[i].GetComponent<Animator>();
+            lTempEndNpc.m_MyHairSelector = lTempHairSelector[i];
+            m_AllEndNpc.Add(lTempEndNpc);
+            lTempEndNpc.m_MyHairSelector.SetShowObj(Random.Range(0, lTempEndNpc.m_MyHairSelector.Hairstyles.Length));
+        }
+
         // Debug.Log("EnemyhitOK = " + LayerMask.GetMask("EnemyhitOK").ToString());
 
 
-        //for (int i = 0; i < m_AllFloorGroup.Count; i++)
-        //{
-        //    m_AllFloorGroup[i].GetComponentsInChildren<CBouncingBedBox>();
-        //}
+            //for (int i = 0; i < m_AllFloorGroup.Count; i++)
+            //{
+            //    m_AllFloorGroup[i].GetComponentsInChildren<CBouncingBedBox>();
+            //}
 
     }
 
@@ -119,14 +140,14 @@ public class CGameManager : MonoBehaviour
             case EState.eReadyWin:
                 {
                     //WinStateAICheatingTime();
-
+                    if (m_StateTime >= 6.0f)
+                        SetState(EState.eWinUI);
                 }
                 break;
             case EState.eNextWin:
                 {
                     //WinStateAICheatingTime();
-                    if (m_StateTime >= 5.0f)
-                        SetState(EState.eWinUI);
+
 
                 }
                 break;
@@ -177,6 +198,9 @@ public class CGameManager : MonoBehaviour
                 break;
             case EState.eReadyWin:
                 {
+                    for (int i = 0; i < m_AllEndNpc.Count; i++)
+                        m_AllEndNpc[i].m_MyAnimator.SetTrigger("win");
+
                 }
                 break;
             case EState.eNextWin:

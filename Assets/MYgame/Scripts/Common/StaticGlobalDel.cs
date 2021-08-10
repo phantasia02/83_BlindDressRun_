@@ -10,10 +10,8 @@ public static class StaticGlobalDel
         eWait           = 1,
         eMove           = 2,
         eHit            = 3,
-        //eJump           = 3,
-        //eCollision      = 4,
-        //eWin            = 5,
-        //eOver           = 6,
+        eWin            = 4,
+        eOver           = 5,
         eMax
     }
 
@@ -29,6 +27,7 @@ public static class StaticGlobalDel
     // tag Door
     // tag Lipstick
     // tag Mud
+    // tag End
 
     public const int g_WinLayerMask         = 8;
     public const int g_FloorLayerMask       = 256;

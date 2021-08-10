@@ -23,13 +23,9 @@ public class CAnimatorStateCtl : MonoBehaviour
     {
         eIdle        = 0,
         eRun         = 1,
-        eRun1        = 2,
-        eRun2        = 3,
-        eRun3        = 4,
-        eRun4        = 5,
-        eDeath       = 6,
-        eWin         = 7,
-        eHit         = 8,
+        eDeath       = 2,
+        eWin         = 3,
+        eHit         = 4,
         eMax
     }
 
@@ -52,21 +48,34 @@ public class CAnimatorStateCtl : MonoBehaviour
     [SerializeField] CMovableBase m_MyMovableBase = null;
 
     
-    [VarRename(new string[] { "Idle", "Run", "Run1", "Run2", "Run3", "Run4", "Death", "Win", "Hit"})]
-    [SerializeField] public cAnimatorData[] m_AllAnimatorData = new cAnimatorData[(int)EState.eMax];
+    [VarRename(new string[] { "Idle", "Run", "Death", "Win", "Hit"})]
+    cAnimatorData[][] m_AllAnimatorData = new cAnimatorData[(int)EState.eMax][];
 
     public ReturnAnimationCall m_EndCallBack = null;
     public ReturnAnimationCall m_KeyFramMessageCallBack = null;
 
     [VarRename(new string[] { "Idle0", "Idle1", "Idle2"})]
-    [SerializeField] public cAnimatorData[] m_AllBaseIdleAnima = new cAnimatorData[2];
+    [SerializeField] public cAnimatorData[] m_AllIdleAnima = new cAnimatorData[1];
+
+    [VarRename(new string[] { "Run0", "Run1", "Run2" })]
+    [SerializeField] public cAnimatorData[] m_AllRunAnima = new cAnimatorData[1];
+
+    [VarRename(new string[] { "Death0", "Death1", "Death2" })]
+    [SerializeField] public cAnimatorData[] m_AllDeathAnima = new cAnimatorData[1];
+
+    [VarRename(new string[] { "Win0", "Win1", "Win2" })]
+    [SerializeField] public cAnimatorData[] m_AllWinAnima = new cAnimatorData[1];
+
+    [VarRename(new string[] { "Hit0", "Hit1", "Hit2" })]
+    [SerializeField] public cAnimatorData[] m_AllHitAnima = new cAnimatorData[1];
 
     bool m_PlayingEnd = false;
     public bool PlayingEnd{get { return m_PlayingEnd; }}
 
     EState m_CurState = EState.eIdle;
     public EState CurState { get { return m_CurState; } }
-    int m_IdleIndex = 0;
+    int[] m_StateIndividualIndex = new int[(int)EState.eMax];
+    public int GetStateIndex(EState parstate) { return m_StateIndividualIndex[(int)CurState]; }
 
 
     protected void Awake()
@@ -79,11 +88,23 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (m_ThisAnimator)
         {
-            for (int i = 0; i < m_AllAnimatorData.Length; i++)
-                InitAnimatorData(ref m_AllAnimatorData[i]);
+            //for (int i = 0; i < m_AllAnimatorData.Length; i++)
+            //    InitAnimatorData(ref m_AllAnimatorData[i]);
 
-            for (int i = 0; i < m_AllBaseIdleAnima.Length; i++)
-                InitAnimatorData(ref m_AllBaseIdleAnima[i]);
+
+            m_AllAnimatorData[(int)EState.eIdle]    = m_AllIdleAnima;
+            m_AllAnimatorData[(int)EState.eRun]     = m_AllRunAnima;
+            m_AllAnimatorData[(int)EState.eDeath]   = m_AllDeathAnima;
+            m_AllAnimatorData[(int)EState.eWin]     = m_AllWinAnima;
+            m_AllAnimatorData[(int)EState.eHit]     = m_AllHitAnima;
+
+            for (int i = 0; i < m_AllAnimatorData.Length; i++)
+            {
+                for (int x = 0; x < m_AllAnimatorData[i].Length; x++)
+                    InitAnimatorData(ref m_AllAnimatorData[i][x]);
+
+                m_StateIndividualIndex[i] = 0;
+            }
         }
 
         
@@ -121,7 +142,9 @@ public class CAnimatorStateCtl : MonoBehaviour
         if (!m_ThisAnimator)
             return;
 
-        if (m_AllAnimatorData[(int)m_CurState].m_AnimationName.Length == 0)
+        int lTempCurState = (int)m_CurState;
+        cAnimatorData lTempAnimatorData = m_AllAnimatorData[lTempCurState][m_StateIndividualIndex[lTempCurState]];
+        if (lTempAnimatorData.m_AnimationName.Length == 0)
             return;
 
         AnimatorStateInfo info = m_ThisAnimator.GetCurrentAnimatorStateInfo(0);
@@ -129,7 +152,7 @@ public class CAnimatorStateCtl : MonoBehaviour
         if (info.speed == 0)
             return;
 
-        if (info.normalizedTime >= (1.0f/ info.speed) && info.IsName(m_AllAnimatorData[(int)m_CurState].m_AnimationStateName) && !m_PlayingEnd)
+        if (info.normalizedTime >= (1.0f / info.speed) && info.IsName(lTempAnimatorData.m_AnimationStateName) && !m_PlayingEnd)
         {
             if (m_EndCallBack != null)
             {
@@ -141,36 +164,35 @@ public class CAnimatorStateCtl : MonoBehaviour
 
             m_PlayingEnd = true;
         }
-
     }
 
-    public float GetCurrentNormalizedTime()
-    {
-        Debug.Log(m_ThisAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"));
+    //public float GetCurrentNormalizedTime()
+    //{
+    //    Debug.Log(m_ThisAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"));
+    //    return m_ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    //}
 
-
-        return m_ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-    }
     public string GetCurCurrentAnimator(){return m_ThisAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name; }
 
     public float GetAnimationStateTime(EState pGetstateTime)
     {
-        if (m_AllAnimatorData[(int)pGetstateTime].m_Speed == 0.0f || AnimatorSpeed == 0.0f)
+        cAnimatorData lTempAnimatorData = m_AllAnimatorData[(int)pGetstateTime][m_StateIndividualIndex[(int)pGetstateTime]];
+        if (lTempAnimatorData.m_Speed == 0.0f || AnimatorSpeed == 0.0f)
             return 0.0f;
 
         //return m_AllAnimatorData[(int)pGetstateTime].m_AnimationTime;
-        return (m_AllAnimatorData[(int)pGetstateTime].m_AnimationTime / m_AllAnimatorData[(int)pGetstateTime].m_Speed) / AnimatorSpeed;
+        return (lTempAnimatorData.m_AnimationTime / lTempAnimatorData.m_Speed) / AnimatorSpeed;
     }
 
-    public float GetAnimatiotStateTime(EState setstate)
+    public float GetAnimatiotStateTime(EState setstate, int index)
     {
+        //return 0.0f;
         int iCurStatIndex = (int)setstate;
 
         if (iCurStatIndex < 0 || iCurStatIndex >= (int)EState.eMax)
             return 0.0f;
 
-        return m_AllAnimatorData[iCurStatIndex].m_AnimationTime;
+       return m_AllAnimatorData[iCurStatIndex][index].m_AnimationTime;
     }
 
     public void OpenAnimatorComponent(bool open)
@@ -181,7 +203,7 @@ public class CAnimatorStateCtl : MonoBehaviour
         m_ThisAnimator.enabled = open;
     }
 
-    public void SetBaseIdleIndex(int SetIdelIndex)
+    public void SetStateIndividualIndex(EState state, int SetIdelIndex)
     {
         if (!m_ThisAnimator)
             return;
@@ -189,20 +211,37 @@ public class CAnimatorStateCtl : MonoBehaviour
         int iCurIdelIndex = SetIdelIndex;
 
 
-        if (iCurIdelIndex < 0 || iCurIdelIndex >= m_AllBaseIdleAnima.Length)
+        if (iCurIdelIndex < 0 || iCurIdelIndex >= m_AllAnimatorData[(int)state].Length)
             return;
 
-        if (m_IdleIndex == SetIdelIndex)
+        if (m_StateIndividualIndex[(int)state] == SetIdelIndex)
             return;
 
-        int ioldIdleIndex = m_IdleIndex;
-        m_IdleIndex = iCurIdelIndex;
+        int ioldIdleIndex = m_StateIndividualIndex[(int)state];
+        m_StateIndividualIndex[(int)state] = iCurIdelIndex;
+
+        if (state == CurState)
+        {
+            cAnimatorData lTempAnimatorData = m_AllAnimatorData[(int)state][iCurIdelIndex];
+            cAnimatorData lTempOldAnimatorData = m_AllAnimatorData[ioldIdleIndex][m_StateIndividualIndex[ioldIdleIndex]];
+
+            if (lTempOldAnimatorData.m_flagName.Length != 0)
+                m_ThisAnimator.ResetTrigger(lTempOldAnimatorData.m_flagName);
+
+            if (lTempAnimatorData.m_flagName.Length != 0)
+            {
+                m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
+                m_ThisAnimator.SetTrigger(lTempAnimatorData.m_flagName);
+                m_PlayingEnd = false;
+            }
+        }
 
         //if (m_AllBaseIdleAnima[ioldIdleIndex].m_flagName.Length != 0)
         //    m_ThisAnimator.SetInteger(m_AllBaseIdleAnima[ioldIdleIndex].m_flagName, false);
 
-        if (m_AllBaseIdleAnima[iCurIdelIndex].m_flagName.Length != 0)
-            m_ThisAnimator.SetInteger(m_AllBaseIdleAnima[iCurIdelIndex].m_flagName, iCurIdelIndex);
+
+        //if (lTempAnimatorData.m_flagName.Length != 0)
+        //    m_ThisAnimator.SetInteger(lTempAnimatorData.m_flagName, iCurIdelIndex);
     }
 
     public void SetCurState(EState SetState)
@@ -222,14 +261,16 @@ public class CAnimatorStateCtl : MonoBehaviour
         m_CurState = SetState;
         int ioldStateIndex = (int)oldState;
 
-        if (m_AllAnimatorData[ioldStateIndex].m_flagName.Length != 0)
-            m_ThisAnimator.ResetTrigger(m_AllAnimatorData[ioldStateIndex].m_flagName);
+        cAnimatorData lTempCurAnimatorData = m_AllAnimatorData[(int)SetState][m_StateIndividualIndex[(int)SetState]];
+        cAnimatorData lTempOldAnimatorData = m_AllAnimatorData[ioldStateIndex][m_StateIndividualIndex[(int)SetState]];
 
-        if (m_AllAnimatorData[iCurStatIndex].m_flagName.Length != 0)
+        if (lTempOldAnimatorData.m_flagName.Length != 0)
+            m_ThisAnimator.ResetTrigger(lTempOldAnimatorData.m_flagName);
+
+        if (lTempCurAnimatorData.m_flagName.Length != 0)
         {
             m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
-
-            m_ThisAnimator.SetTrigger(m_AllAnimatorData[iCurStatIndex].m_flagName);
+            m_ThisAnimator.SetTrigger(lTempCurAnimatorData.m_flagName);
             m_PlayingEnd = false;
         }
     }
@@ -242,7 +283,7 @@ public class CAnimatorStateCtl : MonoBehaviour
             cAnimationCallBackPar lTempAnimationCallBackPar = new cAnimationCallBackPar();
             lTempAnimationCallBackPar.eAnimationState = m_CurState;
             lTempAnimationCallBackPar.iIndex = setmessageIndex;
-            lTempAnimationCallBackPar.AnimationName = m_AllAnimatorData[(int)m_CurState].m_AnimationStateName;
+            lTempAnimationCallBackPar.AnimationName = m_AllAnimatorData[(int)m_CurState][m_StateIndividualIndex[(int)m_CurState]].m_AnimationStateName;
             m_KeyFramMessageCallBack(lTempAnimationCallBackPar);
             
         }

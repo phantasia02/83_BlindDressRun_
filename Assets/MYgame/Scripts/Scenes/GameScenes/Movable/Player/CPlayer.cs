@@ -9,14 +9,12 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public bool                     m_bDown                 = false;
     public Vector3                  m_OldMouseDownPos       = Vector3.zero;
     public CinemachineVirtualCamera m_PlayerNormalCamera    = null;
-    public CinemachineVirtualCamera m_PlayerJumpCamera      = null;
-    public CinemachineFreeLook      m_PlayerWinCamera       = null;
-    public CinemachineImpulseSource m_CameraShock           = null;
+    public CinemachineVirtualCamera m_PlayerWinLoseCamera   = null;
     public GameObject               m_TouchBouncingBed      = null;
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
-
     public SplineFollower           m_DamiCameraFollwer     = null;
     public CPlayer                  m_MyPlayer              = null;
+    public GameObject[]             m_AllHpBarObj           = null;
 };
 
 public class CPlayer : CMovableBase
@@ -30,14 +28,12 @@ public class CPlayer : CMovableBase
     [SerializeField] CinemachineVirtualCamera m_PlayerNormalCamera;
     public CinemachineVirtualCamera PlayerNormalFollowObj { get { return m_PlayerNormalCamera; } }
 
-    [SerializeField] CinemachineVirtualCamera m_PlayerJumpCamera;
-    public CinemachineVirtualCamera PlayerJumpFollowObj { get { return m_PlayerJumpCamera; } }
-
-    [SerializeField] CinemachineFreeLook m_PlayerWinCamera;
+    [SerializeField] CinemachineVirtualCamera m_PlayerWinLoseCamera;
+    public CinemachineVirtualCamera PlayerWinLoseCamera { get { return m_PlayerWinLoseCamera; } }
 
     [SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
 
-    public SplineFollower MySplineFollower { get { return m_MyPlayerMemoryShare.m_MySplineFollower; } }
+    [SerializeField] GameObject[] m_AllHpBarObj;
 
     protected Vector3 m_OldMouseDragDir = Vector3.zero;
 
@@ -50,7 +46,7 @@ public class CPlayer : CMovableBase
         m_AllState[(int)StaticGlobalDel.EMovableState.eWait]    = new CWaitStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eMove]    = new CMoveStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eHit]     = new CHitStatePlayer(this);
-        //m_AllState[(int)StaticGlobalDel.EMovableState.eWin]  = new CWinStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eWin]     = new CWinStatePlayer(this);
         //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
 
         
@@ -73,12 +69,13 @@ public class CPlayer : CMovableBase
         m_MyMemoryShare = m_MyPlayerMemoryShare;
 
         m_MyPlayerMemoryShare.m_PlayerNormalCamera  = m_PlayerNormalCamera;
-        m_MyPlayerMemoryShare.m_PlayerJumpCamera    = m_PlayerJumpCamera;
-        m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
-        m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
+        m_MyPlayerMemoryShare.m_PlayerWinLoseCamera = m_PlayerWinLoseCamera;
+        //m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
+        //m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
         //m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_MyPlayer            = this;
+        m_MyPlayerMemoryShare.m_AllHpBarObj         = m_AllHpBarObj;
 
         SetBaseMemoryShare();
     }
@@ -213,7 +210,7 @@ public class CPlayer : CMovableBase
             CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
             lTempCDoorGroup.Show(false);
 
-            int lTempint = 0;
+
             CDoorGroup.ELDoorType lTempDoorDis;
             if (MySplineFollower.motion.offset.x < 0.0f)
             {
@@ -234,7 +231,7 @@ public class CPlayer : CMovableBase
             CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
 
-            SetHpCount(CurHpCount + 3);
+            SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
         else if (other.tag == "Lipstick")
         {
@@ -251,6 +248,11 @@ public class CPlayer : CMovableBase
 
             other.gameObject.SetActive(false);
             SetHpCount(CurHpCount - 1);
+        }
+        else if (other.tag == "End")
+        {
+            if (m_AnimatorStateCtl != null)
+                this.ChangState = StaticGlobalDel.EMovableState.eWin;
         }
     }
 

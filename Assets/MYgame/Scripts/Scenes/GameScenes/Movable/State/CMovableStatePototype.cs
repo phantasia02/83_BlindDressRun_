@@ -16,6 +16,10 @@ public abstract class CMovableStatePototype
     protected float m_StateTime = 0.0f;
     protected float m_StateUnscaledTime = 0.0f;
     protected int m_StateCount = 0;
+    protected float m_OldStateTime = 0.0f;
+    protected float m_OldStateUnscaledTime = 0.0f;
+    protected int m_OldStateCount = 0;
+
 
     protected Vector3 m_v3DownPos = Vector3.zero;
     protected bool m_bDownOKPos = false;
@@ -37,9 +41,9 @@ public abstract class CMovableStatePototype
 
     public void ClearTime()
     {
-        m_StateTime = 0.0f;
-        m_StateCount = 0;
-        m_StateUnscaledTime = 0.0f;
+       m_OldStateTime          = m_StateTime         = 0.0f;
+       m_OldStateUnscaledTime  = m_StateUnscaledTime = 0.0f;
+       m_OldStateCount         = m_StateCount        = 0;
     }
 
     public void InMovableState()
@@ -50,9 +54,13 @@ public abstract class CMovableStatePototype
 
     public void updataMovableState()
     {
-        m_StateTime += Time.deltaTime;
-        m_StateCount++;
+        m_OldStateTime          = m_StateTime;
+        m_OldStateUnscaledTime  = m_StateUnscaledTime;
+        m_OldStateCount         = m_StateCount;
+
+        m_StateTime         += Time.deltaTime;
         m_StateUnscaledTime += Time.unscaledDeltaTime;
+        m_StateCount++;
         updataState();
     }
 
