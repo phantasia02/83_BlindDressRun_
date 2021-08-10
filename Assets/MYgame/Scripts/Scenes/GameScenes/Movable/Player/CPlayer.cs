@@ -213,6 +213,7 @@ public class CPlayer : CMovableBase
             CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
             lTempCDoorGroup.Show(false);
 
+            int lTempint = 0;
             CDoorGroup.ELDoorType lTempDoorDis;
             if (MySplineFollower.motion.offset.x < 0.0f)
             {
@@ -232,6 +233,8 @@ public class CPlayer : CMovableBase
 
             CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
+
+            SetHpCount(CurHpCount + 3);
         }
         else if (other.tag == "Lipstick")
         {

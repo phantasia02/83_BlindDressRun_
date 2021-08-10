@@ -180,6 +180,10 @@ public class CMovableBase : CGameObjBas
         if (m_MyMemoryShare.m_CurHpRatio != m_MyMemoryShare.m_TargetHpRatio)
         {
             m_MyMemoryShare.m_CurHpRatio = Mathf.Lerp(m_MyMemoryShare.m_CurHpRatio, m_MyMemoryShare.m_TargetHpRatio, 0.3f * Time.deltaTime);
+
+            if (Mathf.Abs(m_MyMemoryShare.m_TargetHpRatio - m_MyMemoryShare.m_CurHpRatio) < 0.001f)
+                m_MyMemoryShare.m_CurHpRatio = m_MyMemoryShare.m_TargetHpRatio;
+
             m_MyMemoryShare.m_HpMat.SetFloat(HpRatioID, m_MyMemoryShare.m_CurHpRatio);
         }
 
