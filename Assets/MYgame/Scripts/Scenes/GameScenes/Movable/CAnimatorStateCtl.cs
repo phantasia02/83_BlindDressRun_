@@ -243,7 +243,7 @@ public class CAnimatorStateCtl : MonoBehaviour
         //    m_ThisAnimator.SetInteger(lTempAnimatorData.m_flagName, iCurIdelIndex);
     }
 
-    public void SetCurState(EState SetState)
+    public void SetCurState(EState SetState, int index = -1)
     {
         if (!m_ThisAnimator)
             return;
@@ -259,9 +259,13 @@ public class CAnimatorStateCtl : MonoBehaviour
         EState oldState = m_CurState;
         m_CurState = SetState;
         int ioldStateIndex = (int)oldState;
+        int lCurStateIndividualIndex = index;
 
-        cAnimatorData lTempCurAnimatorData = m_AllAnimatorData[(int)SetState][m_StateIndividualIndex[(int)SetState]];
-        cAnimatorData lTempOldAnimatorData = m_AllAnimatorData[ioldStateIndex][m_StateIndividualIndex[(int)SetState]];
+        if (lCurStateIndividualIndex == -1)
+            lCurStateIndividualIndex = (int)SetState;
+
+        cAnimatorData lTempCurAnimatorData = m_AllAnimatorData[(int)SetState][m_StateIndividualIndex[lCurStateIndividualIndex]];
+        cAnimatorData lTempOldAnimatorData = m_AllAnimatorData[ioldStateIndex][m_StateIndividualIndex[ioldStateIndex]];
 
         if (lTempOldAnimatorData.m_flagName.Length != 0)
             m_ThisAnimator.ResetTrigger(lTempOldAnimatorData.m_flagName);

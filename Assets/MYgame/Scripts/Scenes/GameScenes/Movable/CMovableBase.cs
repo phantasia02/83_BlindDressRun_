@@ -425,6 +425,14 @@ public class CMovableBase : CGameObjBas
             m_MyMemoryShare.m_TargetHpRatio = (float)m_MyMemoryShare.m_CurHpCount / (float)StaticGlobalDel.g_MaxHp;
 
         ParticleSystem[] lTempParticleSystem = null;
+        lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
+        for (int i = 0; i < lTempParticleSystem.Length; i++)
+            lTempParticleSystem[i].gameObject.SetActive(false);
+
+        lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly];
+        for (int i = 0; i < lTempParticleSystem.Length; i++)
+            lTempParticleSystem[i].gameObject.SetActive(false);
+
         if (m_MyMemoryShare.m_CurHpCount > StaticGlobalDel.g_RefFXGoodHp)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
@@ -449,20 +457,22 @@ public class CMovableBase : CGameObjBas
                 lTempEmissionModule.rateOverTime = 5.0f * (float)lTempAddCount * (float)lTempAddCount;
             }
         }
-        else
-        {
-            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
-            for (int i = 0; i < lTempParticleSystem.Length; i++)
-                lTempParticleSystem[i].gameObject.SetActive(false);
 
-            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly];
-            for (int i = 0; i < lTempParticleSystem.Length; i++)
-                lTempParticleSystem[i].gameObject.SetActive(false);
-        }
 
 
         if (m_MyMemoryShare.m_CurHpCount == 0)
             this.ChangState = StaticGlobalDel.EMovableState.eOver;
+
+        if (AnimatorStateCtl != null)
+        {
+            if (m_MyMemoryShare.m_CurHpCount > 12)
+            {
+
+                AnimatorStateCtl.SetStateIndividualIndex( CAnimatorStateCtl.EState.eRun, 1);
+            }
+            else
+                AnimatorStateCtl.SetStateIndividualIndex(CAnimatorStateCtl.EState.eRun, 0);
+        }
     }
 
     public void ShowEndFx(bool show)
