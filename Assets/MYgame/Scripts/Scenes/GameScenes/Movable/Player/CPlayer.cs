@@ -95,7 +95,7 @@ public class CPlayer : CMovableBase
 
         
 
-        if (m_MyGameManager.CurState == CGameManager.EState.ePlay || m_MyGameManager.CurState == CGameManager.EState.eReady || m_MyGameManager.CurState == CGameManager.EState.eReadyWin)
+        if (m_MyGameManager.CurState == CGameManager.EState.ePlay || m_MyGameManager.CurState == CGameManager.EState.eReady)
             InputUpdata();
 
 
@@ -256,7 +256,7 @@ public class CPlayer : CMovableBase
 
 
             m_MyPlayerMemoryShare.m_PlayerWinLoseCamera.gameObject.SetActive(true);
-            m_MyGameManager.SetState(CGameManager.EState.eReadyWin);
+            m_MyGameManager.SetState(CGameManager.EState.eReadyEnd);
             m_MyMemoryShare.m_MySplineFollower.enabled = false;
             other.gameObject.SetActive(false);
 

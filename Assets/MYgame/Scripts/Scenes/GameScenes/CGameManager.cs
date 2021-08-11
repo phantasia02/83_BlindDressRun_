@@ -17,7 +17,7 @@ public class CGameManager : MonoBehaviour
     {
         eReady      = 0,
         ePlay       = 1,
-        eReadyWin   = 2,
+        eReadyEnd   = 2,
         eNextWin    = 3,
         eGameOver   = 4,
         eWinUI      = 5,
@@ -137,7 +137,7 @@ public class CGameManager : MonoBehaviour
                     UsePlayTick();
                 }
                 break;
-            case EState.eReadyWin:
+            case EState.eReadyEnd:
                 {
                     //WinStateAICheatingTime();
                     if (m_StateTime >= 3.0f)
@@ -197,7 +197,7 @@ public class CGameManager : MonoBehaviour
                     //    m_AllCNPC[i].SetCurState(StaticGlobalDel.EMovableState.eMove);
                 }
                 break;
-            case EState.eReadyWin:
+            case EState.eReadyEnd:
                 {
                     string lTempAnimationName = "win";
 
