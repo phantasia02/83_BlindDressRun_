@@ -77,7 +77,7 @@ public class CGameManager : MonoBehaviour
             lTempEndNpc.m_MyAnimator    = lTempHairSelector[i].GetComponent<Animator>();
             lTempEndNpc.m_MyHairSelector = lTempHairSelector[i];
             m_AllEndNpc.Add(lTempEndNpc);
-            lTempEndNpc.m_MyHairSelector.SetShowObj(Random.Range(0, lTempEndNpc.m_MyHairSelector.Hairstyles.Length));
+           // lTempEndNpc.m_MyHairSelector.SetShowObj(Random.Range(0, lTempEndNpc.m_MyHairSelector.Hairstyles.Length));
         }
 
         // Debug.Log("EnemyhitOK = " + LayerMask.GetMask("EnemyhitOK").ToString());
