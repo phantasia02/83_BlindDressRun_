@@ -18,7 +18,7 @@ public class CGameManager : MonoBehaviour
         eReady      = 0,
         ePlay       = 1,
         eReadyEnd   = 2,
-        eNextWin    = 3,
+        eNextEnd = 3,
         eGameOver   = 4,
         eWinUI      = 5,
         eMax
@@ -141,15 +141,18 @@ public class CGameManager : MonoBehaviour
                 {
                     //WinStateAICheatingTime();
                     if (m_StateTime >= 3.0f)
-                        SetState(EState.eNextWin);
+                        SetState(EState.eNextEnd);
+
                 }
                 break;
-            case EState.eNextWin:
+            case EState.eNextEnd:
                 {
                     //WinStateAICheatingTime();
-                    if (m_StateTime >= 3.0f)
-                        SetState(EState.eWinUI);
-
+                    //if (m_StateTime >= 3.0f)
+                    //{
+                    //    if (Player.CurHpCount >= StaticGlobalDel.g_DefHp)
+                    //        SetState(EState.eWinUI);
+                    //}
                 }
                 break;
             case EState.eGameOver:
@@ -206,11 +209,9 @@ public class CGameManager : MonoBehaviour
 
                     for (int i = 0; i < m_AllEndNpc.Count; i++)
                         m_AllEndNpc[i].m_MyAnimator.SetTrigger(lTempAnimationName);
-
-
                 }
                 break;
-            case EState.eNextWin:
+            case EState.eNextEnd:
                 {
                     if (Player.CurHpCount < StaticGlobalDel.g_DefHp)
                         Player.ChangState = StaticGlobalDel.EMovableState.eOver;

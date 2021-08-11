@@ -172,6 +172,9 @@ public class CMovableBase : CGameObjBas
                 case StaticGlobalDel.EMovableState.eWin:
                     m_AllState[i] = new CWinStateBase(this);
                     break;
+                case StaticGlobalDel.EMovableState.eOver:
+                    m_AllState[i] = new COverStateBase(this);
+                    break;
             }
         }
     }
@@ -456,6 +459,11 @@ public class CMovableBase : CGameObjBas
             for (int i = 0; i < lTempParticleSystem.Length; i++)
                 lTempParticleSystem[i].gameObject.SetActive(false);
         }
+
+        Debug.Log($"m_MyMemoryShare.m_CurHpCount = { m_MyMemoryShare.m_CurHpCount }");
+
+        if (m_MyMemoryShare.m_CurHpCount == 0)
+            this.ChangState = StaticGlobalDel.EMovableState.eOver;
     }
 
     public void ShowEndFx(bool show)

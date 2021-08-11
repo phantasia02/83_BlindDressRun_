@@ -47,7 +47,7 @@ public class CPlayer : CMovableBase
         m_AllState[(int)StaticGlobalDel.EMovableState.eMove]    = new CMoveStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eHit]     = new CHitStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eWin]     = new CWinStatePlayer(this);
-        //m_AllState[(int)StaticGlobalDel.EMovableState.eOver]  = new COverStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eOver]    = new COverStatePlayer(this);
 
         
 

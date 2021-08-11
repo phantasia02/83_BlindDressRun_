@@ -2,33 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CWinStatePlayer : CWinStateBase
+public class COverStatePlayer : COverStateBase
 {
     CPlayerMemoryShare m_MyPlayerMemoryShare = null;
 
-    public CWinStatePlayer(CMovableBase pamMovableBase) : base(pamMovableBase)
+    public COverStatePlayer(CMovableBase pamMovableBase) : base(pamMovableBase)
     {
         m_MyPlayerMemoryShare = (CPlayerMemoryShare)m_MyMemoryShare;
     }
 
     protected override void InState()
     {
+
         base.InState();
-
-
-        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
-        {
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eWin);
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
-        }
-
 
     }
 
     protected override void updataState()
     {
         if (m_OldStateTime < 3.0f && m_StateTime >= 3.0f)
-            m_MyGameManager.SetState(CGameManager.EState.eWinUI);
+            m_MyGameManager.SetState(CGameManager.EState.eGameOver);
 
         base.updataState();
     }
