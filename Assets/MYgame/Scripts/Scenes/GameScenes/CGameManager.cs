@@ -140,14 +140,15 @@ public class CGameManager : MonoBehaviour
             case EState.eReadyWin:
                 {
                     //WinStateAICheatingTime();
-                    if (m_StateTime >= 6.0f)
-                        SetState(EState.eWinUI);
+                    if (m_StateTime >= 3.0f)
+                        SetState(EState.eNextWin);
                 }
                 break;
             case EState.eNextWin:
                 {
                     //WinStateAICheatingTime();
-
+                    if (m_StateTime >= 3.0f)
+                        SetState(EState.eWinUI);
 
                 }
                 break;
@@ -198,13 +199,24 @@ public class CGameManager : MonoBehaviour
                 break;
             case EState.eReadyWin:
                 {
+                    string lTempAnimationName = "win";
+
+                    if (Player.CurHpCount < StaticGlobalDel.g_DefHp)
+                        lTempAnimationName = "loss";
+
                     for (int i = 0; i < m_AllEndNpc.Count; i++)
-                        m_AllEndNpc[i].m_MyAnimator.SetTrigger("win");
+                        m_AllEndNpc[i].m_MyAnimator.SetTrigger(lTempAnimationName);
+
 
                 }
                 break;
             case EState.eNextWin:
                 {
+                    if (Player.CurHpCount < StaticGlobalDel.g_DefHp)
+                        Player.ChangState = StaticGlobalDel.EMovableState.eOver;
+                    else
+                        Player.ChangState = StaticGlobalDel.EMovableState.eWin;
+
                     CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
                     if (lTempGameSceneWindow)
                         lTempGameSceneWindow.ShowObj(false);

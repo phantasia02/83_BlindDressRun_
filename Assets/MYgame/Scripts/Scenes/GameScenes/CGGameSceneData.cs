@@ -22,11 +22,20 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
     {
         eBeautiful  = 0,
         eUgly       = 1,
-        eLove       = 2,
+        eEnd       = 2,
+        eMax,
+    };
+
+    public enum EFXEndMaterialType
+    {
+        eHappyGirl      = 0,
+        eHappyPeople    = 1,
+        eSadPeople      = 2,
         eMax,
     };
 
     [SerializeField] public Material[]      m_AllDoorMat             = null;
     [SerializeField] public Material[]      m_AllPlayAccessoriesMat  = null;
     [SerializeField] public GameObject[]    m_AllFX                  = null;
+    [SerializeField] public Material[]      m_AllFXEndMaterial       = null;
 }

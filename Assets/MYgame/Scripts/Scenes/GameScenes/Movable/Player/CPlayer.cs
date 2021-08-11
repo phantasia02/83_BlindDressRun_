@@ -251,8 +251,19 @@ public class CPlayer : CMovableBase
         }
         else if (other.tag == "End")
         {
+            for (int i = 0; i < m_MyPlayerMemoryShare.m_AllHpBarObj.Length; i++)
+                m_MyPlayerMemoryShare.m_AllHpBarObj[i].SetActive(false);
+
+
+            m_MyPlayerMemoryShare.m_PlayerWinLoseCamera.gameObject.SetActive(true);
+            m_MyGameManager.SetState(CGameManager.EState.eReadyWin);
+            m_MyMemoryShare.m_MySplineFollower.enabled = false;
+            other.gameObject.SetActive(false);
+
             if (m_AnimatorStateCtl != null)
-                this.ChangState = StaticGlobalDel.EMovableState.eWin;
+                this.ChangState = StaticGlobalDel.EMovableState.eWait;
+
+            ShowEndFx(true);
         }
     }
 

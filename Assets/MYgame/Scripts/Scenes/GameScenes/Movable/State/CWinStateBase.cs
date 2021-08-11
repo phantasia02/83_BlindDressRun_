@@ -19,7 +19,7 @@ public class CWinStateBase : CMovableStatePototype
         //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
         //}
 
-        m_MyMemoryShare.m_MySplineFollower.enabled = false;
+        
     }
 
     protected override void updataState()
