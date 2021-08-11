@@ -76,7 +76,7 @@ public class CAnimatorStateCtl : MonoBehaviour
     public EState CurState { get { return m_CurState; } }
     int[] m_StateIndividualIndex = new int[(int)EState.eMax];
     public int GetStateIndex(EState parstate) { return m_StateIndividualIndex[(int)CurState]; }
-
+    Vector3 m_OriginForward = Vector3.zero;
 
     protected void Awake()
     {
@@ -88,9 +88,6 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (m_ThisAnimator)
         {
-            //for (int i = 0; i < m_AllAnimatorData.Length; i++)
-            //    InitAnimatorData(ref m_AllAnimatorData[i]);
-
 
             m_AllAnimatorData[(int)EState.eIdle]    = m_AllIdleAnima;
             m_AllAnimatorData[(int)EState.eRun]     = m_AllRunAnima;
@@ -105,6 +102,8 @@ public class CAnimatorStateCtl : MonoBehaviour
 
                 m_StateIndividualIndex[i] = 0;
             }
+
+            m_OriginForward = this.transform.forward;
         }
 
         
@@ -230,7 +229,7 @@ public class CAnimatorStateCtl : MonoBehaviour
 
             if (lTempAnimatorData.m_flagName.Length != 0)
             {
-                m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
+                this.transform.forward = m_OriginForward;
                 m_ThisAnimator.SetTrigger(lTempAnimatorData.m_flagName);
                 m_PlayingEnd = false;
             }
@@ -269,7 +268,8 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (lTempCurAnimatorData.m_flagName.Length != 0)
         {
-            m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
+            this.transform.forward = m_OriginForward;
+            //m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
             m_ThisAnimator.SetTrigger(lTempCurAnimatorData.m_flagName);
             m_PlayingEnd = false;
         }

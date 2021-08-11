@@ -460,7 +460,6 @@ public class CMovableBase : CGameObjBas
                 lTempParticleSystem[i].gameObject.SetActive(false);
         }
 
-        Debug.Log($"m_MyMemoryShare.m_CurHpCount = { m_MyMemoryShare.m_CurHpCount }");
 
         if (m_MyMemoryShare.m_CurHpCount == 0)
             this.ChangState = StaticGlobalDel.EMovableState.eOver;
@@ -475,7 +474,7 @@ public class CMovableBase : CGameObjBas
             CGGameSceneData.EFXEndMaterialType lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eHappyGirl;
 
             if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
-                lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eSadPeople;
+                lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eSadGirl;
 
             for (int i = 0; i < lTempParticleSystem.Length; i++)
             {

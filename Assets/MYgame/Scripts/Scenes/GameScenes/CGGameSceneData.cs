@@ -30,7 +30,8 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
     {
         eHappyGirl      = 0,
         eHappyPeople    = 1,
-        eSadPeople      = 2,
+        eSadGirl        = 2,
+        eSadPeople      = 3,
         eMax,
     };
 

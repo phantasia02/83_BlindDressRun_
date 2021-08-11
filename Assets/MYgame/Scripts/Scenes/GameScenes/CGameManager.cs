@@ -6,8 +6,9 @@ using Cinemachine;
 
 public class CEndNpc
 {
-    public Animator                     m_MyAnimator     = null;
-    public HairSelector.HairSelector    m_MyHairSelector = null;
+    public Animator                     m_MyAnimator        = null;
+    public HairSelector.HairSelector    m_MyHairSelector    = null;
+    public ParticleSystem[]             m_MyEndFx           = null;
 }
 
 
@@ -75,7 +76,9 @@ public class CGameManager : MonoBehaviour
         {
             CEndNpc lTempEndNpc = new CEndNpc();
             lTempEndNpc.m_MyAnimator    = lTempHairSelector[i].GetComponent<Animator>();
+            lTempEndNpc.m_MyAnimator.speed = Random.Range(0.9f, 1.1f);
             lTempEndNpc.m_MyHairSelector = lTempHairSelector[i];
+            lTempEndNpc.m_MyEndFx = lTempHairSelector[i].GetComponentsInChildren<ParticleSystem>(true);
             m_AllEndNpc.Add(lTempEndNpc);
            // lTempEndNpc.m_MyHairSelector.SetShowObj(Random.Range(0, lTempEndNpc.m_MyHairSelector.Hairstyles.Length));
         }
@@ -202,13 +205,27 @@ public class CGameManager : MonoBehaviour
                 break;
             case EState.eReadyEnd:
                 {
+                    CGGameSceneData.EFXEndMaterialType lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eHappyPeople;
                     string lTempAnimationName = "win";
 
                     if (Player.CurHpCount < StaticGlobalDel.g_DefHp)
+                    {
                         lTempAnimationName = "loss";
+                        lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eSadPeople;
+                    }
 
                     for (int i = 0; i < m_AllEndNpc.Count; i++)
+                    {
                         m_AllEndNpc[i].m_MyAnimator.SetTrigger(lTempAnimationName);
+                        //m_AllEndNpc[i].m_MyEndFx
+
+                        for (int x = 0; x < m_AllEndNpc[i].m_MyEndFx.Length; x++)
+                        {
+                            m_AllEndNpc[i].m_MyEndFx[x].gameObject.SetActive(true);
+                            var lTempRender = m_AllEndNpc[i].m_MyEndFx[x].GetComponent<ParticleSystemRenderer>();
+                            lTempRender.material = Material.Instantiate(CGGameSceneData.SharedInstance.m_AllFXEndMaterial[(int)lTempFXEndMaterialType]);
+                        }
+                    }
                 }
                 break;
             case EState.eNextEnd:
