@@ -69,8 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AllMat:
   - {fileID: 2100000, guid: e3f2e29a84b4d50408f79ecb18170ad4, type: 2}
-  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
   - {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
+  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
   m_CurLevelIndex: 1
 --- !u!114 &8278108013821767065
 MonoBehaviour:
@@ -86,8 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AllMat:
   - {fileID: 2100000, guid: e3f2e29a84b4d50408f79ecb18170ad4, type: 2}
-  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
   - {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
+  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
   m_CurLevelIndex: 1
 --- !u!1 &1228442461559843416
 GameObject:
@@ -1157,6 +1157,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coconut
       objectReference: {fileID: 0}
+    - target: {fileID: 8927938279745299142, guid: 83e0bfb2e7ba6014e8b96408b361ed76,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
+    - target: {fileID: 8927938279745299146, guid: 83e0bfb2e7ba6014e8b96408b361ed76,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e0bfb2e7ba6014e8b96408b361ed76, type: 3}
 --- !u!1 &650726102140781561 stripped
