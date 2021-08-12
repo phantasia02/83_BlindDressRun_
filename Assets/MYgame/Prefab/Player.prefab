@@ -1226,17 +1226,17 @@ PrefabInstance:
     - target: {fileID: 1541525881547157962, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1541525881547157962, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.79
       objectReference: {fileID: 0}
     - target: {fileID: 1541525881547157962, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 1541525881547157962, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
@@ -1273,6 +1273,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2669952780564887499, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 5004537445772219778, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
       propertyPath: m_Name
@@ -1296,7 +1301,22 @@ PrefabInstance:
     - target: {fileID: 5250513207478251064, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
       propertyPath: lengthInSec
-      value: 1.2
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250513207478251064, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250513207478251064, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250513207478251064, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
         type: 3}
@@ -1307,6 +1327,51 @@ PrefabInstance:
         type: 3}
       propertyPath: stopAction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897456492956579362, guid: e954d426dfe73fb4e941fb6e6342b177,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e954d426dfe73fb4e941fb6e6342b177, type: 3}
