@@ -2,10 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CMovableCollisionBaseData : CMovableStateData
+{
+    public CHitStateBase.EHitType m_HitType = CHitStateBase.EHitType.eBad;
+}
+
 public class CHitStateBase : CMovableStatePototype
 {
+    public enum EHitType
+    {
+        eBad        = 0,
+        eDoorGood   = 1,
+        eNormalGood = 2,
+        eMax
+    }
+
     const float CHitTime = 0.3f;
-  
+    protected EHitType m_HitType = EHitType.eBad;
+    public EHitType HitType
+    {
+        set { m_HitType = value; }
+        get { return m_HitType; }
+    }
+
+
     public override StaticGlobalDel.EMovableState StateType() { return StaticGlobalDel.EMovableState.eHit; }
 
     public CHitStateBase(CMovableBase pamMovableBase) : base(pamMovableBase)
@@ -17,6 +37,10 @@ public class CHitStateBase : CMovableStatePototype
     {
         UpdateOriginalAnimation();
         //m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
+        if (HitType == EHitType.eDoorGood)
+            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.5f);
+
+        
     }
 
     protected override void updataState()
@@ -43,8 +67,9 @@ public class CHitStateBase : CMovableStatePototype
     {
         if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
         {
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit, (int)HitType);
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.ResetForward = false;
         }
 
        

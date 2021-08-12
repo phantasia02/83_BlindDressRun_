@@ -78,6 +78,13 @@ public class CAnimatorStateCtl : MonoBehaviour
     public int GetStateIndex(EState parstate) { return m_StateIndividualIndex[(int)CurState]; }
     Vector3 m_OriginForward = Vector3.zero;
 
+    protected bool m_ResetForward = true;
+    public bool ResetForward
+    {
+        set { m_ResetForward = value; }
+        get { return m_ResetForward; }
+    }
+
     protected void Awake()
     {
         m_ThisAnimator = gameObject.GetComponent<Animator>();
@@ -150,6 +157,19 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (info.speed == 0)
             return;
+
+
+        if (ResetForward)
+        {
+            float lTempsqr = Vector3.SqrMagnitude(m_OriginForward - this.transform.forward);
+            if (lTempsqr >= 0.01f)
+                this.transform.forward = Vector3.Lerp(this.transform.forward, m_OriginForward, 5.0f * Time.deltaTime);
+            else
+            {
+                this.transform.forward = m_OriginForward;
+                ResetForward = false;
+            }
+        }
 
         if (info.normalizedTime >= (1.0f / info.speed) && info.IsName(lTempAnimatorData.m_AnimationStateName) && !m_PlayingEnd)
         {
@@ -229,9 +249,10 @@ public class CAnimatorStateCtl : MonoBehaviour
 
             if (lTempAnimatorData.m_flagName.Length != 0)
             {
-                this.transform.forward = m_OriginForward;
+              //  this.transform.forward = m_OriginForward;
                 m_ThisAnimator.SetTrigger(lTempAnimatorData.m_flagName);
                 m_PlayingEnd = false;
+                ResetForward = true;
             }
         }
 
@@ -259,10 +280,10 @@ public class CAnimatorStateCtl : MonoBehaviour
         EState oldState = m_CurState;
         m_CurState = SetState;
         int ioldStateIndex = (int)oldState;
-        int lCurStateIndividualIndex = index;
+        int lCurStateIndividualIndex = (int)SetState;
 
-        if (lCurStateIndividualIndex == -1)
-            lCurStateIndividualIndex = (int)SetState;
+        if (index > -1)
+            m_StateIndividualIndex[(int)SetState] = index;
 
         cAnimatorData lTempCurAnimatorData = m_AllAnimatorData[(int)SetState][m_StateIndividualIndex[lCurStateIndividualIndex]];
         cAnimatorData lTempOldAnimatorData = m_AllAnimatorData[ioldStateIndex][m_StateIndividualIndex[ioldStateIndex]];
@@ -272,10 +293,11 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (lTempCurAnimatorData.m_flagName.Length != 0)
         {
-            this.transform.forward = m_OriginForward;
+           // this.transform.forward = m_OriginForward;
             //m_ThisAnimator.gameObject.transform.eulerAngles = Vector3.zero;
             m_ThisAnimator.SetTrigger(lTempCurAnimatorData.m_flagName);
             m_PlayingEnd = false;
+            ResetForward = true;
         }
     }
 

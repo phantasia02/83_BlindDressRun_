@@ -231,10 +231,19 @@ public class CPlayer : CMovableBase
             CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
 
+            if (m_AnimatorStateCtl != null && lTempType == CGGameSceneData.EDoorType.eGood)
+            {
+                ((CHitStatePlayer)m_AllState[(int)StaticGlobalDel.EMovableState.eHit]).HitType = CHitStateBase.EHitType.eDoorGood;
+                this.ChangState = StaticGlobalDel.EMovableState.eHit;
+                this.SameStatusUpdate = true;
+            }
+
             SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
         else if (other.tag == "Lipstick")
         {
+
+
             GameObject lTempObj = other.gameObject.transform.parent.gameObject;
             lTempObj.SetActive(false);
 
@@ -243,8 +252,11 @@ public class CPlayer : CMovableBase
         else if (other.tag == "Mud")
         {
             if (m_AnimatorStateCtl != null)
+            {
+                ((CHitStatePlayer)m_AllState[(int)StaticGlobalDel.EMovableState.eHit]).HitType = CHitStateBase.EHitType.eBad;
                 this.ChangState = StaticGlobalDel.EMovableState.eHit;
-
+                this.SameStatusUpdate = true;
+            }
 
             other.gameObject.SetActive(false);
             SetHpCount(CurHpCount - 1);

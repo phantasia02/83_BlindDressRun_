@@ -9,20 +9,22 @@ using UnityEditor;
 
 public class CMemoryShareBase
 {
-    public Vector3              m_OldPos;
-    public float                m_TotleSpeed            = StaticGlobalDel.g_DefMovableTotleSpeed;
-    public float[]              m_Buff                  = new float[(int)CMovableBase.ESpeedBuff.eMax];
-    public int                  m_NumericalImage        = 0;
-    public CMovableBase         m_MyMovable             = null;
-    public Rigidbody            m_MyRigidbody           = null;
-    public Transform            m_FloorRayStart         = null;
-    public CMovableStateData[]  m_Data                  = new CMovableStateData[(int)StaticGlobalDel.EMovableState.eMax];
-    public SplineFollower       m_MySplineFollower      = null;
-    public int                  m_CurHpCount            = StaticGlobalDel.g_DefHp;
-    public float                m_CurHpRatio            = StaticGlobalDel.g_DefHpRatio;
-    public float                m_TargetHpRatio         = StaticGlobalDel.g_DefHpRatio;
-    public Material             m_HpMat                 = null;
-    public ParticleSystem[][]   m_AllFX                 = new ParticleSystem[(int)CGGameSceneData.EFXType.eMax][];
+    public Vector3                  m_OldPos;
+    public float                    m_TotleSpeed            = StaticGlobalDel.g_DefMovableTotleSpeed;
+    public float                    m_TargetTotleSpeed      = StaticGlobalDel.g_DefMovableTotleSpeed;
+    public float[]                  m_Buff                  = new float[(int)CMovableBase.ESpeedBuff.eMax];
+    public int                      m_NumericalImage        = 0;
+    public CMovableBase             m_MyMovable             = null;
+    public Rigidbody                m_MyRigidbody           = null;
+    public Transform                m_FloorRayStart         = null;
+    public CMovableStateData[]      m_Data                  = new CMovableStateData[(int)StaticGlobalDel.EMovableState.eMax];
+    public CMovableStatePototype[]  m_AllState              = null;
+    public SplineFollower           m_MySplineFollower      = null;
+    public int                      m_CurHpCount            = StaticGlobalDel.g_DefHp;
+    public float                    m_CurHpRatio            = StaticGlobalDel.g_DefHpRatio;
+    public float                    m_TargetHpRatio         = StaticGlobalDel.g_DefHpRatio;
+    public Material                 m_HpMat                 = null;
+    public ParticleSystem[][]       m_AllFX                 = new ParticleSystem[(int)CGGameSceneData.EFXType.eMax][];
 
    // public GameObject           m_HpMat                 = null;
 };
@@ -87,9 +89,16 @@ public class CMovableBase : CGameObjBas
         get { return m_ChangState; }
     }
 
-    // ==================== SerializeField ===========================================
+    protected bool m_SameStatusUpdate = false;
+    public bool SameStatusUpdate
+    {
+        set { m_SameStatusUpdate = value; }
+        get { return m_SameStatusUpdate; }
+    }
 
-    [SerializeField] protected EMovableType m_MyMovableType = EMovableType.eNull;
+   // ==================== SerializeField ===========================================
+
+   [SerializeField] protected EMovableType m_MyMovableType = EMovableType.eNull;
     public EMovableType MyMovableType { get { return m_MyMovableType; } }
 
     [SerializeField] protected Transform m_MyFloorStartPoint = null;
@@ -134,6 +143,7 @@ public class CMovableBase : CGameObjBas
         m_MyMemoryShare.m_FloorRayStart         = m_MyFloorStartPoint;
         m_MyMemoryShare.m_HpMat                 = m_MyHpBarMesh.material;
         m_MyMemoryShare.m_MyMovable             = this;
+        m_MyMemoryShare.m_TargetTotleSpeed      = m_MyMemoryShare.m_TotleSpeed;
 
         //ParticleSystem[] hdsjhdsbh = m_BeautifulObj.GetComponentsInChildren<ParticleSystem>();
         m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful]    = m_AllFXObj[(int)CGGameSceneData.EFXType.eBeautiful].GetComponentsInChildren<ParticleSystem>();
@@ -177,6 +187,8 @@ public class CMovableBase : CGameObjBas
                     break;
             }
         }
+
+        m_MyMemoryShare.m_AllState = m_AllState;
     }
 
     protected void AwakeOK()
@@ -208,6 +220,17 @@ public class CMovableBase : CGameObjBas
                 m_MyMemoryShare.m_CurHpRatio = m_MyMemoryShare.m_TargetHpRatio;
 
             m_MyMemoryShare.m_HpMat.SetFloat(HpRatioID, m_MyMemoryShare.m_CurHpRatio);
+        }
+
+
+        if (m_MyMemoryShare.m_TotleSpeed != m_MyMemoryShare.m_TargetTotleSpeed)
+        {
+            m_MyMemoryShare.m_TotleSpeed = Mathf.Lerp(m_MyMemoryShare.m_TotleSpeed, m_MyMemoryShare.m_TargetTotleSpeed, 3.0f * Time.deltaTime);
+
+            if (Mathf.Abs(m_MyMemoryShare.m_TotleSpeed - m_MyMemoryShare.m_TargetTotleSpeed) < 0.001f)
+                m_MyMemoryShare.m_TotleSpeed = m_MyMemoryShare.m_TargetTotleSpeed;
+
+            m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
         }
 
         if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
@@ -247,7 +270,7 @@ public class CMovableBase : CGameObjBas
 
     protected virtual void SetCurState(StaticGlobalDel.EMovableState pamState)
     {
-        if (pamState == m_CurState )
+        if (pamState == m_CurState && !SameStatusUpdate)
             return;
 
         ChangState = StaticGlobalDel.EMovableState.eMax;
@@ -267,6 +290,7 @@ public class CMovableBase : CGameObjBas
              m_AllState[(int)m_CurState].InMovableState();
         
         m_OldState = lTempOldState;
+        SameStatusUpdate = false;
 
         if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
             m_AllState[(int)m_CurState].updataMovableState();
@@ -385,8 +409,14 @@ public class CMovableBase : CGameObjBas
         }
     }
 
+    private void UpdateCurSpeed()
+    {
+        m_MyMemoryShare.m_TotleSpeed = m_MyMemoryShare.m_TargetTotleSpeed;
+        m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
+    }
 
-    public void SetMoveBuff(ESpeedBuff type, float ratio)
+
+    public void SetMoveBuff(ESpeedBuff type, float ratio, bool updateCurSpeed = false)
     {
         m_MyMemoryShare.m_Buff[(int)type] = ratio;
         float lTempMoveRatio = 1.0f;
@@ -394,17 +424,20 @@ public class CMovableBase : CGameObjBas
         for (int i = 0; i < m_MyMemoryShare.m_Buff.Length; i++)
             lTempMoveRatio *= m_MyMemoryShare.m_Buff[i];
 
-        m_MyMemoryShare.m_TotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed * lTempMoveRatio;
-        m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
+        m_MyMemoryShare.m_TargetTotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed * lTempMoveRatio;
+        //m_MyMemoryShare.m_TotleSpeed 
+        if (updateCurSpeed)
+            UpdateCurSpeed();
     }
 
-    public void ResetMoveBuff()
+    public void ResetMoveBuff(bool updateCurSpeed = false)
     {
         for (int i = 0; i < m_MyMemoryShare.m_Buff.Length; i++)
             m_MyMemoryShare.m_Buff[i] = 1.0f;
 
-        m_MyMemoryShare.m_TotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed;
-        m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
+        m_MyMemoryShare.m_TargetTotleSpeed = StaticGlobalDel.g_DefMovableTotleSpeed;
+        if (updateCurSpeed)
+            UpdateCurSpeed();
     }
 
     public void SetHpCount(int hpcount)

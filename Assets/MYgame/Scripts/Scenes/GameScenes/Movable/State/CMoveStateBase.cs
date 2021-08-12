@@ -20,6 +20,7 @@ public class CMoveStateBase : CMovableStatePototype
     {
         m_MoveDis = 0.0f;
         UpdateOriginalAnimation();
+        m_MyMemoryShare.m_MyMovable.ResetMoveBuff();
     }
 
     protected override void updataState()

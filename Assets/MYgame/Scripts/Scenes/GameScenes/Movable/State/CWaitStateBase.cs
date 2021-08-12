@@ -18,6 +18,7 @@ public class CWaitStateBase : CMovableStatePototype
         {
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eIdle);
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.ResetForward = false;
         }
 
     }

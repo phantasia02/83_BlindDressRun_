@@ -61,6 +61,18 @@ MonoBehaviour:
     m_Speed: 2
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
+  - m_flagName: Happy 0
+    m_AnimationName: Happy 0
+    m_AnimationStateName: Happy 0
+    m_Speed: 2
+    m_AnimationClip: {fileID: 0}
+    m_AnimationTime: 0
+  - m_flagName: Happy2
+    m_AnimationName: Happy2
+    m_AnimationStateName: Happy2
+    m_Speed: 2
+    m_AnimationClip: {fileID: 0}
+    m_AnimationTime: 0
 --- !u!114 &8278108013821767064
 MonoBehaviour:
   m_ObjectHideFlags: 0
