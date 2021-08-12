@@ -34,6 +34,12 @@ MonoBehaviour:
     m_Speed: 1
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
+  - m_flagName: Zombie_Run
+    m_AnimationName: Zombie_Run
+    m_AnimationStateName: Zombie_Run
+    m_Speed: 1
+    m_AnimationClip: {fileID: 0}
+    m_AnimationTime: 0
   m_AllDeathAnima:
   - m_flagName: Lose
     m_AnimationName: Lose

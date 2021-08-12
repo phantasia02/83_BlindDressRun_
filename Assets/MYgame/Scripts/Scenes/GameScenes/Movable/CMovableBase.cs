@@ -470,6 +470,8 @@ public class CMovableBase : CGameObjBas
 
                 AnimatorStateCtl.SetStateIndividualIndex( CAnimatorStateCtl.EState.eRun, 1);
             }
+            else if (m_MyMemoryShare.m_CurHpCount < 8)
+                AnimatorStateCtl.SetStateIndividualIndex(CAnimatorStateCtl.EState.eRun, 2);
             else
                 AnimatorStateCtl.SetStateIndividualIndex(CAnimatorStateCtl.EState.eRun, 0);
         }
