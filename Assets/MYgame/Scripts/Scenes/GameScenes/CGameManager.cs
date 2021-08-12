@@ -214,6 +214,8 @@ public class CGameManager : MonoBehaviour
                         lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eSadPeople;
                     }
 
+
+
                     for (int i = 0; i < m_AllEndNpc.Count; i++)
                     {
                         m_AllEndNpc[i].m_MyAnimator.SetTrigger(lTempAnimationName);
@@ -230,10 +232,7 @@ public class CGameManager : MonoBehaviour
                 break;
             case EState.eNextEnd:
                 {
-                    if (Player.CurHpCount < StaticGlobalDel.g_DefHp)
-                        Player.ChangState = StaticGlobalDel.EMovableState.eOver;
-                    else
-                        Player.ChangState = StaticGlobalDel.EMovableState.eWin;
+
 
                     CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
                     if (lTempGameSceneWindow)

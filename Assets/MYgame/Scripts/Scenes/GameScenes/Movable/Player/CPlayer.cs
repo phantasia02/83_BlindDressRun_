@@ -263,9 +263,8 @@ public class CPlayer : CMovableBase
         }
         else if (other.tag == "End")
         {
-            for (int i = 0; i < m_MyPlayerMemoryShare.m_AllHpBarObj.Length; i++)
-                m_MyPlayerMemoryShare.m_AllHpBarObj[i].SetActive(false);
 
+            ShowHpBar(false);
 
             m_MyPlayerMemoryShare.m_PlayerWinLoseCamera.gameObject.SetActive(true);
             m_MyGameManager.SetState(CGameManager.EState.eReadyEnd);
@@ -273,10 +272,22 @@ public class CPlayer : CMovableBase
             other.gameObject.SetActive(false);
 
             if (m_AnimatorStateCtl != null)
-                this.ChangState = StaticGlobalDel.EMovableState.eWait;
+            {
+                if (CurHpCount < StaticGlobalDel.g_DefHp)
+                    ChangState = StaticGlobalDel.EMovableState.eOver;
+                else
+                    ChangState = StaticGlobalDel.EMovableState.eWin;
+            }
+            //    this.ChangState = StaticGlobalDel.EMovableState.eWait;
 
             ShowEndFx(true);
         }
+    }
+
+    public void ShowHpBar(bool show)
+    {
+        for (int i = 0; i < m_MyPlayerMemoryShare.m_AllHpBarObj.Length; i++)
+            m_MyPlayerMemoryShare.m_AllHpBarObj[i].SetActive(false);
     }
 
     public override void OnTriggerExit(Collider other)

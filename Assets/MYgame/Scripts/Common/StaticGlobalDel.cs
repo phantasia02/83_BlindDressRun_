@@ -37,7 +37,7 @@ public static class StaticGlobalDel
     // ============= Speed ====================
     public const float g_DefMovableTotleSpeed = 20.0f;
     // ============= Hp ====================
-    public const int g_DefHp = 10;
+    public const int g_DefHp = 3;
     public const int g_MaxHp = 20;
     public const int g_RefFXGoodHp = 10;
     public const int g_RefFXBadHp  = 10;

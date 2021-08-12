@@ -466,7 +466,7 @@ public class CMovableBase : CGameObjBas
         for (int i = 0; i < lTempParticleSystem.Length; i++)
             lTempParticleSystem[i].gameObject.SetActive(false);
 
-        if (m_MyMemoryShare.m_CurHpCount > StaticGlobalDel.g_RefFXGoodHp)
+        if (hpcount - oldCurHpCount > 0)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
            // int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
@@ -480,7 +480,8 @@ public class CMovableBase : CGameObjBas
                 lTempEmissionModule.rateOverTime = ((float)(hpcount - oldCurHpCount)) * 10.0f;
             }
         }
-        else if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
+
+        if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly];
             int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXBadHp;
@@ -494,17 +495,13 @@ public class CMovableBase : CGameObjBas
         }
 
 
-
         if (m_MyMemoryShare.m_CurHpCount == 0)
             this.ChangState = StaticGlobalDel.EMovableState.eOver;
 
         if (AnimatorStateCtl != null)
         {
             if (m_MyMemoryShare.m_CurHpCount > 12)
-            {
-
                 AnimatorStateCtl.SetStateIndividualIndex( CAnimatorStateCtl.EState.eRun, 1);
-            }
             else if (m_MyMemoryShare.m_CurHpCount < 8)
                 AnimatorStateCtl.SetStateIndividualIndex(CAnimatorStateCtl.EState.eRun, 2);
             else

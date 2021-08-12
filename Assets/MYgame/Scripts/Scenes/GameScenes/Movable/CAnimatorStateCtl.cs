@@ -76,7 +76,6 @@ public class CAnimatorStateCtl : MonoBehaviour
     public EState CurState { get { return m_CurState; } }
     int[] m_StateIndividualIndex = new int[(int)EState.eMax];
     public int GetStateIndex(EState parstate) { return m_StateIndividualIndex[(int)CurState]; }
-    Vector3 m_OriginForward = Vector3.zero;
 
     protected bool m_ResetForward = true;
     public bool ResetForward
@@ -110,10 +109,7 @@ public class CAnimatorStateCtl : MonoBehaviour
                 m_StateIndividualIndex[i] = 0;
             }
 
-            m_OriginForward = this.transform.forward;
         }
-
-        
     }
 
     public void OnEnable()
@@ -161,12 +157,12 @@ public class CAnimatorStateCtl : MonoBehaviour
 
         if (ResetForward)
         {
-            float lTempsqr = Vector3.SqrMagnitude(m_OriginForward - this.transform.forward);
+            float lTempsqr = Vector3.SqrMagnitude(m_MyMovableBase.transform.forward - this.transform.forward);
             if (lTempsqr >= 0.01f)
-                this.transform.forward = Vector3.Lerp(this.transform.forward, m_OriginForward, 5.0f * Time.deltaTime);
+                this.transform.forward = Vector3.Lerp(this.transform.forward, m_MyMovableBase.transform.forward, 5.0f * Time.deltaTime);
             else
             {
-                this.transform.forward = m_OriginForward;
+                this.transform.forward = m_MyMovableBase.transform.forward;
                 ResetForward = false;
             }
         }

@@ -74,6 +74,8 @@ public abstract class CMovableStatePototype
         OutState();
     }
 
+    public bool MomentinTime(float time){return m_OldStateTime < time && m_StateTime >= time;}
+
 
     protected virtual void InState()
     {
