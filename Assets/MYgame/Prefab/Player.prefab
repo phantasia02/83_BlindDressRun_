@@ -58,7 +58,7 @@ MonoBehaviour:
   - m_flagName: GetHit
     m_AnimationName: GetHit
     m_AnimationStateName: GetHit
-    m_Speed: 1
+    m_Speed: 2
     m_AnimationClip: {fileID: 0}
     m_AnimationTime: 0
 --- !u!114 &8278108013821767064
