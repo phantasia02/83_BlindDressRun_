@@ -414,7 +414,7 @@ public class CMovableBase : CGameObjBas
         else if (hpcount >= StaticGlobalDel.g_MaxHp)
             hpcount = StaticGlobalDel.g_MaxHp;
 
-
+        int oldCurHpCount = m_MyMemoryShare.m_CurHpCount;
         m_MyMemoryShare.m_CurHpCount = hpcount;
 
         if (m_MyMemoryShare.m_CurHpCount == StaticGlobalDel.g_MaxHp)
@@ -436,13 +436,15 @@ public class CMovableBase : CGameObjBas
         if (m_MyMemoryShare.m_CurHpCount > StaticGlobalDel.g_RefFXGoodHp)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
-            int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
+           // int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
+
+           // int Temp = hpcount - oldCurHpCount;
 
             for (int i = 0; i < lTempParticleSystem.Length; i++)
             {
                 lTempParticleSystem[i].gameObject.SetActive(true);
                 var lTempEmissionModule = lTempParticleSystem[i].emission;
-                lTempEmissionModule.rateOverTime = 5.0f * (float)lTempAddCount * (float)lTempAddCount;
+                lTempEmissionModule.rateOverTime = ((float)(hpcount - oldCurHpCount)) * 10.0f;
             }
         }
         else if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
