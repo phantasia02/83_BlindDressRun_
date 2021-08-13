@@ -473,9 +473,6 @@ public class CMovableBase : CGameObjBas
 
         ParticleSystem[] lTempParticleSystem = null;
 
-
-
-
         //int lTempCountDifference = hpcount - oldCurHpCount;
         //if (lTempCountDifference > 0 && lTempCountDifference < 3)
         //{
@@ -555,22 +552,5 @@ public class CMovableBase : CGameObjBas
         }
     }
 
-    public void AnimationCallBack(CAnimatorStateCtl.cAnimationCallBackPar CallbackReturn)
-    {
-        if (CallbackReturn.eAnimationState == CAnimatorStateCtl.EState.eHit && CallbackReturn.StateIndividualIndex == 1)
-        {
-            if (CallbackReturn.iIndex == 0)
-            {
 
-            }
-            else if (CallbackReturn.iIndex == 1)
-            {
-
-            }
-            else if (CallbackReturn.iIndex == 2)
-            {
-
-            }
-        }
-    }
 }

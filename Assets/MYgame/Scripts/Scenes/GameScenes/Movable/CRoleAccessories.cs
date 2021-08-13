@@ -25,8 +25,12 @@ public class CRoleAccessories : MonoBehaviour
         if (0 > SetCurLevelIndex || SetCurLevelIndex >= m_AllMat.Length)
             return;
 
-        m_MyRenderer.material = m_AllMat[SetCurLevelIndex];
         m_CurLevelIndex = SetCurLevelIndex;
+    }
+
+    public void UpdateMat()
+    {
+        m_MyRenderer.material = m_AllMat[m_CurLevelIndex];
     }
 
 

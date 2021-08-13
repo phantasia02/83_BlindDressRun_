@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Dreamteck.Splines;
+using DG.Tweening;
 
 public class CPlayerMemoryShare : CMemoryShareBase
 {
@@ -35,6 +36,8 @@ public class CPlayer : CMovableBase
 
     [SerializeField] GameObject[] m_AllHpBarObj;
 
+    CRoleAccessories m_BuffRoleAccessories = null;
+
     protected Vector3 m_OldMouseDragDir = Vector3.zero;
 
     protected override void Awake()
@@ -49,7 +52,7 @@ public class CPlayer : CMovableBase
         m_AllState[(int)StaticGlobalDel.EMovableState.eWin]     = new CWinStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eOver]    = new COverStatePlayer(this);
 
-        
+        AnimatorStateCtl.m_KeyFramMessageCallBack = AnimationCallBack;
 
         m_MaxMoveDirSize = Screen.width > Screen.height ? (float)Screen.width : (float)Screen.height;
         m_MaxMoveDirSize = m_MaxMoveDirSize / 10.0f;
@@ -230,6 +233,7 @@ public class CPlayer : CMovableBase
 
             CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
+            m_BuffRoleAccessories = lTempRoleAccessories;
 
             if (m_AnimatorStateCtl != null && lTempType == CGGameSceneData.EDoorType.eGood)
             {
@@ -237,6 +241,9 @@ public class CPlayer : CMovableBase
                 this.ChangState = StaticGlobalDel.EMovableState.eHit;
                 this.SameStatusUpdate = true;
             }
+
+            if (lTempType == CGGameSceneData.EDoorType.eBad)
+                lTempRoleAccessories.UpdateMat();
 
             SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
@@ -299,5 +306,44 @@ public class CPlayer : CMovableBase
         //    if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
         //        m_AllState[(int)m_CurState].UpdateOriginalAnimation();
         //}
+    }
+
+    public void AnimationCallBack(CAnimatorStateCtl.cAnimationCallBackPar CallbackReturn)
+    {
+        if (CallbackReturn.eAnimationState == CAnimatorStateCtl.EState.eHit && CallbackReturn.StateIndividualIndex == 1)
+        {
+            int shPropColorID = Shader.PropertyToID("_EmissionColor");
+            Material lTempMaterial = null;
+            if (CallbackReturn.iIndex == 0)
+            {
+                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                lTempMaterial.EnableKeyword("_EMISSION");
+                lTempMaterial.DOColor(new Color(0.7f, 0.7f, 0.7f), shPropColorID, 0.2f);
+            }
+            else if (CallbackReturn.iIndex == 1)
+            {
+                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                lTempMaterial.DisableKeyword("_EMISSION");
+                lTempMaterial = null;
+
+                m_BuffRoleAccessories.UpdateMat();
+                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
+                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                lTempMaterial.SetColor(shPropColorID, new Color(0.7f, 0.7f, 0.7f));
+                lTempMaterial.DOColor(new Color(0.7f, 0.7f, 0.7f), shPropColorID, 1.0f);
+                lTempMaterial.EnableKeyword("_EMISSION");
+            }
+            else if (CallbackReturn.iIndex == 2)
+            {
+                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                lTempMaterial.DisableKeyword("_EMISSION");
+                m_BuffRoleAccessories = null;
+            }
+        }
+    }
+
+    public IEnumerator aaaatst()
+    {
+        yield return null;
     }
 }
