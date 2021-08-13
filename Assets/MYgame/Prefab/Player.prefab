@@ -401,6 +401,8 @@ MonoBehaviour:
   m_AllHpBarObj:
   - {fileID: 8538572185019212230}
   - {fileID: 4499676398785891849}
+  m_Alltest:
+  - {fileID: 0}
 --- !u!54 &8278108014041218369
 Rigidbody:
   m_ObjectHideFlags: 0

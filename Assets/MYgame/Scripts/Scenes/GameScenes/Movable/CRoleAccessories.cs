@@ -12,6 +12,7 @@ public class CRoleAccessories : MonoBehaviour
     public int CurLevelIndex { get { return m_CurLevelIndex; } }
 
     protected Renderer m_MyRenderer = null;
+    public Renderer MyRenderer { get { return m_MyRenderer; } }
 
     private void Awake()
     {
