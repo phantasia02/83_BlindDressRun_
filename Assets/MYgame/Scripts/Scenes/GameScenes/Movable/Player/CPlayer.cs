@@ -323,7 +323,7 @@ public class CPlayer : CMovableBase
                 lTempMaterial.EnableKeyword("_EMISSION");
                 lTempMaterial.DOColor(m_HappyChangeColor, shPropColorID, 0.2f);
 
-                Time.timeScale = 0.1f;
+                Time.timeScale = 0.5f;
             }
             else if (CallbackReturn.iIndex == 1)
             {
