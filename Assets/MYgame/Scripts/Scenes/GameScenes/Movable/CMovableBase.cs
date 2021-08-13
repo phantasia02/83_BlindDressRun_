@@ -57,8 +57,9 @@ public class CMovableBase : CGameObjBas
 
     public enum EMyFxType
     {
-        eUgly   = 0,
-        eEnd    = 1,
+        eUgly       = 0,
+        eEnd        = 1,
+        eHighLight  = 2,
         eMax
     };
 
@@ -473,26 +474,6 @@ public class CMovableBase : CGameObjBas
 
         ParticleSystem[] lTempParticleSystem = null;
 
-        //int lTempCountDifference = hpcount - oldCurHpCount;
-        //if (lTempCountDifference > 0 && lTempCountDifference < 3)
-        //{
-        //   // lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
-        //   //// int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
-
-        //   //// int Temp = hpcount - oldCurHpCount;
-
-        //   // for (int i = 0; i < lTempParticleSystem.Length; i++)
-        //   // {
-        //   //     lTempParticleSystem[i].gameObject.SetActive(true);
-        //   //     var lTempEmissionModule = lTempParticleSystem[i].emission;
-
-        //   //     if (lTempCountDifference < 3)
-        //   //         lTempEmissionModule.rateOverTime = ((float)lTempCountDifference) * 20.0f;
-        //   //     //else
-        //   //     //    lTempEmissionModule.rateOverTime = 500.0f;
-        //   // }
-        //}
-
         if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)EMyFxType.eUgly];
@@ -512,6 +493,7 @@ public class CMovableBase : CGameObjBas
                 lTempParticleSystem[i].gameObject.SetActive(false);
         }
 
+        m_AllFXObj[(int)EMyFxType.eHighLight].SetActive(m_MyMemoryShare.m_CurHpCount >= (StaticGlobalDel.g_MaxHp - 2));
 
         if (m_MyMemoryShare.m_CurHpCount == 0)
             this.ChangState = StaticGlobalDel.EMovableState.eOver;

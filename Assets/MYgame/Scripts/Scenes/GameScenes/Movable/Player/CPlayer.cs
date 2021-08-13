@@ -323,7 +323,7 @@ public class CPlayer : CMovableBase
                 lTempMaterial.EnableKeyword("_EMISSION");
                 lTempMaterial.DOColor(m_HappyChangeColor, shPropColorID, 0.2f);
 
-                Time.timeScale = 0.5f;
+                //Time.timeScale = 0.5f;
             }
             else if (CallbackReturn.iIndex == 1)
             {
@@ -343,7 +343,7 @@ public class CPlayer : CMovableBase
                 lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
                 lTempMaterial.DisableKeyword("_EMISSION");
                 m_BuffRoleAccessories = null;
-                Time.timeScale = 1.0f;
+               // Time.timeScale = 1.0f;
             }
         }
     }
