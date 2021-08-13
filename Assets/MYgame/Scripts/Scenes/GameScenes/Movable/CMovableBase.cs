@@ -24,7 +24,7 @@ public class CMemoryShareBase
     public float                    m_CurHpRatio            = StaticGlobalDel.g_DefHpRatio;
     public float                    m_TargetHpRatio         = StaticGlobalDel.g_DefHpRatio;
     public Material                 m_HpMat                 = null;
-    public ParticleSystem[][]       m_AllFX                 = new ParticleSystem[(int)CGGameSceneData.EFXType.eMax][];
+    public ParticleSystem[][]       m_AllFX                 = new ParticleSystem[(int)CMovableBase.EMyFxType.eMax][];
 
    // public GameObject           m_HpMat                 = null;
 };
@@ -46,6 +46,19 @@ public class CMovableBase : CGameObjBas
         eNull       = 0,
         ePlayer     = 1,
         eNpcAI      = 2,
+        eMax
+    };
+
+    public enum EFxParentType
+    {
+        eSpine = 0,
+        eMax
+    };
+
+    public enum EMyFxType
+    {
+        eUgly   = 0,
+        eEnd    = 1,
         eMax
     };
 
@@ -106,6 +119,7 @@ public class CMovableBase : CGameObjBas
     
     [SerializeField] protected MeshRenderer m_MyHpBarMesh   = null;
     [SerializeField] protected GameObject[] m_AllFXObj = null;
+    [SerializeField] protected GameObject[] m_FxParent = null;
 
     // ==================== SerializeField ===========================================
 
@@ -123,6 +137,7 @@ public class CMovableBase : CGameObjBas
     {
         m_ChildCollider = GetComponentsInChildren<Collider>();
         base.Awake();
+
     }
 
     
@@ -146,9 +161,8 @@ public class CMovableBase : CGameObjBas
         m_MyMemoryShare.m_TargetTotleSpeed      = m_MyMemoryShare.m_TotleSpeed;
 
         //ParticleSystem[] hdsjhdsbh = m_BeautifulObj.GetComponentsInChildren<ParticleSystem>();
-        m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful]    = m_AllFXObj[(int)CGGameSceneData.EFXType.eBeautiful].GetComponentsInChildren<ParticleSystem>();
-        m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly]         = m_AllFXObj[(int)CGGameSceneData.EFXType.eUgly].GetComponentsInChildren<ParticleSystem>();
-        m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eEnd]          = m_AllFXObj[(int)CGGameSceneData.EFXType.eEnd].GetComponentsInChildren<ParticleSystem>();
+        m_MyMemoryShare.m_AllFX[(int)EMyFxType.eUgly]         = m_AllFXObj[(int)EMyFxType.eUgly].GetComponentsInChildren<ParticleSystem>();
+        m_MyMemoryShare.m_AllFX[(int)EMyFxType.eEnd]          = m_AllFXObj[(int)EMyFxType.eEnd].GetComponentsInChildren<ParticleSystem>();
 
         //m_BeautifulObj.SetActive(false);
         //m_UglyObj.SetActive(false);
@@ -458,32 +472,33 @@ public class CMovableBase : CGameObjBas
             m_MyMemoryShare.m_TargetHpRatio = (float)m_MyMemoryShare.m_CurHpCount / (float)StaticGlobalDel.g_MaxHp;
 
         ParticleSystem[] lTempParticleSystem = null;
-        lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
-        for (int i = 0; i < lTempParticleSystem.Length; i++)
-            lTempParticleSystem[i].gameObject.SetActive(false);
 
-        lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly];
-        for (int i = 0; i < lTempParticleSystem.Length; i++)
-            lTempParticleSystem[i].gameObject.SetActive(false);
 
-        if (hpcount - oldCurHpCount > 0)
-        {
-            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
-           // int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
 
-           // int Temp = hpcount - oldCurHpCount;
 
-            for (int i = 0; i < lTempParticleSystem.Length; i++)
-            {
-                lTempParticleSystem[i].gameObject.SetActive(true);
-                var lTempEmissionModule = lTempParticleSystem[i].emission;
-                lTempEmissionModule.rateOverTime = ((float)(hpcount - oldCurHpCount)) * 10.0f;
-            }
-        }
+        //int lTempCountDifference = hpcount - oldCurHpCount;
+        //if (lTempCountDifference > 0 && lTempCountDifference < 3)
+        //{
+        //   // lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eBeautiful];
+        //   //// int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXGoodHp;
+
+        //   //// int Temp = hpcount - oldCurHpCount;
+
+        //   // for (int i = 0; i < lTempParticleSystem.Length; i++)
+        //   // {
+        //   //     lTempParticleSystem[i].gameObject.SetActive(true);
+        //   //     var lTempEmissionModule = lTempParticleSystem[i].emission;
+
+        //   //     if (lTempCountDifference < 3)
+        //   //         lTempEmissionModule.rateOverTime = ((float)lTempCountDifference) * 20.0f;
+        //   //     //else
+        //   //     //    lTempEmissionModule.rateOverTime = 500.0f;
+        //   // }
+        //}
 
         if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
         {
-            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eUgly];
+            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)EMyFxType.eUgly];
             int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXBadHp;
 
             for (int i = 0; i < lTempParticleSystem.Length; i++)
@@ -492,6 +507,12 @@ public class CMovableBase : CGameObjBas
                 var lTempEmissionModule = lTempParticleSystem[i].emission;
                 lTempEmissionModule.rateOverTime = 5.0f * (float)lTempAddCount * (float)lTempAddCount;
             }
+        }
+        else
+        {
+            lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)EMyFxType.eUgly];
+            for (int i = 0; i < lTempParticleSystem.Length; i++)
+                lTempParticleSystem[i].gameObject.SetActive(false);
         }
 
 
@@ -511,7 +532,7 @@ public class CMovableBase : CGameObjBas
 
     public void ShowEndFx(bool show)
     {
-        ParticleSystem[] lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)CGGameSceneData.EFXType.eEnd];
+        ParticleSystem[] lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)EMyFxType.eEnd];
 
         if (show)
         {
@@ -531,6 +552,25 @@ public class CMovableBase : CGameObjBas
         {
             for (int i = 0; i < lTempParticleSystem.Length; i++)
                 lTempParticleSystem[i].gameObject.SetActive(show);
+        }
+    }
+
+    public void AnimationCallBack(CAnimatorStateCtl.cAnimationCallBackPar CallbackReturn)
+    {
+        if (CallbackReturn.eAnimationState == CAnimatorStateCtl.EState.eHit && CallbackReturn.StateIndividualIndex == 1)
+        {
+            if (CallbackReturn.iIndex == 0)
+            {
+
+            }
+            else if (CallbackReturn.iIndex == 1)
+            {
+
+            }
+            else if (CallbackReturn.iIndex == 2)
+            {
+
+            }
         }
     }
 }

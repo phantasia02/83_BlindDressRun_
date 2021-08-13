@@ -33,6 +33,7 @@ public class CAnimatorStateCtl : MonoBehaviour
     {
         public string AnimationName     = "";
         public EState eAnimationState   = EState.eMax;
+        public int StateIndividualIndex = 0;
         public int iIndex = 0;
     }
 
@@ -305,6 +306,7 @@ public class CAnimatorStateCtl : MonoBehaviour
             cAnimationCallBackPar lTempAnimationCallBackPar = new cAnimationCallBackPar();
             lTempAnimationCallBackPar.eAnimationState = m_CurState;
             lTempAnimationCallBackPar.iIndex = setmessageIndex;
+            lTempAnimationCallBackPar.StateIndividualIndex = m_StateIndividualIndex[(int)m_CurState];
             lTempAnimationCallBackPar.AnimationName = m_AllAnimatorData[(int)m_CurState][m_StateIndividualIndex[(int)m_CurState]].m_AnimationStateName;
             m_KeyFramMessageCallBack(lTempAnimationCallBackPar);
             

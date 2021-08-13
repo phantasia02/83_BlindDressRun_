@@ -37,11 +37,18 @@ public static class StaticGlobalDel
     // ============= Speed ====================
     public const float g_DefMovableTotleSpeed = 20.0f;
     // ============= Hp ====================
-    public const int g_DefHp = 3;
+    public const int g_DefHp = 10;
     public const int g_MaxHp = 20;
     public const int g_RefFXGoodHp = 10;
     public const int g_RefFXBadHp  = 10;
     public const float g_DefHpRatio = 0.5f;
 
+    public static GameObject NewFxAddParentShow(this Transform ParentTransform, CGGameSceneData.EAllFXType Fxtype)
+    {
+        CGGameSceneData lTempGGameSceneData = CGGameSceneData.SharedInstance;
+        GameObject lTempFx = GameObject.Instantiate(lTempGGameSceneData.m_AllFX[(int)Fxtype], ParentTransform);
+        lTempFx.transform.position = ParentTransform.position;
 
+        return lTempFx;
+    }
 }

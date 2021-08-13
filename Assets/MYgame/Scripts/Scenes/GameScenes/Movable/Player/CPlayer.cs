@@ -242,12 +242,11 @@ public class CPlayer : CMovableBase
         }
         else if (other.tag == "Lipstick")
         {
-
-
             GameObject lTempObj = other.gameObject.transform.parent.gameObject;
             lTempObj.SetActive(false);
 
             SetHpCount(CurHpCount + 1);
+            m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareLipstick);
         }
         else if (other.tag == "Mud")
         {

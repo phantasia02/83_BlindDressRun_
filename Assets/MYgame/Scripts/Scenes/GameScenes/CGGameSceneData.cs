@@ -18,11 +18,12 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
         ePants      = 1,
     };
 
-    public enum EFXType
+    public enum EAllFXType
     {
-        eBeautiful  = 0,
-        eUgly       = 1,
-        eEnd       = 2,
+        eFlareLipstick  = 0,
+        eFlareGoodDoor  = 1,
+        eUgly           = 2,
+        eEnd            = 3,
         eMax,
     };
 
