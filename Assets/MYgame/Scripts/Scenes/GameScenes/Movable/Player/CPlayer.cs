@@ -35,6 +35,9 @@ public class CPlayer : CMovableBase
     [SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
 
     [SerializeField] GameObject[] m_AllHpBarObj;
+    public Color m_HappyChangeColor = new Color();
+
+
 
     CRoleAccessories m_BuffRoleAccessories = null;
 
@@ -318,7 +321,9 @@ public class CPlayer : CMovableBase
             {
                 lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
                 lTempMaterial.EnableKeyword("_EMISSION");
-                lTempMaterial.DOColor(new Color(0.7f, 0.7f, 0.7f), shPropColorID, 0.2f);
+                lTempMaterial.DOColor(m_HappyChangeColor, shPropColorID, 0.2f);
+
+                Time.timeScale = 0.1f;
             }
             else if (CallbackReturn.iIndex == 1)
             {
@@ -329,15 +334,16 @@ public class CPlayer : CMovableBase
                 m_BuffRoleAccessories.UpdateMat();
                 m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
                 lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                lTempMaterial.SetColor(shPropColorID, new Color(0.7f, 0.7f, 0.7f));
-                lTempMaterial.DOColor(new Color(0.7f, 0.7f, 0.7f), shPropColorID, 1.0f);
                 lTempMaterial.EnableKeyword("_EMISSION");
+                lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
+                lTempMaterial.DOColor(new Color(0.0f, 0.0f, 0.0f), shPropColorID, 1.0f);
             }
             else if (CallbackReturn.iIndex == 2)
             {
                 lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
                 lTempMaterial.DisableKeyword("_EMISSION");
                 m_BuffRoleAccessories = null;
+                Time.timeScale = 1.0f;
             }
         }
     }

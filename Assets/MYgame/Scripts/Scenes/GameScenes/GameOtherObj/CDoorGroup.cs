@@ -38,9 +38,10 @@ public class CDoorGroup : MonoBehaviour
 
         for (int i = 0; i < m_AllRenderer.Length; i++)
         {
-            Color lTemp = m_AllRenderer[i].material.color;
-            lTemp.a = lTempAlphaval;
-            m_AllRenderer[i].material.color = lTemp;
+            //Color lTemp = m_AllRenderer[i].material.color;
+            //lTemp.a = lTempAlphaval;
+            //m_AllRenderer[i].material.color = lTemp;
+            m_AllRenderer[i].gameObject.SetActive(false);
         }
 
         for (int i = 0; i < m_AllDoor.Length; i++)

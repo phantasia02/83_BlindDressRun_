@@ -401,6 +401,7 @@ MonoBehaviour:
   m_AllHpBarObj:
   - {fileID: 8538572185019212230}
   - {fileID: 4499676398785891849}
+  m_HappyChangeColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!54 &8278108014041218369
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1018,7 +1019,7 @@ PrefabInstance:
     - target: {fileID: 4395998607236160506, guid: 1175542572e8b3848a04f4cd9b5f9f50,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4395998607236160506, guid: 1175542572e8b3848a04f4cd9b5f9f50,
         type: 3}
