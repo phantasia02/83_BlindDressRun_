@@ -27,7 +27,7 @@ public class CChangeScenes
 
         GlobalData.g_CurSceneName = GlobalData.g_GameScenesName;
         //CSaveManager.m_status.m_LevelIndex = lpLevelIndex;
-        SceneManager.LoadScene(GlobalData.g_CurSceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LoadTestScenes()
@@ -51,7 +51,7 @@ public class CChangeScenes
 
     public void ResetScene()
     {
-        SceneManager.LoadScene(GlobalData.g_CurSceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //public int NameToIndex(string lpScenesName)

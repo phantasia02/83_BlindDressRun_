@@ -11,12 +11,7 @@ public class GlobalData : CSingletonMonoBehaviour<GlobalData>
     public const string g_ShowCurLevelNamePrefix = "LV.";
 
 
-    public const float g_fcbaseWidth               = 1242.0f;
-    public const float g_fcbaseHeight              = 2688.0f;
-    public const float g_fcbaseOrthographicSize    = 18.75f;
-    public const float g_fcbaseResolutionWHRatio   = g_fcbaseWidth / g_fcbaseHeight;
-    public const float g_fcbaseResolutionHWRatio   = g_fcbaseHeight / g_fcbaseWidth;
-    public const float g_TUA                        = Mathf.PI * 2.0f;
+
 
     public const float g_CameraSwitchTime           = 2.0f;
     public const float g_CameraRange                = 10.0f;

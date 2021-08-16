@@ -6,6 +6,7 @@ public class Status
 {
     public int m_LevelIndex     = 0;
     public int m_Money          = 0;
+    public int m_SceneIndex     = 0;
 }
 
 
@@ -20,6 +21,7 @@ public class CSaveManager : CSingletonMonoBehaviour<CSaveManager>
 {
     const string SaveKey_status = "GameData.Status";
     const string SaveKey_Config = "GameData.Config";
+    
 
     public static Status m_status;
     public static Config m_config;

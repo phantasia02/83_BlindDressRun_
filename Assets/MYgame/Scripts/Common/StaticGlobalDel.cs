@@ -29,11 +29,16 @@ public static class StaticGlobalDel
     // tag Mud
     // tag End
 
-    public const int g_WinLayerMask         = 8;
-    public const int g_FloorLayerMask       = 256;
-    public const int g_NotWalkableLayerMask = 512;
-    public const int g_MovableLayerMask     = 1024;
-    public const float TAU                  = Mathf.PI * 2.0f;
+    public const int    g_WinLayerMask                  = 8;
+    public const int    g_FloorLayerMask                = 256;
+    public const int    g_NotWalkableLayerMask          = 512;
+    public const int    g_MovableLayerMask              = 1024;
+    public const float  g_fcbaseWidth                   = 1242.0f;
+    public const float  g_fcbaseHeight                  = 2688.0f;
+    public const float  g_fcbaseOrthographicSize        = 18.75f;
+    public const float  g_fcbaseResolutionWHRatio       = g_fcbaseWidth / g_fcbaseHeight;
+    public const float  g_fcbaseResolutionHWRatio       = g_fcbaseHeight / g_fcbaseWidth;
+    public const float  g_TUA                           = Mathf.PI * 2.0f;
     // ============= Speed ====================
     public const float g_DefMovableTotleSpeed = 20.0f;
     // ============= Hp ====================
