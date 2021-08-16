@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CDoor : MonoBehaviour
 {
-    [SerializeField] protected Renderer m_DoorRenderer         = null;
-    [SerializeField] protected Renderer m_AccessoriesRenderer  = null;
+    [SerializeField] protected Renderer     m_DoorRenderer          = null;
+    [SerializeField] protected Renderer     m_AccessoriesRenderer   = null;
+    [SerializeField] protected GameObject   m_ShowAccessories       = null;
 
     [SerializeField] protected CGGameSceneData.EDoorType m_MyDoorType;
     public CGGameSceneData.EDoorType DoorType { get { return m_MyDoorType; } }

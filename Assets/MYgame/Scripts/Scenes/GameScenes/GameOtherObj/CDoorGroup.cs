@@ -26,28 +26,28 @@ public class CDoorGroup : MonoBehaviour
 
     public void Show(bool setshow)
     {
-        float lTempAlphaval = 1.0f;
-        if (setshow)
-        {
-            lTempAlphaval = 1.0f;
-        }
-        else
-        {
-            lTempAlphaval = 0.5f;
-        }
+        //float lTempAlphaval = 1.0f;
+        //if (setshow)
+        //{
+        //    lTempAlphaval = 1.0f;
+        //}
+        //else
+        //{
+        //    lTempAlphaval = 0.5f;
+        //}
 
-        for (int i = 0; i < m_AllRenderer.Length; i++)
-        {
-            //Color lTemp = m_AllRenderer[i].material.color;
-            //lTemp.a = lTempAlphaval;
-            //m_AllRenderer[i].material.color = lTemp;
-            m_AllRenderer[i].gameObject.SetActive(false);
-        }
+        //for (int i = 0; i < m_AllRenderer.Length; i++)
+        //{
+        //    Color lTemp = m_AllRenderer[i].material.color;
+        //    lTemp.a = lTempAlphaval;
+        //    m_AllRenderer[i].material.color = lTemp;
+        //}
 
-        for (int i = 0; i < m_AllDoor.Length; i++)
-            m_AllDoor[i].ShowAccessories(setshow);
+        //for (int i = 0; i < m_AllDoor.Length; i++)
+        //    m_AllDoor[i].ShowAccessories(setshow);
 
         m_Myprotected.gameObject.SetActive(setshow);
+        this.gameObject.SetActive(setshow);
     }
 
 

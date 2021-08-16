@@ -61,6 +61,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BillBoard_Pants
       objectReference: {fileID: 0}
+    - target: {fileID: 4735377370697654120, guid: 1ba51a1e90c38e3419e1766c58e1c1c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8642225130281794706, guid: 1ba51a1e90c38e3419e1766c58e1c1c2,
         type: 3}
       propertyPath: m_RootOrder

@@ -33,6 +33,8 @@ public class CPlayer : CMovableBase
     public CinemachineVirtualCamera PlayerWinLoseCamera { get { return m_PlayerWinLoseCamera; } }
 
     [SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
+    public void SetAllReplaceableAccessories(CRoleAccessories setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType)
+    {m_AllReplaceableAccessories[(int)lPlayAccessoriesType] = setRoleAccessories;}
 
     [SerializeField] GameObject[] m_AllHpBarObj;
     public Color m_HappyChangeColor = new Color();

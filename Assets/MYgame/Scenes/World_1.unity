@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 8c4a65abc2e1abf468581178ee8c5900,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8077,6 +8077,30 @@ Transform:
   m_Father: {fileID: 889927120}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
+--- !u!1 &582556802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639163278279110742, guid: f751b712682bf2145a553a773f3b8a53,
+    type: 3}
+  m_PrefabInstance: {fileID: 8278108015197543371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &582556805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582556802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ed284280f1af148a0bdb4bfdfc5e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MyAccessoriesType: 0
+  m_AllMat:
+  - {fileID: 2100000, guid: e3f2e29a84b4d50408f79ecb18170ad4, type: 2}
+  - {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
+  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
+  m_CurLevelIndex: 1
 --- !u!1 &583773220
 GameObject:
   m_ObjectHideFlags: 0
@@ -22754,6 +22778,30 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510414623}
   m_Mesh: {fileID: 930279171721016183, guid: a827ada25e62ef7489327213aebe9ed5, type: 3}
+--- !u!1 &1511869265 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639163278279110758, guid: f751b712682bf2145a553a773f3b8a53,
+    type: 3}
+  m_PrefabInstance: {fileID: 8278108015197543371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511869268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511869265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ed284280f1af148a0bdb4bfdfc5e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MyAccessoriesType: 0
+  m_AllMat:
+  - {fileID: 2100000, guid: e3f2e29a84b4d50408f79ecb18170ad4, type: 2}
+  - {fileID: 2100000, guid: 22f367aa29f1a9f48851bc1e5a53df7f, type: 2}
+  - {fileID: 2100000, guid: 4ee23b9ad337f4447b2bb5f6b427c2f0, type: 2}
+  m_CurLevelIndex: 1
 --- !u!1 &1512229918
 GameObject:
   m_ObjectHideFlags: 0
@@ -32145,6 +32193,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 965528825}
     m_Modifications:
+    - target: {fileID: 3639163278279110670, guid: f751b712682bf2145a553a773f3b8a53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5806067621562121657, guid: f751b712682bf2145a553a773f3b8a53,
         type: 3}
       propertyPath: m_Enabled
