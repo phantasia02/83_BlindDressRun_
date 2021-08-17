@@ -8,14 +8,18 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
 
     public enum EDoorType
     {
-        eGood       = 0,
-        eBad        = 1,
+        eNormal     = 0,
+        eGood       = 1,
+        eBad        = 2,
+        eMax
     };
 
     public enum EPlayAccessoriesType
     {
-        eClothing   = 0,
-        ePants      = 1,
+        eClothing   = 0,        // 衣服
+       // ePants      = 1,        // 褲子
+        eShoe       = 1,        // 鞋子
+        eMax
     };
 
     public enum EAllFXType

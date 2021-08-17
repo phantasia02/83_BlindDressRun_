@@ -32,16 +32,22 @@ public class CPlayer : CMovableBase
     [SerializeField] CinemachineVirtualCamera m_PlayerWinLoseCamera;
     public CinemachineVirtualCamera PlayerWinLoseCamera { get { return m_PlayerWinLoseCamera; } }
 
-    [SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
-    public void SetAllReplaceableAccessories(CRoleAccessories setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType)
-    {m_AllReplaceableAccessories[(int)lPlayAccessoriesType] = setRoleAccessories;}
+    //[SerializeField] CRoleAccessories[] m_AllReplaceableAccessories;
+    //public void SetAllReplaceableAccessories(CRoleAccessories setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType)
+    //{m_AllReplaceableAccessories[(int)lPlayAccessoriesType] = setRoleAccessories;}
 
     [SerializeField] GameObject[] m_AllHpBarObj;
     public Color m_HappyChangeColor = new Color();
 
+    [SerializeField] List<List<List<GameObject>>> m_MyAccessories = new List<List<List<GameObject>>>((int)CGGameSceneData.EPlayAccessoriesType.eMax);
+    public void AddAllReplaceableAccessories(GameObject setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType, CGGameSceneData.EDoorType QualityType)
+    { m_MyAccessories[(int)lPlayAccessoriesType][(int)QualityType].Add(setRoleAccessories); }
 
+    
+    CGGameSceneData.EDoorType[] m_CurQualityType = new CGGameSceneData.EDoorType[(int)CGGameSceneData.EPlayAccessoriesType.eMax];
 
-    CRoleAccessories m_BuffRoleAccessories = null;
+    CGGameSceneData.EPlayAccessoriesType m_BuffPlayAccessoriesType;
+    CGGameSceneData.EDoorType m_BuffQualityType;
 
     protected Vector3 m_OldMouseDragDir = Vector3.zero;
 
@@ -62,10 +68,24 @@ public class CPlayer : CMovableBase
         m_MaxMoveDirSize = Screen.width > Screen.height ? (float)Screen.width : (float)Screen.height;
         m_MaxMoveDirSize = m_MaxMoveDirSize / 10.0f;
 
+        List<List<GameObject>> lTempListGameObject = null;
 
-        const int CDefMatIndex = 1;
-        for (int i = 0; i < m_AllReplaceableAccessories.Length; i++)
-            m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
+        for (int i = 0; i < (int)CGGameSceneData.EPlayAccessoriesType.eMax; i++)
+        {
+            m_MyAccessories.Add(new List<List<GameObject>>());
+            lTempListGameObject = m_MyAccessories[i];
+
+            for (int x = 0; x < (int)CGGameSceneData.EDoorType.eMax; x++)
+                lTempListGameObject.Add(new List<GameObject>());
+        }
+
+
+        m_CurQualityType[(int)CGGameSceneData.EPlayAccessoriesType.eClothing]   = CGGameSceneData.EDoorType.eNormal;
+        m_CurQualityType[(int)CGGameSceneData.EPlayAccessoriesType.eShoe]       = CGGameSceneData.EDoorType.eNormal;
+
+      //  const int CDefMatIndex = 1;
+      //for (int i = 0; i < m_AllReplaceableAccessories.Length; i++)
+      //    m_AllReplaceableAccessories[i].SetUpdateMat(CDefMatIndex);
 
         AwakeOK();
     }
@@ -231,24 +251,27 @@ public class CPlayer : CMovableBase
 
             CDoor lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
 
-            CGGameSceneData.EPlayAccessoriesType lTempPlayAccessoriesType = lTempDoor.PlayAccessoriesType;
-            CGGameSceneData.EDoorType lTempType = lTempDoor.DoorType;
+            m_BuffPlayAccessoriesType = lTempDoor.PlayAccessoriesType;
+            m_BuffQualityType = lTempDoor.DoorType;
 
-            int lTempAddLevel = lTempType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
+            int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
 
-            CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
-            lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
-            m_BuffRoleAccessories = lTempRoleAccessories;
+            //CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
+            //lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
+            //m_BuffRoleAccessories = lTempRoleAccessories;
+            //m_BuffPlayAccessoriesType = lTempPlayAccessoriesType;
+            //m_BuffQualityType = lTempType;
 
-            if (m_AnimatorStateCtl != null && lTempType == CGGameSceneData.EDoorType.eGood)
+            //if (m_AnimatorStateCtl != null && m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
+            if (m_AnimatorStateCtl != null)
             {
                 ((CHitStatePlayer)m_AllState[(int)StaticGlobalDel.EMovableState.eHit]).HitType = CHitStateBase.EHitType.eDoorGood;
                 this.ChangState = StaticGlobalDel.EMovableState.eHit;
                 this.SameStatusUpdate = true;
             }
 
-            if (lTempType == CGGameSceneData.EDoorType.eBad)
-                lTempRoleAccessories.UpdateMat();
+            //if (lTempType == CGGameSceneData.EDoorType.eBad)
+            //    lTempRoleAccessories.UpdateMat();
 
             SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
@@ -303,14 +326,6 @@ public class CPlayer : CMovableBase
 
     public override void OnTriggerExit(Collider other)
     {
-        //if (other.tag == "BouncingBed")
-        //    m_MyPlayerMemoryShare.m_TouchBouncingBed = null;
-
-        //if (other.tag == "Mud")
-        //{
-        //    if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
-        //        m_AllState[(int)m_CurState].UpdateOriginalAnimation();
-        //}
     }
 
     public void AnimationCallBack(CAnimatorStateCtl.cAnimationCallBackPar CallbackReturn)
@@ -319,33 +334,82 @@ public class CPlayer : CMovableBase
         {
             int shPropColorID = Shader.PropertyToID("_EmissionColor");
             Material lTempMaterial = null;
+            Renderer lTempRenderer = null;
+            GameObject lTempgameobj = null;
             if (CallbackReturn.iIndex == 0)
             {
-                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                lTempMaterial.EnableKeyword("_EMISSION");
-                lTempMaterial.DOColor(m_HappyChangeColor, shPropColorID, 0.2f);
-
-                //Time.timeScale = 0.5f;
+                //for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]].Count; i++)
+                //{
+                //    lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]][i];
+                //    lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                //    lTempMaterial = lTempRenderer.material;
+                //    lTempMaterial.EnableKeyword("_EMISSION");
+                //    lTempMaterial.DOColor(m_HappyChangeColor, shPropColorID, 0.2f);
+                //}
+                //Time.timeScale = 0.1f;
             }
             else if (CallbackReturn.iIndex == 1)
             {
-                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                lTempMaterial.DisableKeyword("_EMISSION");
-                lTempMaterial = null;
+                for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]].Count; i++)
+                {
+                    lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]][i];
+                    lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                    lTempMaterial = lTempRenderer.material;
+                    //lTempMaterial.DisableKeyword("_EMISSION");
+                    //lTempMaterial.SetColor(shPropColorID, Color.black);
+                    lTempgameobj.SetActive(false);
+                }
 
-                m_BuffRoleAccessories.UpdateMat();
                 m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
-                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                lTempMaterial.EnableKeyword("_EMISSION");
-                lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
-                lTempMaterial.DOColor(new Color(0.0f, 0.0f, 0.0f), shPropColorID, 1.0f);
+
+                for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
+                {
+                    lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
+                    lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                    lTempMaterial = lTempRenderer.material;
+                    lTempgameobj.SetActive(true);
+                    //lTempMaterial.EnableKeyword("_EMISSION");
+                    //lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
+                    //lTempMaterial.DOColor(Color.black, shPropColorID, 1.0f);
+                }
+
+                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
+                //lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                //lTempMaterial.DisableKeyword("_EMISSION");
+                //lTempMaterial = null;
+
+                //m_BuffRoleAccessories.UpdateMat();
+
+                //lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
+                //lTempMaterial.EnableKeyword("_EMISSION");
+                //lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
+                //lTempMaterial.DOColor(new Color(0.0f, 0.0f, 0.0f), shPropColorID, 1.0f);
             }
-            else if (CallbackReturn.iIndex == 2)
+            //else if (CallbackReturn.iIndex == 2)
+            //{
+            //    for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
+            //    {
+            //        lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
+            //        lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+            //        lTempMaterial = lTempRenderer.material;
+            //        lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
+            //        lTempMaterial.DOColor(Color.black, shPropColorID, 1.0f);
+            //    }
+            //}
+            else if (CallbackReturn.iIndex == 3)
             {
-                lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                lTempMaterial.DisableKeyword("_EMISSION");
-                m_BuffRoleAccessories = null;
-               // Time.timeScale = 1.0f;
+                //for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
+                //{
+                //    lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
+                //    lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                //    lTempMaterial = lTempRenderer.material;
+                //    lTempMaterial.DisableKeyword("_EMISSION");
+                //    lTempMaterial.SetColor(shPropColorID, Color.black);
+                //}
+
+                m_CurQualityType[(int)m_BuffPlayAccessoriesType] = m_BuffQualityType;
+
+                Time.timeScale = 1.0f;
             }
         }
     }
