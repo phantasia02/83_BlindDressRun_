@@ -32,7 +32,7 @@ public class CMemoryShareBase
 
 public class CMovableBase : CGameObjBas
 {
-    readonly int HpRatioID = Shader.PropertyToID("_Hp");
+    public readonly int HpRatioID = Shader.PropertyToID("_Hp");
 
     public const float CRadius = 20.0f;
 
@@ -215,7 +215,8 @@ public class CMovableBase : CGameObjBas
     // Start is called before the first frame update
     protected override void Start()
     {
-       // ShowEndFx(true);
+        m_MyMemoryShare.m_HpMat.SetFloat(HpRatioID, 0.5f);
+        // ShowEndFx(true);
     }
 
     public override void Init()
