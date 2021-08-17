@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Dreamteck.Splines;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -118,9 +119,9 @@ public class CMovableBase : CGameObjBas
     [SerializeField] protected Transform m_MyFloorStartPoint = null;
     public Transform MyFloorStartPoint { get { return m_MyFloorStartPoint; } }
     
-    [SerializeField] protected MeshRenderer m_MyHpBarMesh   = null;
-    [SerializeField] protected GameObject[] m_AllFXObj = null;
-    [SerializeField] protected GameObject[] m_FxParent = null;
+    [SerializeField] protected Image        m_MyHpBarImage  = null;
+    [SerializeField] protected GameObject[] m_AllFXObj      = null;
+    [SerializeField] protected GameObject[] m_FxParent      = null;
 
     // ==================== SerializeField ===========================================
 
@@ -157,7 +158,7 @@ public class CMovableBase : CGameObjBas
         m_MyMemoryShare.m_MyRigidbody           = this.GetComponent<Rigidbody>();
         m_MyMemoryShare.m_MySplineFollower      = this.GetComponent<SplineFollower>();
         m_MyMemoryShare.m_FloorRayStart         = m_MyFloorStartPoint;
-        m_MyMemoryShare.m_HpMat                 = m_MyHpBarMesh.material;
+        m_MyMemoryShare.m_HpMat                 = m_MyHpBarImage.material;
         m_MyMemoryShare.m_MyMovable             = this;
         m_MyMemoryShare.m_TargetTotleSpeed      = m_MyMemoryShare.m_TotleSpeed;
 
