@@ -40,7 +40,7 @@ public static class StaticGlobalDel
     public const float  g_fcbaseResolutionHWRatio       = g_fcbaseHeight / g_fcbaseWidth;
     public const float  g_TUA                           = Mathf.PI * 2.0f;
     // ============= Speed ====================
-    public const float g_DefMovableTotleSpeed = 20.0f;
+    public const float g_DefMovableTotleSpeed = 15.0f;
     // ============= Hp ====================
     public const int g_DefHp = 10;
     public const int g_MaxHp = 20;
