@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 //using GameAnalyticsSDK;
 
 public class CReadyGameWindow : CSingletonMonoBehaviour<CReadyGameWindow>
@@ -16,10 +17,13 @@ public class CReadyGameWindow : CSingletonMonoBehaviour<CReadyGameWindow>
     [SerializeField] TextMeshProUGUI m_PlayerNumberTextShadow = null;
     [SerializeField] GameObject m_ShowObj = null;
     [SerializeField] GameObject m_ReadyBack = null;
+    [SerializeField] CanvasGroup m_ClickPlayText = null;
+    [SerializeField] CAnimationCallback m_AnimationCallback = null;
     //[SerializeField] GameObject m_OptionShowObj;
     //[SerializeField] GameObject m_SkinShowObj;
     bool m_CloseShowUI = false;
-
+    bool m_clickShowUI = false;
+    protected Animator m_TextAnimator = null;
     protected Text[] m_AllText = null;
     float m_Time = 0.0f;
 
@@ -29,11 +33,23 @@ public class CReadyGameWindow : CSingletonMonoBehaviour<CReadyGameWindow>
 
         m_ReadyBack.SetActive(true);
 
+        m_TextAnimator = m_AnimationCallback.gameObject.GetComponent<Animator>();
 
+        m_AnimationCallback.m_KeyFramMessageCallBack = (int index) =>
+        {
+            if (index == 0)
+            {
+                if (!m_clickShowUI)
+                    m_TextAnimator.speed = 0.0f;
+            }
+            else if (index == 1)
+            {
+                CloseShowUI();
+            }
+        };
         //CSaveManager lTempCSaveManager = CSaveManager.SharedInstance;
         //if (lTempCSaveManager)
         //    m_CurLevelText.text = GlobalData.g_ShowCurLevelNamePrefix + (CSaveManager.m_status.m_LevelIndex + 1).ToString();
-
 
         //m_AllText = this.GetComponentsInChildren<Text>();
         //  GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, m_CurLevelText.text);
@@ -85,4 +101,13 @@ public class CReadyGameWindow : CSingletonMonoBehaviour<CReadyGameWindow>
         m_ShowObj.SetActive(false);
     //    CGameSceneWindow.SharedInstance.SetCurState(CGameSceneWindow.EState.eStart);
     }
+
+    public void HideText()
+    {
+        m_clickShowUI = true;
+        m_ClickPlayText.DOFade(0.0f, 0.5f); 
+        m_TextAnimator.speed = 1.0f;
+    }
+
+
 }

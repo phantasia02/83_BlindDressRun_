@@ -321,7 +321,7 @@ public class CGameManager : MonoBehaviour
 
                 CReadyGameWindow lTempCReadyGameWindow = CReadyGameWindow.SharedInstance;
                 if (lTempCReadyGameWindow && lTempCReadyGameWindow.GetShow())
-                    lTempCReadyGameWindow.CloseShowUI();
+                    lTempCReadyGameWindow.HideText();
 
                 CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
                 if (lTempGameSceneWindow && !lTempGameSceneWindow.GetShow())
