@@ -4240,6 +4240,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Buildings
       objectReference: {fileID: 0}
+    - target: {fileID: 1272958276391193127, guid: ae637b1580e081343b110acf54412192,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1272958276391193144, guid: ae637b1580e081343b110acf54412192,
         type: 3}
       propertyPath: m_RootOrder
