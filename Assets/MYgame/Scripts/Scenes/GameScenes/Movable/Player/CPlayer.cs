@@ -360,7 +360,8 @@ public class CPlayer : CMovableBase
                     lTempgameobj.SetActive(false);
                 }
 
-                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
+                if (m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
+                    m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
 
                 for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
                 {
@@ -373,7 +374,6 @@ public class CPlayer : CMovableBase
                     //lTempMaterial.DOColor(Color.black, shPropColorID, 1.0f);
                 }
 
-                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
                 //lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
                 //lTempMaterial.DisableKeyword("_EMISSION");
                 //lTempMaterial = null;

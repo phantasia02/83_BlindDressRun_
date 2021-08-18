@@ -479,13 +479,13 @@ public class CMovableBase : CGameObjBas
         if (m_MyMemoryShare.m_CurHpCount < StaticGlobalDel.g_RefFXBadHp)
         {
             lTempParticleSystem = m_MyMemoryShare.m_AllFX[(int)EMyFxType.eUgly];
-            int lTempAddCount = m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXBadHp;
+            int lTempAddCount = Mathf.Abs(m_MyMemoryShare.m_CurHpCount - StaticGlobalDel.g_RefFXBadHp);
 
             for (int i = 0; i < lTempParticleSystem.Length; i++)
             {
                 lTempParticleSystem[i].gameObject.SetActive(true);
                 var lTempEmissionModule = lTempParticleSystem[i].emission;
-                lTempEmissionModule.rateOverTime = 5.0f * (float)lTempAddCount * (float)lTempAddCount;
+                lTempEmissionModule.rateOverTime = 5.0f * (float)lTempAddCount;
             }
         }
         else
