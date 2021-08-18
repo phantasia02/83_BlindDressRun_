@@ -272,7 +272,7 @@ public class CPlayer : CMovableBase
 
             //if (lTempType == CGGameSceneData.EDoorType.eBad)
             //    lTempRoleAccessories.UpdateMat();
-
+            
             SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
         else if (other.tag == "Lipstick")
@@ -292,6 +292,7 @@ public class CPlayer : CMovableBase
                 this.SameStatusUpdate = true;
             }
 
+            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.1f);
             other.gameObject.SetActive(false);
             SetHpCount(CurHpCount - 1);
         }
@@ -409,7 +410,7 @@ public class CPlayer : CMovableBase
 
                 m_CurQualityType[(int)m_BuffPlayAccessoriesType] = m_BuffQualityType;
 
-                Time.timeScale = 1.0f;
+          
             }
         }
     }
