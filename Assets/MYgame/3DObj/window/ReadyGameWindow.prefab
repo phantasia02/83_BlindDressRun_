@@ -167,8 +167,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294606147
-  m_fontColor: {r: 0.2627451, g: 0.4917298, b: 0.98039216, a: 1}
+    rgba: 4282621434
+  m_fontColor: {r: 0.98039216, g: 0.6140817, b: 0.2627451, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -300,8 +300,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286391979
-  m_fontColor: {r: 0.6698113, g: 0.1484959, b: 0.48988825, a: 1}
+    rgba: 4288235205
+  m_fontColor: {r: 0.7735849, g: 0.27367392, b: 0.6006833, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -760,8 +760,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290198527
-  m_fontColor: {r: 1, g: 0.23113209, b: 0.71615577, a: 1}
+    rgba: 4288501247
+  m_fontColor: {r: 1, g: 0.33490568, b: 0.6153693, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1131,8 +1131,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294442948
-  m_fontColor: {r: 0.76862746, g: 1, b: 0.9704846, a: 1}
+    rgba: 4280865023
+  m_fontColor: {r: 1, g: 0.81688243, b: 0.15566039, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1358,8 +1358,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290198527
-  m_fontColor: {r: 1, g: 0.23113209, b: 0.71615577, a: 1}
+    rgba: 4288501247
+  m_fontColor: {r: 1, g: 0.33490568, b: 0.6153693, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1667,8 +1667,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286391979
-  m_fontColor: {r: 0.6698113, g: 0.1484959, b: 0.48988825, a: 1}
+    rgba: 4288235205
+  m_fontColor: {r: 0.7735849, g: 0.27367392, b: 0.6006833, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
