@@ -292,7 +292,7 @@ public class CPlayer : CMovableBase
                 this.SameStatusUpdate = true;
             }
 
-            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.1f);
+            
             other.gameObject.SetActive(false);
             SetHpCount(CurHpCount - 1);
         }

@@ -39,8 +39,10 @@ public class CHitStateBase : CMovableStatePototype
         //m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
         if (HitType == EHitType.eDoorGood)
             m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.5f);
+        else if (HitType == EHitType.eBad)
+            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
 
-        
+
     }
 
     protected override void updataState()
