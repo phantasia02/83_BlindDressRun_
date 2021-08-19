@@ -12,7 +12,7 @@ Material:
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
@@ -65,7 +65,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 1
     - _BumpScale: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0
     - _DstBlend: 10
     - _EnableExternalAlpha: 0
@@ -74,12 +74,12 @@ Material:
     - _Glossiness: 0
     - _GlossinessSource: 0
     - _GlossyReflections: 0
-    - _Metallic: 0.16
+    - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _Shininess: 0
-    - _Smoothness: 0
+    - _Smoothness: 0.02
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -89,9 +89,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.64705884, b: 0, a: 0.16470589}
+    - _BaseColor: {r: 1, g: 0.8035207, b: 0, a: 0.11372549}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.254717, g: 0.041819207, b: 0, a: 1}
+    - _EmissionColor: {r: 0.27450982, g: 0.11764706, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
