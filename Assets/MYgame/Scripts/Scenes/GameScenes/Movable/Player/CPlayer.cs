@@ -194,7 +194,7 @@ public class CPlayer : CMovableBase
 
     public void MouseDrag()
     {
-        const float CfHalfWidth = 2.0f;
+        const float CfHalfWidth = 3.0f;
         const float CfTotleWidth = CfHalfWidth * 2.0f;
         float lTempMoveX = Input.mousePosition.x - m_MyPlayerMemoryShare.m_OldMouseDownPos.x;
         float lTempMoveRatio = TotleSpeedRatio;

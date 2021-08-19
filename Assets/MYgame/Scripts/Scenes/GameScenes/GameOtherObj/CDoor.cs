@@ -32,9 +32,9 @@ public class CDoor : MonoBehaviour
         lTempV3.y += 2.5f;
         lTempGameObject.transform.position = lTempV3;
 
-        Tween lTempTween = lTempTransform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 1.0f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear);
+        Tween lTempTween = lTempTransform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 2.0f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear);
         lTempTween.SetLoops(-1, LoopType.Restart);
-        lTempTween = lTempTransform.DOLocalMoveY( 3.0f, 2.0f).SetEase(m_MyAnimationCurve);
+        lTempTween = lTempTransform.DOLocalMoveY( 3.0f, 3.0f).SetEase(m_MyAnimationCurve);
         lTempTween.SetLoops(-1, LoopType.Restart);
 
     }
