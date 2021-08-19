@@ -12,6 +12,7 @@ public static class StaticGlobalDel
         eHit            = 3,
         eWin            = 4,
         eOver           = 5,
+        eEnd            = 6,
         eMax
     }
 

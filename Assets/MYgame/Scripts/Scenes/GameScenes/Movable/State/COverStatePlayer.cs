@@ -21,7 +21,7 @@ public class COverStatePlayer : COverStateBase
         CAnimatorStateCtl.EState lTempState = CAnimatorStateCtl.EState.eDeath;
         m_MyMemoryShare.m_MySplineFollower.enabled = false;
 
-        if (m_MyGameManager.CurState == CGameManager.EState.eReadyEnd || m_MyGameManager.CurState == CGameManager.EState.eNextEnd)
+        if (m_MyGameManager.CurState == CGameManager.EState.eReadyEnd2 || m_MyGameManager.CurState == CGameManager.EState.eReadyEnd || m_MyGameManager.CurState == CGameManager.EState.eNextEnd)
             lTempState = CAnimatorStateCtl.EState.eIdle;
         else
             m_MyPlayerMemoryShare.m_MyPlayer.ShowHpBar(false);
@@ -38,7 +38,7 @@ public class COverStatePlayer : COverStateBase
 
     protected override void updataState()
     {
-        if (m_MyGameManager.CurState == CGameManager.EState.eReadyEnd || m_MyGameManager.CurState == CGameManager.EState.eNextEnd)
+        if (m_MyGameManager.CurState == CGameManager.EState.eReadyEnd2 || m_MyGameManager.CurState == CGameManager.EState.eReadyEnd || m_MyGameManager.CurState == CGameManager.EState.eNextEnd)
         {
             if (MomentinTime(3.0f))
             {

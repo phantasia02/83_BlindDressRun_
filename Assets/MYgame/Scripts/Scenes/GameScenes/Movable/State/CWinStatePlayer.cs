@@ -23,7 +23,6 @@ public class CWinStatePlayer : CWinStateBase
         {
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eIdle);
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
-
         }
         m_MyMemoryShare.m_MyMovable.transform.DOLocalRotate(new Vector3(0.0f, 180, 0.0f), 3.0f);
     }

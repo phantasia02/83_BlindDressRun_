@@ -123,10 +123,14 @@ public class CMovableBase : CGameObjBas
     [SerializeField] protected GameObject[] m_AllFXObj      = null;
     [SerializeField] protected GameObject[] m_FxParent      = null;
 
+
     // ==================== SerializeField ===========================================
 
     protected CMemoryShareBase m_MyMemoryShare = null;
     public CMemoryShareBase MyMemoryShare { get { return m_MyMemoryShare; } }
+
+    protected CTweenSequence m_EndDoTween = null;
+    public CTweenSequence EndDoTween { get { return m_EndDoTween; } }
 
     public SplineFollower MySplineFollower { get { return m_MyMemoryShare.m_MySplineFollower; } }
 
@@ -135,9 +139,12 @@ public class CMovableBase : CGameObjBas
     public float TotleSpeedRatio { get { return m_MyMemoryShare.m_TotleSpeed / StaticGlobalDel.g_DefMovableTotleSpeed; } }
     public int CurHpCount { get { return m_MyMemoryShare.m_CurHpCount; } }
 
+
+
     protected override void Awake()
     {
         m_ChildCollider = GetComponentsInChildren<Collider>();
+        m_EndDoTween = this.GetComponent<CTweenSequence>();
         base.Awake();
 
     }
@@ -200,6 +207,9 @@ public class CMovableBase : CGameObjBas
                     break;
                 case StaticGlobalDel.EMovableState.eOver:
                     m_AllState[i] = new COverStateBase(this);
+                    break;
+                case StaticGlobalDel.EMovableState.eEnd:
+                    m_AllState[i] = new CEndStateBase(this);
                     break;
             }
         }

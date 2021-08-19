@@ -19,9 +19,10 @@ public class CGameManager : MonoBehaviour
         eReady      = 0,
         ePlay       = 1,
         eReadyEnd   = 2,
-        eNextEnd = 3,
-        eGameOver   = 4,
-        eWinUI      = 5,
+        eReadyEnd2  = 3,
+        eNextEnd    = 4,
+        eGameOver   = 5,
+        eWinUI      = 6,
         eMax
     };
 
@@ -143,9 +144,15 @@ public class CGameManager : MonoBehaviour
             case EState.eReadyEnd:
                 {
                     //WinStateAICheatingTime();
-                    if (m_StateTime >= 3.0f)
-                        SetState(EState.eNextEnd);
-
+                    //if (m_StateTime >= 3.0f)
+                    //    SetState(EState.eNextEnd);
+                }
+                break;
+            case EState.eReadyEnd2:
+                {
+                    //WinStateAICheatingTime();
+                    //if (m_StateTime >= 3.0f)
+                    //    SetState(EState.eNextEnd);
                 }
                 break;
             case EState.eNextEnd:
@@ -205,6 +212,11 @@ public class CGameManager : MonoBehaviour
                 break;
             case EState.eReadyEnd:
                 {
+                    Player.ChangState = StaticGlobalDel.EMovableState.eEnd;
+                }
+                break;
+            case EState.eReadyEnd2:
+                {
                     CGGameSceneData.EFXEndMaterialType lTempFXEndMaterialType = CGGameSceneData.EFXEndMaterialType.eHappyPeople;
                     string lTempAnimationName = "win";
 
@@ -215,11 +227,9 @@ public class CGameManager : MonoBehaviour
                     }
 
 
-
                     for (int i = 0; i < m_AllEndNpc.Count; i++)
                     {
                         m_AllEndNpc[i].m_MyAnimator.SetTrigger(lTempAnimationName);
-                        //m_AllEndNpc[i].m_MyEndFx
 
                         for (int x = 0; x < m_AllEndNpc[i].m_MyEndFx.Length; x++)
                         {
@@ -359,6 +369,11 @@ public class CGameManager : MonoBehaviour
     public void OnReset()
     {
         m_ChangeScenes.ResetScene();
+    }
+
+    public void SetReadyEnd2()
+    {
+        SetState( EState.eReadyEnd2);
     }
 
 }

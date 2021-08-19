@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class CTweenSequence : MonoBehaviour
 {
+    [SerializeField] protected GameObject m_MyGameObject = null;
     public List<DOTweenModTest> m_ListDOTween;
     Sequence m_MySequence;
     CanvasGroup m_MyCanvasGroup = null;
@@ -14,22 +15,25 @@ public class CTweenSequence : MonoBehaviour
 
     private void Awake()
     {
-        m_MyCanvasGroup = gameObject.GetComponent<CanvasGroup>();
-        m_MyRenderer = gameObject.GetComponent<Renderer>();
-        m_MySequence = DOTween.Sequence();
-        m_MySequence.Pause();
-        m_MySequence.SetAutoKill(false);
-        BuildSequence();
+
     }
 
-    void BuildSequence()
+    public void BuildSequence()
     {
+        if (m_MyGameObject == null)
+            m_MyGameObject = this.gameObject;
+
+        m_MyCanvasGroup     = m_MyGameObject.GetComponent<CanvasGroup>();
+        m_MyRenderer        = m_MyGameObject.GetComponent<Renderer>();
+        m_MySequence        = DOTween.Sequence();
+        m_MySequence.Pause();
+        m_MySequence.SetAutoKill(false);
 
         for (int i = 0; i < m_ListDOTween.Count; i++)
         {
             if (m_ListDOTween[i] != null)
             {
-                m_ListDOTween[i].MyTransform = this.transform;
+                m_ListDOTween[i].MyTransform = m_MyGameObject.transform;
                 //if (m_ListDOTween[i].m_ELoopTweenType != DOTweenModTest.ELoopType.eNull)
                 //{
                 if (m_ListDOTween[i].m_MySequenceType == DOTweenModTest.ESequenceType.eAppend)
@@ -85,7 +89,7 @@ public class CTweenSequence : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_MySequence.PlayForward();
+        
     }
 
     public void Show()
@@ -93,7 +97,7 @@ public class CTweenSequence : MonoBehaviour
 
     }
 
-    public void PlayForward(){ }
+    public void PlayForward(){ m_MySequence.PlayForward(); }
     public void ResetSequence(){m_MySequence.Restart();}
 
     // Update is called once per frame

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CWaitStatePlayer : CWaitStateBase
+public class CEndStatePlayer : CEndStateBase
 {
     CPlayerMemoryShare m_MyPlayerMemoryShare = null;
 
-    public CWaitStatePlayer(CMovableBase pamMovableBase) : base(pamMovableBase)
+    public CEndStatePlayer(CMovableBase pamMovableBase) : base(pamMovableBase)
     {
         m_MyPlayerMemoryShare = (CPlayerMemoryShare)m_MyMemoryShare;
     }
@@ -15,9 +15,7 @@ public class CWaitStatePlayer : CWaitStateBase
     {
 
         base.InState();
-        m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.follow = false;
-        m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.enabled = true;
-        //m_MyPlayerMemoryShare.m_PlayerJumpCamera.gameObject.SetActive(false);
+        m_MyPlayerMemoryShare.m_PlayerWinLoseCamera.gameObject.SetActive(true);
 
     }
 

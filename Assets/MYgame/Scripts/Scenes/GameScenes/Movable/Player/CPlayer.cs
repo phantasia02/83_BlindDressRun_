@@ -62,6 +62,7 @@ public class CPlayer : CMovableBase
         m_AllState[(int)StaticGlobalDel.EMovableState.eHit]     = new CHitStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eWin]     = new CWinStatePlayer(this);
         m_AllState[(int)StaticGlobalDel.EMovableState.eOver]    = new COverStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eEnd]     = new CEndStatePlayer(this);
 
         AnimatorStateCtl.m_KeyFramMessageCallBack = AnimationCallBack;
 
@@ -298,24 +299,22 @@ public class CPlayer : CMovableBase
         }
         else if (other.tag == "End")
         {
-
             ShowHpBar(false);
 
-            m_MyPlayerMemoryShare.m_PlayerWinLoseCamera.gameObject.SetActive(true);
+           
             m_MyGameManager.SetState(CGameManager.EState.eReadyEnd);
-            m_MyMemoryShare.m_MySplineFollower.enabled = false;
             other.gameObject.SetActive(false);
 
-            if (m_AnimatorStateCtl != null)
-            {
-                if (CurHpCount < StaticGlobalDel.g_DefHp)
-                    ChangState = StaticGlobalDel.EMovableState.eOver;
-                else
-                    ChangState = StaticGlobalDel.EMovableState.eWin;
-            }
+            //if (m_AnimatorStateCtl != null)
+            //{
+            //    //if (CurHpCount < StaticGlobalDel.g_DefHp)
+            //    //    ChangState = StaticGlobalDel.EMovableState.eOver;
+            //    //else
+            //    ChangState = StaticGlobalDel.EMovableState.eEnd;
+            //}
             //    this.ChangState = StaticGlobalDel.EMovableState.eWait;
 
-            ShowEndFx(true);
+            
         }
     }
 
@@ -415,8 +414,11 @@ public class CPlayer : CMovableBase
         }
     }
 
-    public IEnumerator aaaatst()
+    public void ChangEndAnimation()
     {
-        yield return null;
+        if (CurHpCount < StaticGlobalDel.g_DefHp)
+            ChangState = StaticGlobalDel.EMovableState.eOver;
+        else
+            ChangState = StaticGlobalDel.EMovableState.eWin;
     }
 }
