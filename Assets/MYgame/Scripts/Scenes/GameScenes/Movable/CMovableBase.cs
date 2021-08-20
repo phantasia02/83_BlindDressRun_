@@ -119,12 +119,16 @@ public class CMovableBase : CGameObjBas
     [SerializeField] protected Transform m_MyFloorStartPoint = null;
     public Transform MyFloorStartPoint { get { return m_MyFloorStartPoint; } }
     
-    [SerializeField] protected Image        m_MyHpBarImage  = null;
-    [SerializeField] protected GameObject[] m_AllFXObj      = null;
-    [SerializeField] protected GameObject[] m_FxParent      = null;
+    [SerializeField] protected Image            m_MyHpBarImage  = null;
+    [SerializeField] protected RectTransform    m_MyHpTransform = null;
+    [SerializeField] protected GameObject[]     m_AllHpbarObj   = null;
+    [SerializeField] protected GameObject[]     m_AllFXObj      = null;
+    [SerializeField] protected GameObject[]     m_FxParent      = null;
 
 
     // ==================== SerializeField ===========================================
+
+    protected Canvas m_HpCanvas = null;
 
     protected CMemoryShareBase m_MyMemoryShare = null;
     public CMemoryShareBase MyMemoryShare { get { return m_MyMemoryShare; } }
@@ -145,8 +149,9 @@ public class CMovableBase : CGameObjBas
     {
         m_ChildCollider = GetComponentsInChildren<Collider>();
         m_EndDoTween = this.GetComponent<CTweenSequence>();
+        m_HpCanvas = m_MyHpBarImage.GetComponentInParent<Canvas>();
         base.Awake();
-
+        //m_MyHpTransform.localPosition
     }
 
     
@@ -249,7 +254,6 @@ public class CMovableBase : CGameObjBas
             m_MyMemoryShare.m_HpMat.SetFloat(HpRatioID, m_MyMemoryShare.m_CurHpRatio);
         }
 
-
         if (m_MyMemoryShare.m_TotleSpeed != m_MyMemoryShare.m_TargetTotleSpeed)
         {
             m_MyMemoryShare.m_TotleSpeed = Mathf.Lerp(m_MyMemoryShare.m_TotleSpeed, m_MyMemoryShare.m_TargetTotleSpeed, 3.0f * Time.deltaTime);
@@ -259,6 +263,17 @@ public class CMovableBase : CGameObjBas
 
             m_MyMemoryShare.m_MySplineFollower.followSpeed = m_MyMemoryShare.m_TotleSpeed;
         }
+
+
+        Vector3 lTempMyTransformPosition = transform.position;
+        lTempMyTransformPosition.y += 3.5f;
+        Vector3 lTempv3 = m_MyGameManager.MainCamera.WorldToScreenPoint(lTempMyTransformPosition);
+        //lTempv3.y = lTempv3.z;
+        //lTempv3.z = 0.0f;
+        //Debug.Log("lTempv3 = " + lTempv3);
+        m_MyHpTransform.position = lTempv3;
+       // RectTransformUtility.ScreenPointToLocalPointInRectangle(m_HpCanvas.pixelRect, )
+       //  this.transform.position.
 
         if (m_CurState != StaticGlobalDel.EMovableState.eNull && m_AllState[(int)m_CurState] != null)
         {

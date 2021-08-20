@@ -35,8 +35,6 @@ public class CPlayer : CMovableBase
     //public void SetAllReplaceableAccessories(CRoleAccessories setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType)
     //{m_AllReplaceableAccessories[(int)lPlayAccessoriesType] = setRoleAccessories;}
 
-    [SerializeField] GameObject[] m_AllHpBarObj;
-    public Color m_HappyChangeColor = new Color();
 
     [SerializeField] List<List<List<GameObject>>> m_MyAccessories = new List<List<List<GameObject>>>((int)CGGameSceneData.EPlayAccessoriesType.eMax);
     public void AddAllReplaceableAccessories(GameObject setRoleAccessories, CGGameSceneData.EPlayAccessoriesType lPlayAccessoriesType, CGGameSceneData.EDoorType QualityType)
@@ -101,9 +99,9 @@ public class CPlayer : CMovableBase
         //m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
         //m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
         //m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
+        m_MyPlayerMemoryShare.m_AllHpBarObj         = m_AllHpbarObj;
         m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_MyPlayer            = this;
-        m_MyPlayerMemoryShare.m_AllHpBarObj         = m_AllHpBarObj;
 
         SetBaseMemoryShare();
     }
