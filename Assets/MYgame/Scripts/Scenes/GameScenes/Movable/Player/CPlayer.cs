@@ -11,7 +11,6 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public Vector3                  m_OldMouseDownPos       = Vector3.zero;
     public CinemachineVirtualCamera m_PlayerNormalCamera    = null;
     public CinemachineVirtualCamera m_PlayerWinLoseCamera   = null;
-    public GameObject               m_TouchBouncingBed      = null;
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
     public SplineFollower           m_DamiCameraFollwer     = null;
     public CPlayer                  m_MyPlayer              = null;
@@ -293,7 +292,7 @@ public class CPlayer : CMovableBase
                 this.SameStatusUpdate = true;
             }
 
-            
+            m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eUglyTemp);
             other.gameObject.SetActive(false);
             SetHpCount(CurHpCount - 1);
         }
@@ -362,6 +361,8 @@ public class CPlayer : CMovableBase
 
                 if (m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
                     m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
+                else if (m_BuffQualityType == CGGameSceneData.EDoorType.eBad)
+                    m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eUglyTemp);
 
                 for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
                 {

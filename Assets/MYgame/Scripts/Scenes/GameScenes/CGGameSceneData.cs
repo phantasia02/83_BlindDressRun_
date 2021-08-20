@@ -28,6 +28,7 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
         eFlareGoodDoor  = 1,
         eUgly           = 2,
         eEnd            = 3,
+        eUglyTemp       = 4,
         eMax,
     };
 
