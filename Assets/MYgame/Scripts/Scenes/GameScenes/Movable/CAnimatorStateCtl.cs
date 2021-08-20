@@ -156,9 +156,21 @@ public class CAnimatorStateCtl : MonoBehaviour
             return;
 
 
+        float lTempsqr = 0.0f;
+
+        Vector3 lTempPos = Vector3.zero;
+        lTempPos.y = this.transform.localPosition.y;
+        lTempsqr = Vector3.SqrMagnitude(lTempPos);
+
+        if (lTempsqr >= 0.001f)
+            this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, lTempPos, 5.0f * Time.deltaTime);
+        else
+            this.transform.localPosition = lTempPos;
+
+
         if (ResetForward)
         {
-            float lTempsqr = Vector3.SqrMagnitude(m_MyMovableBase.transform.forward - this.transform.forward);
+            lTempsqr = Vector3.SqrMagnitude(m_MyMovableBase.transform.forward - this.transform.forward);
             if (lTempsqr >= 0.01f)
                 this.transform.forward = Vector3.Lerp(this.transform.forward, m_MyMovableBase.transform.forward, 5.0f * Time.deltaTime);
             else

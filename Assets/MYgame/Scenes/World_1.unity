@@ -4877,7 +4877,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8278108015197543371}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8278108015197543372}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ddc1a2536715a24095c464a2c394d5d, type: 3}
@@ -12042,6 +12042,281 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f751b712682bf2145a553a773f3b8a53, type: 3}
+--- !u!1 &8278108015197543372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8278108014041218381, guid: f751b712682bf2145a553a773f3b8a53,
+    type: 3}
+  m_PrefabInstance: {fileID: 8278108015197543371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8278108015197543373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8278108014041218371, guid: f751b712682bf2145a553a773f3b8a53,
+    type: 3}
+  m_PrefabInstance: {fileID: 8278108015197543371}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278108015197543372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025bc2d84ab633e44879831db3b396bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8278108015197543374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278108015197543372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641f71b0e83156d4a9c2396e44725080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MyGameObject: {fileID: 8278108015197543372}
+  m_ListDOTween:
+  - m_MySequenceType: 0
+    m_TweenType: 0
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 522525863}
+    m_TargetV3: {x: 0, y: 0, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 1
+    m_StartTime: 0
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
+  - m_MySequenceType: 0
+    m_TweenType: 0
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 432845612}
+    m_TargetV3: {x: 0, y: 0, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 1
+    m_StartTime: 0
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
+  - m_MySequenceType: 5
+    m_TweenType: 0
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 0}
+    m_TargetV3: {x: 0, y: 0, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 0
+    m_StartTime: 0
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8278108015197543373}
+          m_MethodName: ChangEndAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
+  - m_MySequenceType: 0
+    m_TweenType: 4
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 0}
+    m_TargetV3: {x: 0, y: 180, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 2
+    m_StartTime: 0
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8278108015197543373}
+          m_MethodName: ChangEndAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
+  - m_MySequenceType: 3
+    m_TweenType: 4
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 0}
+    m_TargetV3: {x: 0, y: 180, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 2
+    m_StartTime: 1
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
+  - m_MySequenceType: 5
+    m_TweenType: 0
+    m_ELoopTweenType: 0
+    m_MyAnimationCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    m_TargetTransform: {fileID: 0}
+    m_TargetV3: {x: 0, y: 0, z: 0}
+    m_TargetColor: {r: 0, g: 0, b: 0, a: 0}
+    m_TargetAlpha: 0
+    m_Duration: 0
+    m_StartTime: 0
+    m_LoopCount: 0
+    m_UnityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 965528824}
+          m_MethodName: SetReadyEnd2
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_startZero: 0
+    m_MaterialEnableKeyword: 
+    m_MaterialKeywordToID: 
+    m_shPropColorID: 0
 --- !u!1 &8654267973526813712
 GameObject:
   m_ObjectHideFlags: 0
