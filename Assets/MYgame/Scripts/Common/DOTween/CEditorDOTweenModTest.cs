@@ -3,6 +3,9 @@ using UnityEditor;
 using System.Collections;
 using DG.Tweening;
 
+#if UNITY_EDITOR
+
+
 [CustomPropertyDrawer(typeof(DOTweenModTest))]
 public class CEditorDOTweenModTest : PropertyDrawer
 {
@@ -217,3 +220,4 @@ public class CEditorDOTweenModTest : PropertyDrawer
         //return (20 - EditorGUIUtility.singleLineHeight) +TotleHigh;
     }
 }
+#endif
