@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllDoorMat:
+  - {fileID: 2100000, guid: 6148c3593e9778740a0099b33ea62760, type: 2}
+  - {fileID: 2100000, guid: 6148c3593e9778740a0099b33ea62760, type: 2}
+  - {fileID: 2100000, guid: b9f6b0788d632054191192df243352dd, type: 2}
+  m_AllDoorCurtainMat:
   - {fileID: 2100000, guid: b62db99a656040345bf679900994e446, type: 2}
   - {fileID: 2100000, guid: b62db99a656040345bf679900994e446, type: 2}
   - {fileID: 2100000, guid: 867915887d9434c4da5122b2309fa30a, type: 2}
@@ -55,6 +59,7 @@ MonoBehaviour:
   - {fileID: 5004537445772219778, guid: 4b1ee5f482f6cb940b0307ec9ddd02da, type: 3}
   - {fileID: 5004537445772219778, guid: 2cc35ebfd97ec9f4c96283028f19763b, type: 3}
   - {fileID: 5004537445772219778, guid: 4f9793f9db692414d8db2348d65c4acb, type: 3}
+  - {fileID: 5004537445772219778, guid: faa1af5709735f3449e403d278c918b6, type: 3}
   m_AllFXEndMaterial:
   - {fileID: 2100000, guid: 9fea712f870736742b0d19a1b71a4fdc, type: 2}
   - {fileID: 2100000, guid: 650705e698c2e3d4b9881859887b0b55, type: 2}

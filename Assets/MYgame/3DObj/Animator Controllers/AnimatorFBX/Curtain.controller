@@ -59,7 +59,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 9142541398875461146}
-    m_Position: {x: 30, y: 200, z: 0}
+    m_Position: {x: 70, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -730318236683054601}
     m_Position: {x: 300, y: 290, z: 0}
@@ -81,7 +81,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Curtain_Reversed
-  m_Speed: 1
+  m_Speed: -5
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -93,7 +93,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: aaf02915b2da80f43a6b33c2b4bd0daf, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7a103a9a78024974fb858a83f84cb49d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

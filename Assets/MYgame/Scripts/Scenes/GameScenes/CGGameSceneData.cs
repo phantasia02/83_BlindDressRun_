@@ -42,6 +42,7 @@ public class CGGameSceneData : CSingletonMonoBehaviour<CGGameSceneData>
     };
 
     [SerializeField] public Material[]      m_AllDoorMat             = null;
+    [SerializeField] public Material[]      m_AllDoorCurtainMat      = null;
     [SerializeField] public Material[]      m_AllPlayAccessoriesMat  = null;
     [SerializeField] public GameObject[]    m_AllFX                  = null;
     [SerializeField] public Material[]      m_AllFXEndMaterial       = null;

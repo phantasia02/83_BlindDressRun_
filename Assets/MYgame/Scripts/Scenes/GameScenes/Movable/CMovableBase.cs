@@ -213,12 +213,15 @@ public class CMovableBase : CGameObjBas
                 case StaticGlobalDel.EMovableState.eOver:
                     m_AllState[i] = new COverStateBase(this);
                     break;
+                case StaticGlobalDel.EMovableState.eTransfiguration:
+                    m_AllState[i] = new CTransfigurationStateBase(this);
+                    break;
                 case StaticGlobalDel.EMovableState.eEnd:
                     m_AllState[i] = new CEndStateBase(this);
                     break;
             }
         }
-
+        
         m_MyMemoryShare.m_AllState = m_AllState;
     }
 

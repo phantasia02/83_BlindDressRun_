@@ -54,12 +54,13 @@ public class CPlayer : CMovableBase
 
         CreateMemoryShare();
 
-        m_AllState[(int)StaticGlobalDel.EMovableState.eWait]    = new CWaitStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eMove]    = new CMoveStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eHit]     = new CHitStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eWin]     = new CWinStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eOver]    = new COverStatePlayer(this);
-        m_AllState[(int)StaticGlobalDel.EMovableState.eEnd]     = new CEndStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eWait]            = new CWaitStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eMove]            = new CMoveStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eHit]             = new CHitStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eWin]             = new CWinStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eOver]            = new COverStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eEnd]             = new CEndStatePlayer(this);
+        m_AllState[(int)StaticGlobalDel.EMovableState.eTransfiguration] = new CTransfigurationStateplayer(this);
 
         AnimatorStateCtl.m_KeyFramMessageCallBack = AnimationCallBack;
 
@@ -234,18 +235,14 @@ public class CPlayer : CMovableBase
         if (other.tag == "Door")
         {
             CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
-            lTempCDoorGroup.Show(false);
+            //lTempCDoorGroup.Show(false);
 
 
             CDoorGroup.ELDoorType lTempDoorDis;
             if (MySplineFollower.motion.offset.x < 0.0f)
-            {
                 lTempDoorDis = CDoorGroup.ELDoorType.eLDoor;
-            }
             else
-            {
                 lTempDoorDis = CDoorGroup.ELDoorType.eRDoor;
-            }
 
             CDoor lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
 
@@ -261,17 +258,15 @@ public class CPlayer : CMovableBase
             //m_BuffQualityType = lTempType;
 
             //if (m_AnimatorStateCtl != null && m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
-            if (m_AnimatorStateCtl != null)
-            {
-                ((CHitStatePlayer)m_AllState[(int)StaticGlobalDel.EMovableState.eHit]).HitType = CHitStateBase.EHitType.eDoorGood;
-                this.ChangState = StaticGlobalDel.EMovableState.eHit;
-                this.SameStatusUpdate = true;
-            }
-
+            //if (m_AnimatorStateCtl != null)
+            //{
+               
+            //}
             //if (lTempType == CGGameSceneData.EDoorType.eBad)
             //    lTempRoleAccessories.UpdateMat();
-            
-            SetHpCount(CurHpCount + (lTempAddLevel * 3));
+
+            this.ChangState = StaticGlobalDel.EMovableState.eTransfiguration;
+            //SetHpCount(CurHpCount + (lTempAddLevel * 3));
         }
         else if (other.tag == "Lipstick")
         {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1904475211661295007}
   - component: {fileID: 6334672024566121062}
   - component: {fileID: 5516384844015626213}
+  - component: {fileID: 7238004678929032980}
   m_Layer: 0
   m_Name: Curtain
   m_TagString: Untagged
@@ -342,7 +343,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235638527797749541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 5a95388684c05cf40a2370ea43d73231, type: 3}
   m_Controller: {fileID: 9100000, guid: 77576d42a1239734093f811359a2a85d, type: 2}
   m_CullingMode: 1
@@ -353,6 +354,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7238004678929032980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235638527797749541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8caa42179f474de478543f12bff1b0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1675350017708971256
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +399,7 @@ Transform:
   - {fileID: 4368690679958053659}
   - {fileID: 5514163745404423504}
   - {fileID: 1904475211661295007}
+  - {fileID: 3903884609551673275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -434,7 +448,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_DoorRenderer: {fileID: 9054019693616676073}
+  m_DoorRenderer: {fileID: 6687021270912267839}
+  m_DoorCurtainRenderer: {fileID: 6334672024566121062}
   m_AccessoriesRenderer: {fileID: 5394834387730933976}
   m_ShowAccessories: {fileID: 0}
   m_MyDoorType: 0
@@ -518,6 +533,36 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &6296717418558534314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3903884609551673275}
+  m_Layer: 0
+  m_Name: PlayerTargetpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3903884609551673275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296717418558534314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1675350017708971143}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1675350016505547771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -691,12 +736,6 @@ PrefabInstance:
 --- !u!4 &7902577539896623670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8857333146687393444, guid: fbf027bbd8abcab4e80c899c95a76faa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1675350016670862482}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &9054019693616676073 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7702948693404889211, guid: fbf027bbd8abcab4e80c899c95a76faa,
     type: 3}
   m_PrefabInstance: {fileID: 1675350016670862482}
   m_PrefabAsset: {fileID: 0}

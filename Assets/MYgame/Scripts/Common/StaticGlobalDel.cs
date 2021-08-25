@@ -6,13 +6,14 @@ public static class StaticGlobalDel
 {
     public enum EMovableState
     {
-        eNull           = 0,
-        eWait           = 1,
-        eMove           = 2,
-        eHit            = 3,
-        eWin            = 4,
-        eOver           = 5,
-        eEnd            = 6,
+        eNull               = 0,
+        eWait               = 1,
+        eMove               = 2,
+        eHit                = 3,
+        eWin                = 4,
+        eOver               = 5,
+        eTransfiguration    = 6,
+        eEnd                = 7,
         eMax
     }
 
