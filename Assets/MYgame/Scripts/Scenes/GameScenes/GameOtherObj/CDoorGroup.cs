@@ -50,9 +50,4 @@ public class CDoorGroup : MonoBehaviour
       //  this.gameObject.SetActive(setshow);
     }
 
-    public void PlayAnimation(ELDoorType RLDoor)
-    {
-
-    }
-
 }

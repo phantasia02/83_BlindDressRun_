@@ -17,6 +17,9 @@ public class CTransfigurationStateplayer : CTransfigurationStateBase
         m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.follow = false;
         m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.enabled = true;
         UpdateOriginalAnimation();
+
+        m_MyPlayerMemoryShare.m_MyPlayTransfiguration.BuildSequence();
+        m_MyPlayerMemoryShare.m_MyPlayTransfiguration.PlayForward();
     }
 
     protected override void updataState()

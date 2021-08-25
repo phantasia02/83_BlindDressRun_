@@ -15,6 +15,7 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public SplineFollower           m_DamiCameraFollwer     = null;
     public CPlayer                  m_MyPlayer              = null;
     public GameObject[]             m_AllHpBarObj           = null;
+    public CTweenSequence           m_MyPlayTransfiguration = null;
 };
 
 public class CPlayer : CMovableBase
@@ -45,6 +46,7 @@ public class CPlayer : CMovableBase
 
     CGGameSceneData.EPlayAccessoriesType m_BuffPlayAccessoriesType;
     CGGameSceneData.EDoorType m_BuffQualityType;
+    CDoor m_BuffDoorObj = null;
 
     protected Vector3 m_OldMouseDragDir = Vector3.zero;
 
@@ -103,6 +105,13 @@ public class CPlayer : CMovableBase
         m_MyPlayerMemoryShare.m_AllHpBarObj         = m_AllHpbarObj;
         m_MyPlayerMemoryShare.m_DamiCameraFollwer   = m_MyGameManager.DamiCameraFollwer.GetComponent<SplineFollower>();
         m_MyPlayerMemoryShare.m_MyPlayer            = this;
+
+        CTweenSequence[] lTempCTweenSequence =  this.GetComponentsInChildren<CTweenSequence>();
+        for (int i = 0; i < lTempCTweenSequence.Length; i++)
+        {
+            if (lTempCTweenSequence[i].name == "PlayTransfiguration")
+                m_MyPlayerMemoryShare.m_MyPlayTransfiguration = lTempCTweenSequence[i];
+        }
 
         SetBaseMemoryShare();
     }
@@ -244,10 +253,10 @@ public class CPlayer : CMovableBase
             else
                 lTempDoorDis = CDoorGroup.ELDoorType.eRDoor;
 
-            CDoor lTempDoor = lTempCDoorGroup.GetDoor(lTempDoorDis);
+            m_BuffDoorObj = lTempCDoorGroup.GetDoor(lTempDoorDis);
 
-            m_BuffPlayAccessoriesType = lTempDoor.PlayAccessoriesType;
-            m_BuffQualityType = lTempDoor.DoorType;
+            m_BuffPlayAccessoriesType = m_BuffDoorObj.PlayAccessoriesType;
+            m_BuffQualityType = m_BuffDoorObj.DoorType;
 
             int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
 
@@ -260,10 +269,13 @@ public class CPlayer : CMovableBase
             //if (m_AnimatorStateCtl != null && m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
             //if (m_AnimatorStateCtl != null)
             //{
-               
+
             //}
             //if (lTempType == CGGameSceneData.EDoorType.eBad)
             //    lTempRoleAccessories.UpdateMat();
+            m_MyPlayerMemoryShare.m_MyPlayTransfiguration.m_ListDOTween[0].m_TargetTransform = m_BuffDoorObj.TargetPos;
+            
+
 
             this.ChangState = StaticGlobalDel.EMovableState.eTransfiguration;
             //SetHpCount(CurHpCount + (lTempAddLevel * 3));
@@ -368,42 +380,10 @@ public class CPlayer : CMovableBase
                     //lTempMaterial.DOColor(Color.black, shPropColorID, 1.0f);
                 }
 
-                //lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                //lTempMaterial.DisableKeyword("_EMISSION");
-                //lTempMaterial = null;
-
-                //m_BuffRoleAccessories.UpdateMat();
-
-                //lTempMaterial = m_BuffRoleAccessories.MyRenderer.material;
-                //lTempMaterial.EnableKeyword("_EMISSION");
-                //lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
-                //lTempMaterial.DOColor(new Color(0.0f, 0.0f, 0.0f), shPropColorID, 1.0f);
             }
-            //else if (CallbackReturn.iIndex == 2)
-            //{
-            //    for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
-            //    {
-            //        lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
-            //        lTempRenderer = lTempgameobj.GetComponent<Renderer>();
-            //        lTempMaterial = lTempRenderer.material;
-            //        lTempMaterial.SetColor(shPropColorID, m_HappyChangeColor);
-            //        lTempMaterial.DOColor(Color.black, shPropColorID, 1.0f);
-            //    }
-            //}
             else if (CallbackReturn.iIndex == 3)
             {
-                //for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
-                //{
-                //    lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
-                //    lTempRenderer = lTempgameobj.GetComponent<Renderer>();
-                //    lTempMaterial = lTempRenderer.material;
-                //    lTempMaterial.DisableKeyword("_EMISSION");
-                //    lTempMaterial.SetColor(shPropColorID, Color.black);
-                //}
-
                 m_CurQualityType[(int)m_BuffPlayAccessoriesType] = m_BuffQualityType;
-
-          
             }
         }
     }
