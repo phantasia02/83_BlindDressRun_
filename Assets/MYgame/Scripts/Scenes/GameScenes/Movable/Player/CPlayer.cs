@@ -435,7 +435,7 @@ public class CPlayer : CMovableBase
         }
         //else if (eventnumber == 2)
         //{
-        //    //m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+        //    m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
         //}
         else if (eventnumber == 3)
         {
