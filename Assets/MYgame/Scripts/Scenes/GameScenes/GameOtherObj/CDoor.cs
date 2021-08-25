@@ -41,7 +41,7 @@ public class CDoor : MonoBehaviour
 
         m_MyAccessoriesObj = GameObject.Instantiate(m_ShowAccessories, this.transform);
         Transform lTempTransform = m_MyAccessoriesObj.transform;
-        Vector3 lTempV3 = TargetPos.transform.position;
+        Vector3 lTempV3 = this.transform.position;
         lTempV3.y += 1.5f;
         m_MyAccessoriesObj.transform.position = lTempV3;
 
