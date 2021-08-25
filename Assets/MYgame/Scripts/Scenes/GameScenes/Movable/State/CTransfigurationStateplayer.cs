@@ -16,7 +16,12 @@ public class CTransfigurationStateplayer : CTransfigurationStateBase
         base.InState();
         m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.follow = false;
         m_MyPlayerMemoryShare.m_MyPlayer.MySplineFollower.enabled = true;
-        UpdateOriginalAnimation();
+
+        if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
+        {
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+        }
 
         m_MyPlayerMemoryShare.m_MyPlayTransfiguration.BuildSequence();
         m_MyPlayerMemoryShare.m_MyPlayTransfiguration.PlayForward();
@@ -36,12 +41,15 @@ public class CTransfigurationStateplayer : CTransfigurationStateBase
     {
     }
 
-    public override void UpdateOriginalAnimation()
+
+    public void SetPose()
     {
         if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
         {
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eRun);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit, (int)CHitStateBase.EHitType.eDoorPose);
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.ResetForward = false;
+           
         }
     }
 }

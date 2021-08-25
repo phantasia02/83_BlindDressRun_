@@ -23,6 +23,11 @@ public class CDoorGroup : MonoBehaviour
         m_AllRenderer = this.GetComponentsInChildren<Renderer>();
     }
 
+    public void ShowCollider(bool setshow)
+    {
+        m_Myprotected.gameObject.SetActive(setshow);
+    }
+
 
     public void Show(bool setshow)
     {
@@ -46,8 +51,8 @@ public class CDoorGroup : MonoBehaviour
         //for (int i = 0; i < m_AllDoor.Length; i++)
         //    m_AllDoor[i].ShowAccessories(setshow);
 
-        m_Myprotected.gameObject.SetActive(setshow);
-      //  this.gameObject.SetActive(setshow);
+
+        //  this.gameObject.SetActive(setshow);
     }
 
 }

@@ -29,6 +29,9 @@ public class CPlayer : CMovableBase
     [SerializeField] CinemachineVirtualCamera m_PlayerNormalCamera;
     public CinemachineVirtualCamera PlayerNormalFollowObj { get { return m_PlayerNormalCamera; } }
 
+    [SerializeField] CinemachineVirtualCamera m_PlayerNormalBuffCamera;
+    public CinemachineVirtualCamera PlayerNormalBuffCamera { get { return m_PlayerNormalBuffCamera; } }
+
     [SerializeField] CinemachineVirtualCamera m_PlayerWinLoseCamera;
     public CinemachineVirtualCamera PlayerWinLoseCamera { get { return m_PlayerWinLoseCamera; } }
 
@@ -46,6 +49,7 @@ public class CPlayer : CMovableBase
 
     CGGameSceneData.EPlayAccessoriesType m_BuffPlayAccessoriesType;
     CGGameSceneData.EDoorType m_BuffQualityType;
+    CDoorGroup m_BuffDoorGroup = null;
     CDoor m_BuffDoorObj = null;
 
     protected Vector3 m_OldMouseDragDir = Vector3.zero;
@@ -129,16 +133,8 @@ public class CPlayer : CMovableBase
     {
         base.Update();
 
-        
-
         if (m_MyGameManager.CurState == CGameManager.EState.ePlay || m_MyGameManager.CurState == CGameManager.EState.eReady)
             InputUpdata();
-
-
-       // m_MyPlayerMemoryShare.m_DamiCameraFollwer.
-        //CGameSceneWindow lTempGameSceneWindow = CGameSceneWindow.SharedInstance;
-        //if (lTempGameSceneWindow && lTempGameSceneWindow.GetShow())
-        //    lTempGameSceneWindow.SetBouncingBedCount(m_MyGameManager.GetFloorBouncingBedBoxCount(m_MyMemoryShare.m_FloorNumber));
     }
 
     public void updateFollwer(){ m_MyPlayerMemoryShare.m_DamiCameraFollwer.SetPercent(m_MyPlayerMemoryShare.m_MySplineFollower.modifiedResult.percent); }
@@ -243,9 +239,9 @@ public class CPlayer : CMovableBase
 
         if (other.tag == "Door")
         {
-            CDoorGroup lTempCDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
+            m_BuffDoorGroup = other.gameObject.GetComponentInParent<CDoorGroup>();
             //lTempCDoorGroup.Show(false);
-
+            m_BuffDoorGroup.ShowCollider(false);
 
             CDoorGroup.ELDoorType lTempDoorDis;
             if (MySplineFollower.motion.offset.x < 0.0f)
@@ -253,13 +249,13 @@ public class CPlayer : CMovableBase
             else
                 lTempDoorDis = CDoorGroup.ELDoorType.eRDoor;
 
-            m_BuffDoorObj = lTempCDoorGroup.GetDoor(lTempDoorDis);
+            m_BuffDoorObj = m_BuffDoorGroup.GetDoor(lTempDoorDis);
 
             m_BuffPlayAccessoriesType = m_BuffDoorObj.PlayAccessoriesType;
             m_BuffQualityType = m_BuffDoorObj.DoorType;
 
-            int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
-
+            
+            
             //CRoleAccessories lTempRoleAccessories = m_AllReplaceableAccessories[(int)lTempPlayAccessoriesType];
             //lTempRoleAccessories.SetUpdateMat(lTempRoleAccessories.CurLevelIndex + lTempAddLevel);
             //m_BuffRoleAccessories = lTempRoleAccessories;
@@ -275,10 +271,13 @@ public class CPlayer : CMovableBase
             //    lTempRoleAccessories.UpdateMat();
             m_MyPlayerMemoryShare.m_MyPlayTransfiguration.m_ListDOTween[0].m_TargetTransform = m_BuffDoorObj.TargetPos;
             
-
-
             this.ChangState = StaticGlobalDel.EMovableState.eTransfiguration;
-            //SetHpCount(CurHpCount + (lTempAddLevel * 3));
+
+            m_PlayerNormalBuffCamera.gameObject.SetActive(true);
+
+
+
+
         }
         else if (other.tag == "Lipstick")
         {
@@ -317,8 +316,6 @@ public class CPlayer : CMovableBase
             //    ChangState = StaticGlobalDel.EMovableState.eEnd;
             //}
             //    this.ChangState = StaticGlobalDel.EMovableState.eWait;
-
-            
         }
     }
 
@@ -388,6 +385,7 @@ public class CPlayer : CMovableBase
         }
     }
 
+
     public void ChangEndAnimation()
     {
         if (CurHpCount < StaticGlobalDel.g_DefHp)
@@ -395,4 +393,68 @@ public class CPlayer : CMovableBase
         else
             ChangState = StaticGlobalDel.EMovableState.eWin;
     }
+
+    public void PlayTransfiguration(int eventnumber)
+    {
+        if (eventnumber == 0)
+            m_BuffDoorObj.PlayAnimation();
+        else if (eventnumber == 1)
+        {
+            ((CTransfigurationStateplayer)m_AllState[(int)StaticGlobalDel.EMovableState.eTransfiguration]).SetPose();
+            m_BuffDoorObj.ShowmAccessoriesObj(false);
+
+            if (m_BuffQualityType == CGGameSceneData.EDoorType.eGood)
+                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eFlareGoodDoor);
+            else if (m_BuffQualityType == CGGameSceneData.EDoorType.eBad)
+                m_FxParent[(int)EFxParentType.eSpine].transform.NewFxAddParentShow(CGGameSceneData.EAllFXType.eUglyTemp);
+
+
+            int shPropColorID = Shader.PropertyToID("_EmissionColor");
+            Material lTempMaterial = null;
+            Renderer lTempRenderer = null;
+            GameObject lTempgameobj = null;
+
+            for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]].Count; i++)
+            {
+                lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_CurQualityType[(int)m_BuffPlayAccessoriesType]][i];
+                lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                lTempMaterial = lTempRenderer.material;
+                lTempgameobj.SetActive(false);
+            }
+
+            for (int i = 0; i < m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType].Count; i++)
+            {
+                lTempgameobj = m_MyAccessories[(int)m_BuffPlayAccessoriesType][(int)m_BuffQualityType][i];
+                lTempRenderer = lTempgameobj.GetComponent<Renderer>();
+                lTempMaterial = lTempRenderer.material;
+                lTempgameobj.SetActive(true);
+            }
+
+            int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
+            SetHpCount(CurHpCount + (lTempAddLevel * 3));
+        }
+        //else if (eventnumber == 2)
+        //{
+        //    //m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+        //}
+        else if (eventnumber == 3)
+        {
+            Vector2 lTempOffset = MySplineFollower.motion.offset;
+            lTempOffset.x = MySplineFollower.motion.offset.x < 0.0f ? -1.8f : 1.8f;
+            MySplineFollower.motion.offset = lTempOffset;
+
+            SplineSample lTempSplineSample = m_MyPlayerMemoryShare.m_MySplineFollower.spline.Project(this.transform.position);
+            m_MyPlayerMemoryShare.m_MySplineFollower.SetPercent(lTempSplineSample.percent);
+
+            updateFollwer();
+
+            m_BuffDoorGroup.Show(false);
+            m_PlayerNormalBuffCamera.gameObject.SetActive(false);
+            ChangState = StaticGlobalDel.EMovableState.eMove;
+
+            m_BuffDoorGroup = null;
+            m_BuffDoorObj = null;
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ public class CHitStateBase : CMovableStatePototype
     public enum EHitType
     {
         eBad        = 0,
-        eDoorGood   = 1,
+        eDoorPose   = 1,
         eNormalGood = 2,
         eMax
     }
@@ -37,10 +37,8 @@ public class CHitStateBase : CMovableStatePototype
     {
         UpdateOriginalAnimation();
         //m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
-        if (HitType == EHitType.eDoorGood)
-            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.5f);
-        else if (HitType == EHitType.eBad)
-            m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
+
+        m_MyMemoryShare.m_MyMovable.SetMoveBuff(CMovableBase.ESpeedBuff.eHit, 0.01f);
 
 
     }
@@ -51,12 +49,15 @@ public class CHitStateBase : CMovableStatePototype
         {
             if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.PlayingEnd)
                 m_MyMemoryShare.m_MyMovable.ChangState = StaticGlobalDel.EMovableState.eMove;
+            else
+            {
+                
+               // if (m_StateTime >= CHitTime)
+               if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.PlayingEnd)
+                    m_MyMemoryShare.m_MyMovable.ChangState = StaticGlobalDel.EMovableState.eMove;
+            }
         }
-        else
-        {
-            if (m_StateTime >= CHitTime)
-                m_MyMemoryShare.m_MyMovable.ChangState = StaticGlobalDel.EMovableState.eMove;
-        }
+
     }
 
     protected override void OutState()
@@ -69,11 +70,9 @@ public class CHitStateBase : CMovableStatePototype
     {
         if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)
         {
-            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit, (int)HitType);
+            m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.SetCurState(CAnimatorStateCtl.EState.eHit, (int)EHitType.eBad);
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.AnimatorSpeed = 1.0f;
             m_MyMemoryShare.m_MyMovable.AnimatorStateCtl.ResetForward = false;
         }
-
-       
     }
 }
