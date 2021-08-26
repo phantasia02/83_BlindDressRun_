@@ -526,8 +526,10 @@ public class CMovableBase : CGameObjBas
         m_AllFXObj[(int)EMyFxType.eHighLight].SetActive(m_MyMemoryShare.m_CurHpCount >= (StaticGlobalDel.g_MaxHp - 2));
 
         if (m_MyMemoryShare.m_CurHpCount == 0)
+        {
             this.ChangState = StaticGlobalDel.EMovableState.eOver;
-
+            return;
+        }
         if (AnimatorStateCtl != null)
         {
             if (m_MyMemoryShare.m_CurHpCount > 12)

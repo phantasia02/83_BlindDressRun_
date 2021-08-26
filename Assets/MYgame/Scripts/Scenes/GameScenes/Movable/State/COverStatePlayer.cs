@@ -20,13 +20,14 @@ public class COverStatePlayer : COverStateBase
 
         CAnimatorStateCtl.EState lTempState = CAnimatorStateCtl.EState.eDeath;
         m_MyMemoryShare.m_MySplineFollower.enabled = false;
+       // m_MyPlayerMemoryShare.m_PlayerNormalBuffCamera.gameObject.SetActive(false);
 
         if (m_MyGameManager.CurState == CGameManager.EState.eReadyEnd2 || m_MyGameManager.CurState == CGameManager.EState.eReadyEnd || m_MyGameManager.CurState == CGameManager.EState.eNextEnd)
             lTempState = CAnimatorStateCtl.EState.eIdle;
         else
             m_MyPlayerMemoryShare.m_MyPlayer.ShowHpBar(false);
 
-
+        
         m_MyMemoryShare.m_MyMovable.transform.DOLocalRotate(new Vector3(0.0f, 180.0f, 0.0f), 3.0f);
 
         if (m_MyMemoryShare.m_MyMovable.AnimatorStateCtl != null)

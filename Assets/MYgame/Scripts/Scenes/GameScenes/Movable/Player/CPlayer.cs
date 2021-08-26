@@ -11,6 +11,7 @@ public class CPlayerMemoryShare : CMemoryShareBase
     public Vector3                  m_OldMouseDownPos       = Vector3.zero;
     public CinemachineVirtualCamera m_PlayerNormalCamera    = null;
     public CinemachineVirtualCamera m_PlayerWinLoseCamera   = null;
+    public CinemachineVirtualCamera m_PlayerNormalBuffCamera = null;
     public Vector3                  m_OldMouseDragDirNormal = Vector3.zero;
     public SplineFollower           m_DamiCameraFollwer     = null;
     public CPlayer                  m_MyPlayer              = null;
@@ -103,6 +104,7 @@ public class CPlayer : CMovableBase
 
         m_MyPlayerMemoryShare.m_PlayerNormalCamera  = m_PlayerNormalCamera;
         m_MyPlayerMemoryShare.m_PlayerWinLoseCamera = m_PlayerWinLoseCamera;
+        m_MyPlayerMemoryShare.m_PlayerNormalBuffCamera = m_PlayerNormalBuffCamera;
         //m_MyPlayerMemoryShare.m_PlayerWinCamera     = m_PlayerWinCamera;
         //m_MyPlayerMemoryShare.m_CameraShock         = this.GetComponent<CinemachineImpulseSource>();
         //m_MyPlayerMemoryShare.m_MySplineFollower    = this.GetComponent<SplineFollower>();
@@ -273,11 +275,9 @@ public class CPlayer : CMovableBase
             
             this.ChangState = StaticGlobalDel.EMovableState.eTransfiguration;
 
-            m_PlayerNormalBuffCamera.gameObject.SetActive(true);
-
-
-
-
+            int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
+            if ((m_MyMemoryShare.m_CurHpCount + lTempAddLevel * 5) > 0)
+                m_PlayerNormalBuffCamera.gameObject.SetActive(true);
         }
         else if (other.tag == "Lipstick")
         {
@@ -396,7 +396,11 @@ public class CPlayer : CMovableBase
 
     public void PlayTransfiguration(int eventnumber)
     {
-        if (eventnumber == 0)
+        if (CurState != StaticGlobalDel.EMovableState.eTransfiguration)
+            return;
+
+
+         if (eventnumber == 0)
             m_BuffDoorObj.PlayAnimation();
         else if (eventnumber == 1)
         {
@@ -431,7 +435,7 @@ public class CPlayer : CMovableBase
             }
 
             int lTempAddLevel = m_BuffQualityType == CGGameSceneData.EDoorType.eGood ? 1 : -1;
-            SetHpCount(CurHpCount + (lTempAddLevel * 3));
+            SetHpCount(CurHpCount + (lTempAddLevel * 5));
         }
         //else if (eventnumber == 2)
         //{
@@ -450,6 +454,8 @@ public class CPlayer : CMovableBase
 
             m_BuffDoorGroup.Show(false);
             m_PlayerNormalBuffCamera.gameObject.SetActive(false);
+
+           
             ChangState = StaticGlobalDel.EMovableState.eMove;
 
             m_BuffDoorGroup = null;
