@@ -7,6 +7,7 @@ public abstract class CGameObjBas : MonoBehaviour
     public enum EObjType
     {
         eMovable            = 0,
+        eDoor               = 1,
         eMax
     }
 
